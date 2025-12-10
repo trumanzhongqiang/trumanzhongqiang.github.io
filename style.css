@@ -567,3 +567,63 @@ p {
         margin-top: 20px;
     }
 }
+
+/* New Styles for Updates */
+
+/* Canvas Background */
+#bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Language Switcher */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.lang-btn {
+    background: transparent;
+    border: 1px solid var(--highlight);
+    color: var(--highlight);
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    transition: var(--transition);
+}
+
+.lang-btn:hover {
+    background: rgba(100, 255, 218, 0.1);
+}
+
+/* Centered About Section */
+.about-content-centered {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.about-content-centered .about-text {
+    text-align: left; /* Keep text readable */
+}
+
+.about-content-centered .skills-list {
+    justify-content: center; /* Center the grid items if possible, or keep as grid */
+    max-width: 500px;
+    margin: 20px auto 0;
+}
+
+/* Mobile adjustments for header right */
+@media (max-width: 768px) {
+    .header-right {
+        gap: 15px;
+    }
+}
