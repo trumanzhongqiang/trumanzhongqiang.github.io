@@ -82,25 +82,81 @@ const translations = {
 document.addEventListener('DOMContentLoaded', () => {
     // --- i18n Logic ---
     let currentLang = 'en';
-    const langToggleBtn = document.getElementById('lang-toggle');
-    
+
+    // Select all lang-items
+    const langItems = document.querySelectorAll('.lang-item');
+    const currentLangDisplay = document.querySelector('.current-lang');
+
     function updateLanguage(lang) {
         currentLang = lang;
+
+        // Update Content
         document.querySelectorAll('[data-i18n]').forEach(element => {
             const key = element.getAttribute('data-i18n');
             if (translations[lang][key]) {
                 element.textContent = translations[lang][key];
             }
         });
-        langToggleBtn.textContent = lang === 'en' ? 'EN / 中' : '中 / EN';
-    }
 
-    if (langToggleBtn) {
-        langToggleBtn.addEventListener('click', () => {
-            const newLang = currentLang === 'en' ? 'zh' : 'en';
-            updateLanguage(newLang);
+        // Update UI
+        currentLangDisplay.textContent = lang === 'en' ? 'EN' : '中';
+
+        // Update Active State
+        langItems.forEach(item => {
+            if (item.getAttribute('data-lang') === lang) {
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
+            }
         });
     }
+
+    // Initialize with default or saved language if you had one
+    // updateLanguage('en'); 
+
+    langItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const lang = item.getAttribute('data-lang');
+            if (lang !== currentLang) {
+                updateLanguage(lang);
+            }
+        });
+    });
+
+    // --- Theme Toggle Logic ---
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const sunIcon = document.querySelector('.sun-icon');
+    const moonIcon = document.querySelector('.moon-icon');
+
+    // Check for saved user preference, if any, on load of the website
+    const currentTheme = localStorage.getItem('theme') || 'dark';
+
+    // Apply the saved theme
+    if (currentTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'block';
+    } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        sunIcon.style.display = 'block'; // Default is sun for dark mode (to switch to light)
+        moonIcon.style.display = 'none';
+    }
+
+    themeToggleBtn.addEventListener('click', () => {
+        let theme = document.documentElement.getAttribute('data-theme');
+
+        if (theme === 'light') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+            sunIcon.style.display = 'block';
+            moonIcon.style.display = 'none';
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'light');
+            sunIcon.style.display = 'none';
+            moonIcon.style.display = 'block';
+        }
+    });
 
     // --- Mobile Menu Toggle ---
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
@@ -160,18 +216,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);
 
-    document.querySelectorAll('.section, .hero-content, .project-card, .job-card').forEach(el => {
+    document.querySelectorAll('.section, .hero-content, .content-item, .timeline-item').forEach(el => {
         el.classList.add('hidden-fade');
         observer.observe(el);
     });
 
     // --- Video Modal Logic ---
-    const watchIntroBtn = document.getElementById('watch-intro-btn');
-    if (watchIntroBtn) {
-        watchIntroBtn.addEventListener('click', () => {
-            alert('Video modal placeholder: This would open a video player.');
-        });
-    }
+
 
     // --- Markdown Loader Logic ---
     const markdownContainer = document.getElementById('markdown-content');
@@ -248,7 +299,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function animate() {
             ctx.clearRect(0, 0, width, height);
-            
+
             particles.forEach((p, index) => {
                 p.update();
                 p.draw();
