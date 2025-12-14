@@ -59,6 +59,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     return response.text();
                 })
                 .then(text => {
+                    // Fix relative image paths
+                    const lastSlashIndex = docName.lastIndexOf('/');
+                    if (lastSlashIndex !== -1) {
+                        const basePath = docName.substring(0, lastSlashIndex + 1);
+                        // Regex to find markdown images: ![alt](url) and replace relative urls
+                        text = text.replace(/!\[(.*?)\]\((?!http|https|\/)(.*?)\)/g, `![$1](${basePath}$2)`);
+                    }
+
                     if (window.marked) {
                         markdownContainer.innerHTML = marked.parse(text);
                     } else {
@@ -207,52 +215,53 @@ document.addEventListener('DOMContentLoaded', () => {
     const translations = {
         zh: {
             "nav.back": "返回",
-            "intro.hello": "你好! 我是 <strong>忠强</strong>.",
+            "intro.title": "你好！我是 <span class=\"sticker\">@忠强</span>",
             "intro.role": "实战型 AI 产品专家 | 10年+ 经验 | Vibe Coding 践行者",
             "intro.desc": "擅长将模糊需求转化为工程化落地的产品方案。从 K12 到 Sales Coach，始终致力于通过 AI 技术解决真实的业务痛点。",
-            "section.writings": "思考复盘",
-            "projects.p1": "AI 教练 (某头部协同办公平台)",
-            "projects.p2": "小AI助理 (独立开发)",
-            "projects.p3": "AI 智慧笔 (IF 红点奖)",
-            "timeline.title": "工作经历",
-            "exp.job1.title": "AI 产品经理 @ 某AI销售科技公司",
-            "exp.job1.desc": "负责 AI Native 产品规划。主导与某头部协同办公平台的战略合作，交付“AI 教练”标杆产品。",
-            "exp.job2.title": "独立开发者 @ AI 产品探索",
-            "exp.job2.desc": "全职研究 LLM 应用层。开发“小AI助理”，跑通“AI工具+知识付费”闭环，积累 Prompt/RAG 实战经验。",
+            "section.writings": "思考",
+            "projects.p1": "企业培训产品的 AI-Native 重构实践",
+            "projects.p2": "AI 助理 (独立开发)",
+            "projects.p3": "AI 智慧笔 (IF红点奖)",
+            "timeline.title": "经历",
+            "exp.job1.title": "AI 产品经理 @ 企业级 AI SaaS 平台",
+            "exp.job1.desc": "负责 AI Native 产品规划。主导与某头部协同办公平台的战略合作，交付 AI 教练标杆产品。",
+            "exp.job2.title": "独立开发者 @ 个人工作室",
+            "exp.job2.desc": "全职研究 LLM 应用层。开发小AI助理，跑通 AI工具+知识付费 闭环，积累 Prompt/RAG 实战经验。",
             "exp.job3.title": "AI/智能硬件产品经理 @ 某头部K12在线教育公司",
-            "exp.job3.desc": "主导“云雀”AI智慧笔(IF奖)及运营中台搭建。实现私域人效提升3倍，客服响应缩短60%。",
+            "exp.job3.desc": "主导 AI 智慧笔(IF奖)及AI运营中台搭建。",
             "exp.job4.title": "产品经理 @ 某移动互联网创业公司",
-            "exp.job4.desc": "主导用户从微信向APP迁移。搭建积分商城与活动后台，用户增长效率提升50%。",
+            "exp.job4.desc": "主导直播APP产品和PLG产品的功能设计。",
             "exp.job5.title": "产品运营 @ 某上市职业教育公司",
-            "exp.job5.desc": "负责直播栏目与公众号运营。通过数据驱动优化页面逻辑，显著提升转化率。",
-            "footer.text": "Designed & Built by Truman Wang"
+            "exp.job5.desc": "负责微信公众号与直播栏目。通过数据驱动优化页面逻辑，显著提升转化率。",
+            "footer.text": "Designed & Built by DaLin"
         },
         en: {
             "nav.back": "Back",
-            "intro.hello": "Hello! I'm <strong>DaLin</strong>.",
-            "intro.role": "Practical AI Product Expert | 10+ Years Exp | Vibe Coding Practitioner",
+            "intro.title": "Hi！I'm <span class=\"sticker\">@DaLin</span>",
+            "intro.role": "AI Product Expert | 10+ Years Exp | Vibe Coding Practitioner",
             "intro.desc": "Specializing in transforming ambiguous requirements into engineered product solutions. From K12 to Sales Coach, dedicated to solving real business problems with AI technology.",
-            "section.writings": "Writings & Reviews",
-            "projects.p1": "AI Coach (Top Collaboration Platform)",
-            "projects.p2": "Little AI Assistant (Indie Dev)",
+            "section.writings": "Writings",
+            "projects.p1": "AI-Native Refactoring of Corporate Training Products",
+            "projects.p2": "AI Assistant (Indie Dev)",
             "projects.p3": "AI Smart Pen (IF Award)",
             "timeline.title": "Experience",
-            "exp.job1.title": "AI Product Manager @ Leading AI Sales Tech Co.",
-            "exp.job1.desc": "Leading AI Native product planning. Delivered 'AI Coach' for a top collaboration platform.",
-            "exp.job2.title": "Independent Developer @ AI Exploration",
-            "exp.job2.desc": "Full-time LLM research. Built 'Little AI Assistant' & Paid Community. Mastered Prompt/RAG.",
+            "exp.job1.title": "AI Product Manager @ Enterprise AI SaaS Platform",
+            "exp.job1.desc": "Leading AI Native product planning. Delivered AI Coach for a top collaboration platform.",
+            "exp.job2.title": "AI Product Exploration @ Personal Studio",
+            "exp.job2.desc": "Full-time LLM research. Built Little AI Assistant & Paid Community. Mastered Prompt/RAG.",
             "exp.job3.title": "AI/Hardware PM @ Leading K12 EdTech Co.",
-            "exp.job3.desc": "Led 'Skylark' Smart Pen (IF Award) & Operation Platform. Boosted efficiency by 3x.",
+            "exp.job3.desc": "Led AI Smart Pen (IF Award) & AI Operation Platform development.",
             "exp.job4.title": "Product Manager @ Mobile Internet Startup",
-            "exp.job4.desc": "Led migration from WeChat to App. Built Points Mall. Boosted growth efficiency by 50%.",
+            "exp.job4.desc": "Led feature design for live streaming app and PLG product.",
             "exp.job5.title": "Product Operations @ Listed Voc-Ed Co.",
-            "exp.job5.desc": "Optimized live streaming & WeChat operations. Data-driven optimization boosted conversion.",
-            "footer.text": "Designed & Built by Truman Wang"
+            "exp.job5.desc": "Managed WeChat official account & live streaming. Data-driven page optimization.",
+            "footer.text": "Designed & Built by DaLin"
         }
     };
 
     const langToggleBtn = document.getElementById('lang-toggle');
-    let currentLang = 'en'; // Default to English
+    // Check for saved language preference, default to English
+    let currentLang = localStorage.getItem('lang') || 'en';
 
     function updateContent() {
         const elements = document.querySelectorAll('[data-i18n]');
@@ -262,12 +271,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 el.innerHTML = translations[currentLang][key];
             }
         });
-        langToggleBtn.textContent = currentLang === 'zh' ? 'EN / 中' : '中 / EN';
+        if (langToggleBtn) {
+            langToggleBtn.textContent = currentLang === 'zh' ? 'EN / 中' : '中 / EN';
+        }
     }
+
+    // Initial update on load
+    updateContent();
 
     if (langToggleBtn) {
         langToggleBtn.addEventListener('click', () => {
             currentLang = currentLang === 'zh' ? 'en' : 'zh';
+            localStorage.setItem('lang', currentLang);
             updateContent();
         });
     }

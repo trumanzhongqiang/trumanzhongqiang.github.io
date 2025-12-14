@@ -3,9 +3,13 @@
     --text-primary: #e6f1ff;
     --text-secondary: #8892b0;
     --highlight: #64ffda;
+    --sticker-bg: #EAB308;
+    /* Yellow/Orange for sticker */
+    --sticker-text: #000000;
     --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     --font-mono: 'Fira Code', monospace;
-    --max-width: 800px;
+    --max-width: 900px;
+    /* Increased slightly for wider header */
 }
 
 [data-theme="light"] {
@@ -13,6 +17,7 @@
     --text-primary: #1d1d1f;
     --text-secondary: #515155;
     --highlight: #0071e3;
+    --sticker-bg: #FACC15;
 }
 
 * {
@@ -55,11 +60,40 @@ header {
     padding: 2rem 0 4rem 0;
 }
 
-.logo {
-    font-weight: 700;
-    font-size: 1.2rem;
-    letter-spacing: 0.05em;
-    color: var(--highlight);
+/* Main Nav */
+.main-nav {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-link {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    position: relative;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
+/* Underline effect for nav links */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: var(--highlight);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
 }
 
 .header-right {
@@ -133,7 +167,7 @@ header {
 
 /* Sections */
 section {
-    margin-bottom: 5rem;
+    margin-bottom: 6rem;
 }
 
 h2 {
@@ -144,38 +178,92 @@ h2 {
     color: var(--text-primary);
 }
 
-/* Intro / Hero - Avatar on Right */
+/* Intro / Hero */
 .intro {
     display: flex;
     flex-direction: row;
-    gap: 2rem;
+    gap: 4rem;
+    /* Increased gap */
     margin-bottom: 4rem;
-    align-items: flex-start;
+    align-items: center;
+    /* Center vertically */
 }
 
 .intro-text {
     flex: 1;
 }
 
+.hero-title {
+    font-size: 3.5rem;
+    /* Massive font */
+    line-height: 1.1;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+}
+
+/* Sticker Effect */
+.sticker {
+    display: inline-block;
+    background-color: var(--sticker-bg);
+    color: var(--sticker-text);
+    padding: 0 0.2em;
+    transform: rotate(-3deg);
+    /* Slight rotation */
+    margin: 0 0.1em;
+    border-radius: 2px;
+}
+
 .intro p {
     margin-bottom: 1.5rem;
     color: var(--text-secondary);
     font-size: 1.1rem;
+    line-height: 1.7;
 }
 
 .avatar {
-    width: 120px;
-    height: 120px;
+    width: 220px;
+    /* Much larger avatar */
+    height: 220px;
     border-radius: 50%;
-    border: 2px solid var(--highlight);
+    border: 4px solid var(--bg-color);
+    /* Border matches bg to create separation */
+    box-shadow: 0 0 0 2px var(--highlight);
+    /* Outer highlight ring */
     object-fit: cover;
     flex-shrink: 0;
 }
 
 /* Responsive: Stack on mobile */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     .intro {
+        flex-direction: column-reverse;
+        /* Avatar on top for mobile? Or bottom? Let's keep standard column for now */
         flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .main-nav {
+        display: none;
+        /* Hide nav on mobile for now, or use hamburger */
+    }
+
+    /* Simple mobile nav fix for now: show links in a row but smaller */
+    .main-nav {
+        display: flex;
+        gap: 1rem;
+        font-size: 0.9rem;
+    }
+
+    header {
+        flex-direction: column;
+        gap: 1rem;
     }
 }
 

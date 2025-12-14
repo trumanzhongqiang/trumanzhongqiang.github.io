@@ -10,16 +10,19 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=2.1">
+    <link rel="stylesheet" href="style.css?v=2.5">
 </head>
 
 <body>
     <div class="container">
         <!-- Header -->
         <header>
-            <div class="logo">DaLin</div>
+            <nav class="main-nav">
+                <a href="#" class="nav-link active">Home</a>
+                <a href="#writings" class="nav-link" data-i18n="section.writings">Writings</a>
+                <a href="#about" class="nav-link" data-i18n="timeline.title">Experience</a>
+            </nav>
             <div class="header-right">
-                <button id="lang-toggle" class="lang-btn">EN / 中</button>
                 <div class="theme-toggle" id="theme-toggle" aria-label="Toggle Dark Mode">
                     <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -40,6 +43,7 @@
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
                 </div>
+                <button id="lang-toggle" class="lang-btn">EN / 中</button>
                 <div class="wechat-icon-container">
                     <svg class="wechat-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
                         fill="currentColor">
@@ -57,45 +61,34 @@
         <!-- Intro -->
         <section class="intro">
             <div class="intro-text">
-                <p data-i18n="intro.hello">Hello! I'm <strong>DaLin</strong>.</p>
+                <h1 class="hero-title" data-i18n="intro.title">
+                    Hi！I'm <span class="sticker">@DaLin</span>
+                </h1>
                 <p data-i18n="intro.role">Practical AI Product Expert | 10+ Years Exp | Vibe Coding Practitioner</p>
                 <p data-i18n="intro.desc">Specializing in transforming ambiguous requirements into engineered product
                     solutions. From K12 to AI Native, dedicated to solving real business problems with AI technology.
                 </p>
             </div>
-            <img src="avatar.jpg" alt="zhongqiang" class="avatar">
+            <img src="avatar.jpg?v=2" alt="zhongqiang" class="avatar">
         </section>
 
         <!-- Writings / Projects -->
-        <section class="writings">
-            <h2 data-i18n="section.writings">Writings & Reviews</h2>
+        <section class="writings" id="writings">
+            <h2 data-i18n="section.writings">Writings</h2>
             <ul class="post-list">
                 <li class="post-item">
-                    <span class="post-date">2024</span>
-                    <a href="project.html?doc=draft/airoleplay.md" class="post-title">
-                        <span class="tag">[Project]</span> <span data-i18n="projects.p1">AI Coach (Top Collaboration
+                    <span class="post-date">2025-12-07</span>
+                    <a href="project.html?doc=writing/ai-coach-review/aicoach-review.md" class="post-title"
+                        target="_blank">
+                        <span class="tag">[Review]</span> <span data-i18n="projects.p1">AI Coach (Top Collaboration
                             Platform)</span>
-                    </a>
-                </li>
-                <li class="post-item">
-                    <span class="post-date">2023</span>
-                    <a href="#" class="post-title">
-                        <span class="tag">[Indie]</span> <span data-i18n="projects.p2">Little AI Assistant (Indie
-                            Dev)</span>
-                    </a>
-                </li>
-                <li class="post-item">
-                    <span class="post-date">2022</span>
-                    <a href="#" class="post-title">
-                        <span class="tag">[Hardware]</span> <span data-i18n="projects.p3">AI Smart Pen 'Skylark' (IF
-                            Award)</span>
                     </a>
                 </li>
             </ul>
         </section>
 
         <!-- Timeline -->
-        <section class="about">
+        <section class="about" id="about">
             <h2 data-i18n="timeline.title">Experience</h2>
             <div class="timeline">
                 <!-- Exp 1 -->
@@ -143,7 +136,7 @@
         </footer>
     </div>
 
-    <script src="script.js?v=2.2"></script>
+    <script src="script.js?v=2.6"></script>
 </body>
 
 </html>
