@@ -10,23 +10,134 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="style.css?v=2.7">
+    <!-- Markdown rendering library -->
+    <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+    <!-- Syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <!-- Mermaid for diagrams -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 </head>
 
 <body>
-    <a href="index.html#work" class="btn back-btn" data-i18n="nav.back">Back</a>
-
-    <main class="container">
-        <div id="markdown-content" class="markdown-content">
-            <!-- Content will be loaded here -->
-            <div style="text-align: center; margin-top: 100px;">
-                <p>Loading project details...</p>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <nav class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span class="breadcrumb-separator">></span>
+                <span class="breadcrumb-current" data-i18n="section.writings">Writings</span>
+            </nav>
+            <div class="header-right">
+                <button id="lang-toggle" class="lang-btn" aria-label="Toggle Language">
+                    <span class="lang-text">中</span>
+                </button>
+                <div class="theme-toggle" id="theme-toggle" aria-label="Toggle Dark Mode">
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" style="display: none;">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </div>
+                <button class="email-icon-container" aria-label="Copy Email" data-email="zhongqiang.wang@foxmail.com">
+                    <svg class="email-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                </button>
+                <div class="wechat-icon-container">
+                    <svg class="wechat-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor">
+                        <title>WeChat</title>
+                        <path
+                            d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z" />
+                    </svg>
+                    <div class="qr-popup">
+                        <img src="wechat.png" alt="WeChat QR Code">
+                    </div>
+                </div>
             </div>
-        </div>
-    </main>
+        </header>
 
-    <script src="script.js"></script>
+        <main>
+            <div id="markdown-content" class="markdown-content">
+                <!-- Content will be loaded here -->
+                <div style="text-align: center; margin-top: 100px;">
+                    <p>Loading article...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js?v=2.7"></script>
+    <script>
+        // Ensure theme and language state are applied on page load
+        // Note: script.js will handle language toggle, this only handles initial theme setup
+        document.addEventListener('DOMContentLoaded', function() {
+            // Apply saved theme
+            const savedTheme = localStorage.getItem('theme');
+            const sunIcon = document.querySelector('.sun-icon');
+            const moonIcon = document.querySelector('.moon-icon');
+            
+            if (savedTheme) {
+                if (savedTheme === 'light') {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    if (sunIcon) sunIcon.style.display = 'none';
+                    if (moonIcon) moonIcon.style.display = 'block';
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    if (sunIcon) sunIcon.style.display = 'block';
+                    if (moonIcon) moonIcon.style.display = 'none';
+                }
+            } else {
+                // Use time-based default if no saved preference
+                function getBeijingHour() {
+                    const date = new Date();
+                    const utc = date.getTime() + (date.getTimezoneOffset() * 60000);
+                    const beijingDate = new Date(utc + (3600000 * 8));
+                    return beijingDate.getHours();
+                }
+                const hour = getBeijingHour();
+                const defaultTheme = (hour >= 6 && hour < 18) ? 'light' : 'dark';
+                if (defaultTheme === 'light') {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    if (sunIcon) sunIcon.style.display = 'none';
+                    if (moonIcon) moonIcon.style.display = 'block';
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    if (sunIcon) sunIcon.style.display = 'block';
+                    if (moonIcon) moonIcon.style.display = 'none';
+                }
+            }
+        });
+
+        // Initialize mermaid with proper configuration
+        if (typeof mermaid !== 'undefined') {
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: document.documentElement.getAttribute('data-theme') === 'light' ? 'default' : 'dark',
+                securityLevel: 'loose',
+                themeVariables: {
+                    darkMode: document.documentElement.getAttribute('data-theme') !== 'light'
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>

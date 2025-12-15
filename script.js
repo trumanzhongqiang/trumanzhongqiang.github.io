@@ -1,13 +1,64 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- Mobile Menu Logic ---
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navLinks = document.querySelector('.nav-links');
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const mainNav = document.getElementById('main-nav');
 
-    if (menuToggle && navLinks) {
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+    if (mobileMenuToggle && mainNav) {
+        mobileMenuToggle.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mainNav.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+                mainNav.classList.remove('active');
+            }
         });
     }
+
+    // --- Email Copy to Clipboard ---
+    const emailButtons = document.querySelectorAll('.email-icon-container');
+    emailButtons.forEach(button => {
+        button.addEventListener('click', async (e) => {
+            e.preventDefault();
+            const email = button.getAttribute('data-email');
+            if (email && email !== '已复制！' && email !== 'Copied!') {
+                // Get current language
+                const currentLang = localStorage.getItem('lang') || 'en';
+                const successMessage = currentLang === 'zh' ? '已复制！' : 'Copied!';
+                
+                try {
+                    await navigator.clipboard.writeText(email);
+                    // Show feedback by temporarily changing data-email
+                    const originalEmail = button.getAttribute('data-email');
+                    button.setAttribute('data-email', successMessage);
+                    setTimeout(() => {
+                        button.setAttribute('data-email', originalEmail);
+                    }, 2000);
+                } catch (err) {
+                    console.error('Failed to copy email:', err);
+                    // Fallback for older browsers
+                    const textArea = document.createElement('textarea');
+                    textArea.value = email;
+                    textArea.style.position = 'fixed';
+                    textArea.style.opacity = '0';
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    try {
+                        document.execCommand('copy');
+                        const originalEmail = button.getAttribute('data-email');
+                        button.setAttribute('data-email', successMessage);
+                        setTimeout(() => {
+                            button.setAttribute('data-email', originalEmail);
+                        }, 2000);
+                    } catch (err) {
+                        console.error('Fallback copy failed:', err);
+                    }
+                    document.body.removeChild(textArea);
+                }
+            }
+        });
+    });
 
     // --- Smooth Scrolling ---
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -20,8 +71,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     behavior: 'smooth'
                 });
                 // Close mobile menu if open
-                if (navLinks && navLinks.classList.contains('active')) {
-                    navLinks.classList.remove('active');
+                if (mainNav && mainNav.classList.contains('active')) {
+                    mainNav.classList.remove('active');
                 }
             }
         });
@@ -50,28 +101,94 @@ document.addEventListener('DOMContentLoaded', () => {
     const markdownContainer = document.getElementById('markdown-content');
     if (markdownContainer) {
         const urlParams = new URLSearchParams(window.location.search);
-        const docName = urlParams.get('doc');
+        let docName = urlParams.get('doc');
 
         if (docName) {
-            fetch(docName)
-                .then(response => {
-                    if (!response.ok) throw new Error('Network response was not ok');
-                    return response.text();
-                })
-                .then(text => {
-                    // Fix relative image paths
-                    const lastSlashIndex = docName.lastIndexOf('/');
-                    if (lastSlashIndex !== -1) {
-                        const basePath = docName.substring(0, lastSlashIndex + 1);
-                        // Regex to find markdown images: ![alt](url) and replace relative urls
-                        text = text.replace(/!\[(.*?)\]\((?!http|https|\/)(.*?)\)/g, `![$1](${basePath}$2)`);
-                    }
+            // Get current language preference
+            const currentLang = localStorage.getItem('lang') || 'en';
+            
+            // Try to load language-specific version first
+            // If docName is "writing/ai-coach-review/aicoach-review.md"
+            // Try "writing/ai-coach-review/aicoach-review.en.md" for English
+            // Or keep original for Chinese
+            function loadMarkdown(docPath) {
+                return fetch(docPath)
+                    .then(response => {
+                        if (!response.ok) throw new Error('Network response was not ok');
+                        return response.text();
+                    })
+                    .then(text => {
+                        // Fix relative image paths
+                        const lastSlashIndex = docPath.lastIndexOf('/');
+                        if (lastSlashIndex !== -1) {
+                            const basePath = docPath.substring(0, lastSlashIndex + 1);
+                            // Regex to find markdown images: ![alt](url) and replace relative urls
+                            text = text.replace(/!\[(.*?)\]\((?!http|https|\/)(.*?)\)/g, `![$1](${basePath}$2)`);
+                            // Also handle HTML img tags with relative src
+                            text = text.replace(/<img\s+([^>]*?)src=["'](?!http|https|\/)([^"']+)["']([^>]*?)>/gi, (match, before, src, after) => {
+                                return `<img ${before}src="${basePath}${src}"${after}>`;
+                            });
+                        }
 
-                    if (window.marked) {
-                        markdownContainer.innerHTML = marked.parse(text);
-                    } else {
-                        markdownContainer.innerHTML = '<p>Error: Markdown parser not loaded.</p><pre>' + text + '</pre>';
+                        if (window.marked) {
+                            // Configure marked if not already configured
+                            if (!marked.getDefaults().highlight && window.hljs) {
+                                marked.setOptions({
+                                    highlight: function (code, lang) {
+                                        if (lang && hljs.getLanguage(lang)) {
+                                            try {
+                                                return hljs.highlight(code, { language: lang }).value;
+                                            } catch (err) {
+                                                console.error('Highlight error:', err);
+                                            }
+                                        }
+                                        return hljs.highlightAuto(code).value;
+                                    },
+                                    breaks: true,
+                                    gfm: true
+                                });
+                            }
+                            markdownContainer.innerHTML = marked.parse(text);
+                            
+                            // Process mermaid diagrams
+                            setTimeout(() => {
+                                const mermaidBlocks = markdownContainer.querySelectorAll('pre code.language-mermaid');
+                                if (mermaidBlocks.length > 0 && window.mermaid) {
+                                    mermaidBlocks.forEach((block, index) => {
+                                        const pre = block.parentElement;
+                                        const mermaidDiv = document.createElement('div');
+                                        mermaidDiv.className = 'mermaid';
+                                        mermaidDiv.id = `mermaid-${index}`;
+                                        mermaidDiv.textContent = block.textContent;
+                                        pre.replaceWith(mermaidDiv);
+                                    });
+                                    mermaid.run();
+                                }
+                            }, 100);
+                        } else {
+                            markdownContainer.innerHTML = '<p>Error: Markdown parser not loaded.</p><pre>' + text + '</pre>';
+                        }
+                    });
+            }
+
+            // Determine which file to load based on language
+            let targetDoc = docName;
+            if (currentLang === 'en') {
+                // Try English version: add .en before .md
+                const lastDotIndex = docName.lastIndexOf('.');
+                if (lastDotIndex !== -1) {
+                    targetDoc = docName.substring(0, lastDotIndex) + '.en' + docName.substring(lastDotIndex);
+                }
+            }
+            
+            // Try to load language-specific version, fallback to original if not found
+            loadMarkdown(targetDoc)
+                .catch(() => {
+                    // If language-specific version not found, try original
+                    if (targetDoc !== docName) {
+                        return loadMarkdown(docName);
                     }
+                    throw new Error('Failed to load document');
                 })
                 .catch(error => {
                     console.error('Error loading document:', error);
@@ -220,7 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "intro.desc": "擅长将模糊需求转化为工程化落地的产品方案。从 K12 到 Sales Coach，始终致力于通过 AI 技术解决真实的业务痛点。",
             "section.writings": "思考",
             "projects.p1": "企业培训产品的 AI-Native 重构实践",
-            "projects.p2": "AI 助理 (独立开发)",
+            "projects.p2": "AutoGLM 手机自动化初体验",
             "projects.p3": "AI 智慧笔 (IF红点奖)",
             "timeline.title": "经历",
             "exp.job1.title": "AI 产品经理 @ 企业级 AI SaaS 平台",
@@ -242,7 +359,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "intro.desc": "Specializing in transforming ambiguous requirements into engineered product solutions. From K12 to Sales Coach, dedicated to solving real business problems with AI technology.",
             "section.writings": "Writings",
             "projects.p1": "AI-Native Refactoring of Corporate Training Products",
-            "projects.p2": "AI Assistant (Indie Dev)",
+            "projects.p2": "AutoGLM Mobile Automation Beginner Tutorial",
             "projects.p3": "AI Smart Pen (IF Award)",
             "timeline.title": "Experience",
             "exp.job1.title": "AI Product Manager @ Enterprise AI SaaS Platform",
@@ -271,8 +388,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 el.innerHTML = translations[currentLang][key];
             }
         });
+        // Update language toggle button text to show current language
+        updateLangButton();
+    }
+
+    function updateLangButton() {
         if (langToggleBtn) {
-            langToggleBtn.textContent = currentLang === 'zh' ? 'EN / 中' : '中 / EN';
+            const langText = langToggleBtn.querySelector('.lang-text');
+            if (langText) {
+                // Show the language you can switch TO, not current language
+                // If current is English, show "中" (can switch to Chinese)
+                // If current is Chinese, show "EN" (can switch to English)
+                langText.textContent = currentLang === 'en' ? '中' : 'EN';
+            }
         }
     }
 
@@ -284,6 +412,11 @@ document.addEventListener('DOMContentLoaded', () => {
             currentLang = currentLang === 'zh' ? 'en' : 'zh';
             localStorage.setItem('lang', currentLang);
             updateContent();
+            
+            // If on project page, reload to show correct language version
+            if (window.location.pathname.includes('project.html')) {
+                setTimeout(() => window.location.reload(), 100);
+            }
         });
     }
 });

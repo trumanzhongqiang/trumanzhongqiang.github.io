@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article | zhongqiang</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=2.0">
+    <!-- Markdown rendering library -->
+    <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+    <!-- Syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <!-- Mermaid for diagrams -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        .article-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .article-content {
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+
+        .article-content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 2rem 0 1.5rem 0;
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .article-content h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 2rem 0 1rem 0;
+            color: var(--text-primary);
+        }
+
+        .article-content h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 1.5rem 0 0.75rem 0;
+            color: var(--text-primary);
+        }
+
+        .article-content h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 1.25rem 0 0.5rem 0;
+            color: var(--text-primary);
+        }
+
+        .article-content p {
+            margin: 1rem 0;
+        }
+
+        .article-content ul,
+        .article-content ol {
+            margin: 1rem 0;
+            padding-left: 2rem;
+        }
+
+        .article-content li {
+            margin: 0.5rem 0;
+        }
+
+        .article-content code {
+            background: var(--bg-secondary);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9em;
+            color: var(--accent-color);
+        }
+
+        .article-content pre {
+            background: #1e1e1e;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .article-content pre code {
+            background: transparent;
+            padding: 0;
+            color: #d4d4d4;
+            font-size: 0.9rem;
+        }
+
+        .article-content blockquote {
+            border-left: 4px solid var(--accent-color);
+            padding-left: 1.5rem;
+            margin: 1.5rem 0;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        .article-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        .article-content table th,
+        .article-content table td {
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        .article-content table th {
+            background: var(--bg-secondary);
+            font-weight: 600;
+        }
+
+        .article-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .article-content a {
+            color: var(--accent-color);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .article-content a:hover {
+            border-bottom-color: var(--accent-color);
+        }
+
+        .article-content hr {
+            border: none;
+            border-top: 2px solid var(--border-color);
+            margin: 2rem 0;
+        }
+
+        .article-content strong {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Mermaid diagrams */
+        .mermaid {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        /* Loading state */
+        .loading {
+            text-align: center;
+            padding: 4rem 0;
+            color: var(--text-secondary);
+        }
+
+        /* Error state */
+        .error {
+            background: #fee;
+            border: 1px solid #fcc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            color: #c33;
+            margin: 2rem 0;
+        }
+
+        /* Dark mode adjustments */
+        body.dark-mode .article-content pre {
+            background: #0d1117;
+        }
+
+        body.dark-mode .article-content code {
+            background: rgba(110, 118, 129, 0.2);
+        }
+
+        body.dark-mode .mermaid {
+            background: rgba(110, 118, 129, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header (same as index.html) -->
+        <header>
+            <a href="index.html" class="logo" style="text-decoration: none; color: inherit;">ZHONGQIANG</a>
+            <div class="header-right">
+                <button id="lang-toggle" class="lang-btn">EN / 中</button>
+                <div class="theme-toggle" id="theme-toggle" aria-label="Toggle Dark Mode">
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" style="display: none;">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </div>
+                <div class="wechat-icon-container">
+                    <svg class="wechat-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor">
+                        <title>WeChat</title>
+                        <path
+                            d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z" />
+                    </svg>
+                    <div class="qr-popup">
+                        <img src="wechat.jpg" alt="WeChat QR Code">
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Article Content -->
+        <div class="article-container">
+            <div id="article-content" class="article-content">
+                <div class="loading">Loading article...</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js?v=2.0"></script>
+    <script>
+        // Initialize mermaid with proper configuration
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: document.body.classList.contains('dark-mode') ? 'dark' : 'default',
+            securityLevel: 'loose',
+            themeVariables: {
+                darkMode: document.body.classList.contains('dark-mode')
+            }
+        });
+
+        // Configure marked
+        marked.setOptions({
+            highlight: function (code, lang) {
+                if (lang && hljs.getLanguage(lang)) {
+                    try {
+                        return hljs.highlight(code, { language: lang }).value;
+                    } catch (err) {
+                        console.error('Highlight error:', err);
+                    }
+                }
+                return hljs.highlightAuto(code).value;
+            },
+            breaks: true,
+            gfm: true
+        });
+
+        // Get article path from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const articlePath = urlParams.get('article');
+
+        if (!articlePath) {
+            document.getElementById('article-content').innerHTML = '<div class="error">No article specified.</div>';
+        } else {
+            // Fetch and render markdown
+            fetch(articlePath)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Article not found');
+                    }
+                    return response.text();
+                })
+                .then(markdown => {
+                    // Fix relative image paths
+                    const lastSlashIndex = articlePath.lastIndexOf('/');
+                    if (lastSlashIndex !== -1) {
+                        const basePath = articlePath.substring(0, lastSlashIndex + 1);
+                        // Regex to find markdown images: ![alt](url) and replace relative urls
+                        markdown = markdown.replace(/!\[(.*?)\]\((?!http|https|\/)(.*?)\)/g, `![$1](${basePath}$2)`);
+                        // Also handle HTML img tags with relative src
+                        markdown = markdown.replace(/<img\s+([^>]*?)src=["'](?!http|https|\/)([^"']+)["']([^>]*?)>/gi, (match, before, src, after) => {
+                            return `<img ${before}src="${basePath}${src}"${after}>`;
+                        });
+                    }
+                    // Render markdown to HTML
+                    const html = marked.parse(markdown);
+                    document.getElementById('article-content').innerHTML = html;
+
+                    // Update page title
+                    const firstH1 = document.querySelector('.article-content h1');
+                    if (firstH1) {
+                        document.title = firstH1.textContent + ' | zhongqiang';
+                    }
+
+                    // Process and render mermaid diagrams
+                    const mermaidBlocks = document.querySelectorAll('.article-content pre code.language-mermaid');
+
+                    if (mermaidBlocks.length > 0) {
+                        mermaidBlocks.forEach((block, index) => {
+                            const pre = block.parentElement;
+                            const mermaidDiv = document.createElement('div');
+                            mermaidDiv.className = 'mermaid';
+                            mermaidDiv.id = `mermaid-${index}`;
+                            mermaidDiv.textContent = block.textContent;
+                            pre.replaceWith(mermaidDiv);
+                        });
+
+                        // Render all mermaid diagrams
+                        mermaid.run();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading article:', error);
+                    document.getElementById('article-content').innerHTML =
+                        '<div class="error">Failed to load article. Please try again later.</div>';
+                });
+        }
+    </script>
+</body>
+
+</html>

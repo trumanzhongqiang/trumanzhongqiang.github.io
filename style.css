@@ -58,6 +58,24 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 2rem 0 4rem 0;
+    position: relative;
+}
+
+/* Mobile Menu Toggle */
+.mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    padding: 0.5rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-menu-toggle svg {
+    width: 24px;
+    height: 24px;
 }
 
 /* Main Nav */
@@ -115,6 +133,48 @@ header {
     color: var(--highlight);
 }
 
+/* Email Icon */
+.email-icon {
+    width: 20px;
+    height: 20px;
+    color: var(--text-secondary);
+    transition: color 0.2s;
+}
+
+.email-icon:hover {
+    color: var(--highlight);
+}
+
+.email-icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    position: relative;
+}
+
+.email-icon-container:hover::after {
+    content: attr(data-email);
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-color);
+    color: var(--text-primary);
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    margin-top: 0.5rem;
+    border: 1px solid var(--highlight);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    pointer-events: none;
+}
+
 .wechat-icon {
     width: 20px;
     height: 20px;
@@ -153,16 +213,78 @@ header {
     display: block;
 }
 
+/* Breadcrumb Navigation */
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    font-family: var(--font-main);
+    font-weight: 600;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    padding: 0;
+    margin: 0;
+}
+
+.breadcrumb a {
+    color: var(--text-primary);
+    text-decoration: underline;
+    transition: color 0.2s ease;
+    font-family: var(--font-main);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.breadcrumb a:hover {
+    color: var(--highlight);
+}
+
+.breadcrumb-separator {
+    margin: 0 0.5rem;
+    color: var(--text-secondary);
+    font-family: var(--font-main);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.breadcrumb-current {
+    color: var(--text-primary);
+    font-family: var(--font-main);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
 /* Lang Toggle */
 .lang-btn {
     background: none;
     border: 1px solid var(--highlight);
     color: var(--highlight);
-    padding: 0.25rem 0.5rem;
-    font-size: 0.8rem;
+    padding: 0.5rem 0.75rem;
+    min-width: 44px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
     border-radius: 4px;
-    font-family: var(--font-mono);
+    transition: all 0.2s ease;
+    font-family: var(--font-main);
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.lang-btn:hover {
+    background: rgba(100, 255, 218, 0.15);
+    border-color: var(--highlight);
+    transform: translateY(-1px);
+}
+
+.lang-text {
+    display: block;
+    line-height: 1;
+    user-select: none;
+    font-weight: 700;
 }
 
 /* Sections */
@@ -183,10 +305,8 @@ h2 {
     display: flex;
     flex-direction: row;
     gap: 4rem;
-    /* Increased gap */
     margin-bottom: 4rem;
     align-items: center;
-    /* Center vertically */
 }
 
 .intro-text {
@@ -224,46 +344,154 @@ h2 {
 
 .avatar {
     width: 220px;
-    /* Much larger avatar */
     height: 220px;
     border-radius: 50%;
     border: 4px solid var(--bg-color);
-    /* Border matches bg to create separation */
     box-shadow: 0 0 0 2px var(--highlight);
-    /* Outer highlight ring */
     object-fit: cover;
     flex-shrink: 0;
 }
 
-/* Responsive: Stack on mobile */
+/* Responsive: Mobile Styles */
 @media (max-width: 768px) {
-    .intro {
-        flex-direction: column-reverse;
-        /* Avatar on top for mobile? Or bottom? Let's keep standard column for now */
-        flex-direction: column;
-        text-align: center;
-        gap: 2rem;
+    .container {
+        padding: 1rem 1.5rem;
     }
 
-    .hero-title {
-        font-size: 2.5rem;
+    /* Mobile Header */
+    header {
+        padding: 1rem 0 2rem 0;
+        flex-wrap: wrap;
+    }
+
+    .mobile-menu-toggle {
+        display: flex;
+        order: 1;
     }
 
     .main-nav {
         display: none;
-        /* Hide nav on mobile for now, or use hamburger */
-    }
-
-    /* Simple mobile nav fix for now: show links in a row but smaller */
-    .main-nav {
-        display: flex;
-        gap: 1rem;
-        font-size: 0.9rem;
-    }
-
-    header {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--bg-color);
         flex-direction: column;
+        padding: 1.5rem;
         gap: 1rem;
+        border-top: 1px solid var(--text-secondary);
+        z-index: 100;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .main-nav.active {
+        display: flex;
+    }
+
+    .nav-link {
+        font-size: 1rem;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid rgba(136, 146, 176, 0.2);
+    }
+
+    .nav-link:last-child {
+        border-bottom: none;
+    }
+
+    .header-right {
+        order: 2;
+        margin-left: auto;
+        gap: 0.75rem;
+    }
+
+    .lang-btn,
+    .theme-toggle,
+    .email-icon-container,
+    .wechat-icon-container {
+        width: 36px;
+        height: 36px;
+        padding: 0.4rem;
+    }
+
+    .lang-btn {
+        min-width: 44px;
+        height: 36px;
+        padding: 0.4rem 0.6rem;
+        font-size: 0.8rem;
+    }
+
+    .theme-toggle svg,
+    .email-icon svg,
+    .wechat-icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    /* Mobile Intro Section */
+    .intro {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: flex-start;
+        margin-bottom: 3rem;
+    }
+
+    .avatar {
+        width: 80px;
+        height: 80px;
+        flex-shrink: 0;
+        border: 3px solid var(--bg-color);
+        order: -1; /* Move avatar to top */
+    }
+
+    .intro-text {
+        flex: 1;
+        min-width: 0;
+        width: 100%;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+        line-height: 1.2;
+        margin-bottom: 1rem;
+    }
+
+    .intro p {
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
+        line-height: 1.6;
+    }
+
+    /* Mobile Writings */
+    .post-item {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(136, 146, 176, 0.1);
+        margin-bottom: 1rem;
+    }
+
+    .post-date {
+        font-size: 0.85rem;
+    }
+
+    .post-title {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .intro {
+        gap: 1.25rem;
+    }
+
+    .avatar {
+        width: 80px;
+        height: 80px;
+        margin: 0; /* Keep left aligned */
+    }
+
+    .hero-title {
+        font-size: 1.75rem;
     }
 }
 
@@ -375,4 +603,317 @@ footer {
     font-size: 0.75rem;
     color: var(--highlight);
     margin-right: 0.5rem;
+}
+
+/* Markdown Content Styles (for project.html) */
+.markdown-content {
+    line-height: 1.8;
+    color: var(--text-primary);
+    max-width: 800px;
+    margin: 0 auto;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.markdown-content h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 2rem 0 1.5rem 0;
+    color: var(--text-primary);
+    border-bottom: 2px solid rgba(136, 146, 176, 0.2);
+    padding-bottom: 0.5rem;
+}
+
+.markdown-content h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 2rem 0 1rem 0;
+    color: var(--text-primary);
+    border-bottom: 1px solid rgba(136, 146, 176, 0.1);
+    padding-bottom: 0.5rem;
+}
+
+.markdown-content h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 1.5rem 0 0.75rem 0;
+    color: var(--text-primary);
+}
+
+.markdown-content h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 1.25rem 0 0.5rem 0;
+    color: var(--text-primary);
+}
+
+.markdown-content h5 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 1rem 0 0.5rem 0;
+    color: var(--text-primary);
+}
+
+.markdown-content h6 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 1rem 0 0.5rem 0;
+    color: var(--text-primary);
+}
+
+.markdown-content p {
+    margin: 1rem 0;
+    line-height: 1.8;
+}
+
+.markdown-content ul,
+.markdown-content ol {
+    margin: 1rem 0;
+    padding-left: 2rem;
+}
+
+.markdown-content li {
+    margin: 0.5rem 0;
+    line-height: 1.8;
+}
+
+.markdown-content li > p {
+    margin: 0.5rem 0;
+}
+
+.markdown-content code {
+    background: rgba(136, 146, 176, 0.15);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    color: var(--highlight);
+}
+
+.markdown-content pre {
+    background: rgba(10, 25, 47, 0.8);
+    padding: 1.5rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border: 1px solid rgba(136, 146, 176, 0.2);
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.markdown-content pre code {
+    background: transparent;
+    padding: 0;
+    color: #d4d4d4;
+    font-size: 0.9rem;
+    display: block;
+}
+
+.markdown-content blockquote {
+    border-left: 4px solid var(--highlight);
+    padding-left: 1.5rem;
+    margin: 1.5rem 0;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.markdown-content blockquote p {
+    margin: 0.5rem 0;
+}
+
+.markdown-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+    display: block;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.markdown-content table th,
+.markdown-content table td {
+    padding: 0.75rem;
+    border: 1px solid rgba(136, 146, 176, 0.2);
+    text-align: left;
+}
+
+.markdown-content table th {
+    background: rgba(136, 146, 176, 0.1);
+    font-weight: 600;
+}
+
+.markdown-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    display: block;
+}
+
+.markdown-content a {
+    color: var(--highlight);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.markdown-content a:hover {
+    border-bottom-color: var(--highlight);
+}
+
+.markdown-content hr {
+    border: none;
+    border-top: 2px solid rgba(136, 146, 176, 0.2);
+    margin: 2rem 0;
+}
+
+.markdown-content strong {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.markdown-content em {
+    font-style: italic;
+}
+
+/* Mermaid diagrams */
+.markdown-content .mermaid {
+    background: rgba(136, 146, 176, 0.1);
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    text-align: center;
+}
+
+/* Light mode adjustments for markdown */
+[data-theme="light"] .markdown-content pre {
+    background: #f6f8fa;
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .markdown-content pre code {
+    color: #24292e;
+}
+
+[data-theme="light"] .markdown-content code {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--highlight);
+}
+
+[data-theme="light"] .markdown-content table th {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .markdown-content .mermaid {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+/* Mobile Markdown Content Optimization */
+@media (max-width: 768px) {
+    .markdown-content {
+        padding: 0 0.5rem;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .markdown-content h1 {
+        font-size: 1.75rem;
+        margin: 1.5rem 0 1rem 0;
+        padding-bottom: 0.5rem;
+    }
+
+    .markdown-content h2 {
+        font-size: 1.5rem;
+        margin: 1.5rem 0 0.75rem 0;
+        padding-bottom: 0.5rem;
+    }
+
+    .markdown-content h3 {
+        font-size: 1.25rem;
+        margin: 1.25rem 0 0.5rem 0;
+    }
+
+    .markdown-content h4 {
+        font-size: 1.1rem;
+        margin: 1rem 0 0.5rem 0;
+    }
+
+    .markdown-content h5,
+    .markdown-content h6 {
+        font-size: 1rem;
+        margin: 1rem 0 0.5rem 0;
+    }
+
+    .markdown-content p {
+        margin: 0.75rem 0;
+        line-height: 1.7;
+    }
+
+    .markdown-content ul,
+    .markdown-content ol {
+        padding-left: 1.5rem;
+        margin: 0.75rem 0;
+    }
+
+    .markdown-content pre {
+        padding: 1rem;
+        margin: 1rem 0;
+        font-size: 0.85rem;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .markdown-content code {
+        font-size: 0.85em;
+        padding: 0.15rem 0.3rem;
+    }
+
+    .markdown-content blockquote {
+        padding-left: 1rem;
+        margin: 1rem 0;
+    }
+
+    .markdown-content table {
+        font-size: 0.9rem;
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .markdown-content table th,
+    .markdown-content table td {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .markdown-content img {
+        max-width: 100%;
+        height: auto;
+        margin: 1rem 0;
+    }
+
+    .markdown-content .mermaid {
+        padding: 1rem;
+        margin: 1rem 0;
+        overflow-x: auto;
+    }
+}
+
+/* Back button for project page */
+.back-btn {
+    display: inline-block;
+    margin: 2rem 0;
+    padding: 0.5rem 1rem;
+    background: transparent;
+    border: 1px solid var(--highlight);
+    color: var(--highlight);
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.back-btn:hover {
+    background: var(--highlight);
+    color: var(--bg-color);
+    text-decoration: none;
 }
