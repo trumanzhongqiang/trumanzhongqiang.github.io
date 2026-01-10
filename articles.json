@@ -1,0 +1,38 @@
+[
+    {
+        "id": "1leRtortKv1NA9aqPBplUSCXQYkbh_5SWsdqHDeu9eIo",
+        "date": "2026-01-10",
+        "tags": [
+            "New"
+        ],
+        "title": {
+            "zh": "AI 时代的产品重构：从工具思维到智能体架构",
+            "en": "AI 时代的产品重构：从工具思维到智能体架构"
+        },
+        "path": "writing/2026-01-10/1leRtort.md"
+    },
+    {
+        "id": "autoglm-tutorial",
+        "date": "2025-12-12",
+        "tags": [
+            "Tutorial"
+        ],
+        "title": {
+            "zh": "AutoGLM 手机自动化小白教程",
+            "en": "AutoGLM Mobile Automation Beginner Tutorial"
+        },
+        "path": "writing/2025-12-12/autoglm.md"
+    },
+    {
+        "id": "aicoach-review",
+        "date": "2025-12-07",
+        "tags": [
+            "Review"
+        ],
+        "title": {
+            "zh": "企业培训产品的 AI-Native 重构实践",
+            "en": "AI-Native Refactoring of Corporate Training Products"
+        },
+        "path": "writing/2025-12-07/aicoach-review.md"
+    }
+]

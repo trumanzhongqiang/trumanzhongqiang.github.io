@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Get current language
                 const currentLang = localStorage.getItem('lang') || 'en';
                 const successMessage = currentLang === 'zh' ? '已复制！' : 'Copied!';
-                
+
                 try {
                     await navigator.clipboard.writeText(email);
                     // Show feedback by temporarily changing data-email
@@ -97,6 +97,37 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
+    // --- Article List Loader ---
+    const postListContainer = document.querySelector('.post-list');
+    if (postListContainer) {
+        fetch('articles.json')
+            .then(response => response.json())
+            .then(articles => {
+                const currentLang = localStorage.getItem('lang') || 'en';
+                postListContainer.innerHTML = ''; // Clear existing
+
+                // Sort by date descending
+                articles.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                articles.forEach(article => {
+                    const li = document.createElement('li');
+                    li.className = 'post-item';
+
+                    const title = article.title[currentLang] || article.title['zh'] || article.title['en'];
+                    const tags = article.tags.map(tag => `<span class="tag">[${tag}]</span>`).join(' ');
+
+                    li.innerHTML = `
+                        <span class="post-date">${article.date}</span>
+                        <a href="project.html?doc=${article.path}" class="post-title" target="_blank">
+                            ${tags} <span>${title}</span>
+                        </a>
+                    `;
+                    postListContainer.appendChild(li);
+                });
+            })
+            .catch(err => console.error('Error loading articles:', err));
+    }
+
     // --- Markdown Loader Logic ---
     const markdownContainer = document.getElementById('markdown-content');
     if (markdownContainer) {
@@ -106,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (docName) {
             // Get current language preference
             const currentLang = localStorage.getItem('lang') || 'en';
-            
+
             // Try to load language-specific version first
             // If docName is "writing/ai-coach-review/aicoach-review.md"
             // Try "writing/ai-coach-review/aicoach-review.en.md" for English
@@ -149,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 });
                             }
                             markdownContainer.innerHTML = marked.parse(text);
-                            
+
                             // Process mermaid diagrams
                             setTimeout(() => {
                                 const mermaidBlocks = markdownContainer.querySelectorAll('pre code.language-mermaid');
@@ -180,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     targetDoc = docName.substring(0, lastDotIndex) + '.en' + docName.substring(lastDotIndex);
                 }
             }
-            
+
             // Try to load language-specific version, fallback to original if not found
             loadMarkdown(targetDoc)
                 .catch(() => {
@@ -412,7 +443,7 @@ document.addEventListener('DOMContentLoaded', () => {
             currentLang = currentLang === 'zh' ? 'en' : 'zh';
             localStorage.setItem('lang', currentLang);
             updateContent();
-            
+
             // If on project page, reload to show correct language version
             if (window.location.pathname.includes('project.html')) {
                 setTimeout(() => window.location.reload(), 100);
