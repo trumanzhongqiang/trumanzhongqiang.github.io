@@ -191,9 +191,31 @@ async function sync(docId, lang = 'zh') {
 const docId = process.argv[2];
 const lang = process.argv[3] || 'zh';
 
-if (!docId) {
-    console.log('Usage: node sync-docs.js <DOC_ID> [lang]');
-    process.exit(1);
+async function main() {
+    if (!docId) {
+        console.log('No ID provided. Syncing all articles from articles.json...');
+        if (!fs.existsSync(ARTICLES_JSON_PATH)) {
+            console.error('articles.json not found.');
+            process.exit(1);
+        }
+        const articles = JSON.parse(fs.readFileSync(ARTICLES_JSON_PATH));
+        for (const article of articles) {
+            if (article.id && article.id.length > 20) { // Basic check for Google Doc ID
+                try {
+                    await sync(article.id, 'zh');
+                    // If it has an English version (indicated by .en.md in path), sync that too
+                    if (article.path && article.path.includes('.en.md')) {
+                        await sync(article.id, 'en');
+                    }
+                } catch (e) {
+                    console.error(`Failed to sync ${article.id}:`, e.message);
+                }
+            }
+        }
+        console.log('All articles synced.');
+    } else {
+        await sync(docId, lang);
+    }
 }
 
-sync(docId, lang).catch(console.error);
+main().catch(console.error);
