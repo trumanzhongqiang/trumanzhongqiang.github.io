@@ -98,35 +98,56 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // --- Article List Loader ---
-    const postListContainer = document.querySelector('.post-list');
-    if (postListContainer) {
-        fetch('articles.json')
-            .then(response => response.json())
-            .then(articles => {
-                const currentLang = localStorage.getItem('lang') || 'en';
-                postListContainer.innerHTML = ''; // Clear existing
+    let articlesCache = null; // Cache for articles.json
 
-                // Sort by date descending
-                articles.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-                articles.forEach(article => {
-                    const li = document.createElement('li');
-                    li.className = 'post-item';
-
-                    const title = article.title[currentLang] || article.title['zh'] || article.title['en'];
-                    const tags = article.tags.map(tag => `<span class="tag">[${tag}]</span>`).join(' ');
-
-                    li.innerHTML = `
-                        <span class="post-date">${article.date}</span>
-                        <a href="project.html?doc=${article.path}" class="post-title" target="_blank">
-                            ${tags} <span>${title}</span>
-                        </a>
-                    `;
-                    postListContainer.appendChild(li);
-                });
-            })
-            .catch(err => console.error('Error loading articles:', err));
+    async function loadArticles() {
+        if (articlesCache) return articlesCache;
+        try {
+            const response = await fetch('articles.json');
+            articlesCache = await response.json();
+            // Sort by date descending once
+            articlesCache.sort((a, b) => new Date(b.date) - new Date(a.date));
+            return articlesCache;
+        } catch (err) {
+            console.error('Error loading articles:', err);
+            return [];
+        }
     }
+
+    async function renderArticles() {
+        const postListContainer = document.querySelector('.post-list');
+        if (!postListContainer) return;
+
+        const articles = await loadArticles();
+        const currentLang = localStorage.getItem('lang') || 'en';
+
+        // Use a DocumentFragment for better performance with multiple DOM insertions
+        const fragment = document.createDocumentFragment();
+        postListContainer.innerHTML = '';
+
+        articles.forEach(article => {
+            const li = document.createElement('li');
+            li.className = 'post-item';
+
+            const title = article.title[currentLang] || article.title['zh'] || article.title['en'];
+            const tags = article.tags.map(tag => `<span class="tag">[${tag}]</span>`).join(' ');
+
+            li.innerHTML = `
+                <span class="post-date">${article.date}</span>
+                <a href="project.html?doc=${article.path}" class="post-title" target="_blank">
+                    ${tags} <span>${title}</span>
+                </a>
+            `;
+            fragment.appendChild(li);
+        });
+        postListContainer.appendChild(fragment);
+    }
+
+    // Start loading articles immediately, don't wait for DOMContentLoaded
+    const articlesPromise = loadArticles();
+
+    // Initial render attempt (will wait for DOM and Promise)
+    renderArticles();
 
     // --- Markdown Loader Logic ---
     const markdownContainer = document.getElementById('markdown-content');
@@ -443,6 +464,7 @@ document.addEventListener('DOMContentLoaded', () => {
             currentLang = currentLang === 'zh' ? 'en' : 'zh';
             localStorage.setItem('lang', currentLang);
             updateContent();
+            renderArticles(); // Re-render articles list with new language
 
             // If on project page, reload to show correct language version
             if (window.location.pathname.includes('project.html')) {

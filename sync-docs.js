@@ -4,11 +4,13 @@ const { google } = require('googleapis');
 const cloudinary = require('cloudinary').v2;
 const axios = require('axios');
 
+require('dotenv').config();
+
 // --- Configuration ---
 const CLOUDINARY_CONFIG = {
-    cloud_name: 'dtv7s0fyt',
-    api_key: '443197517597731',
-    api_secret: 'wj6td_eErdc4eeDjQ-e_Ac8M0mk'
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME || 'dtv7s0fyt',
+    api_key: process.env.CLOUDINARY_API_KEY || '443197517597731',
+    api_secret: process.env.CLOUDINARY_API_SECRET
 };
 
 const CREDENTIALS_PATH = path.join(__dirname, 'credentials.json');
@@ -85,8 +87,11 @@ function getDocContent(document) {
                 if (run.textRun) {
                     let text = run.textRun.content;
                     const style = run.textRun.textStyle || {};
-                    if (style.bold) text = `**${text}**`;
-                    if (style.italic) text = `*${text}*`;
+                    // Only apply bold/italic if there's actual text content to style
+                    if (text && text.trim().length > 0) {
+                        if (style.bold) text = `**${text}**`;
+                        if (style.italic) text = `*${text}*`;
+                    }
                     pText += text;
                 } else if (run.inlineObjectElement) {
                     const objId = run.inlineObjectElement.inlineObjectId;
@@ -142,7 +147,7 @@ async function processImages(markdown, document, docId, auth) {
 }
 
 // --- Main ---
-async function sync(docId, lang = 'zh') {
+async function sync(docId, lang = 'zh', customDate = null) {
     const auth = await authorize();
     const docs = google.docs({ version: 'v1', auth });
 
@@ -153,7 +158,7 @@ async function sync(docId, lang = 'zh') {
     let markdown = getDocContent(document);
     markdown = await processImages(markdown, document, docId, auth);
 
-    const date = new Date().toISOString().split('T')[0];
+    const date = customDate || new Date().toISOString().split('T')[0];
     const folderName = date;
     const fileName = `${docId.substring(0, 8)}${lang === 'en' ? '.en' : ''}.md`;
     const dirPath = path.join(__dirname, 'writing', folderName);
@@ -218,4 +223,13 @@ async function main() {
     }
 }
 
-main().catch(console.error);
+if (require.main === module) {
+    main().catch(console.error);
+}
+
+module.exports = {
+    authorize,
+    sync,
+    main,
+    getNewToken
+};

@@ -1,4 +1,6 @@
 node_modules/
 token.json
 credentials.json
+.env
+ignored-docs.json
 package-lock.json
