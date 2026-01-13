@@ -1,74 +1,67 @@
-# Agentic AI 时代的产品重构笔记
+# Product Reconstruction Notes in the Era of Agentic AI
 
-**
-**
-在过去十年的互联网产品生涯中，我习惯了画原型、写文档、跟进度。那时候，软件是**确定性**的：输入A，必然输出B。如果输出了C，那是Bug，得修。
+Over the past decade of my internet product career, I was used to drawing prototypes, writing documents, and tracking progress. Back then, software was **deterministic**: input A, and it inevitably outputs B. If it outputs C, that’s a bug that needs fixing.
 
-但这两年，当我一头扎进大模型（LLM）的浪潮，从独立开发“AI助理”到设计企业级“AI教练”的落地，我发现游戏的规则彻底变了。我们不再是在设计一个“工具”，而是在招聘和管理一群“硅基员工”。
+But in the last two years, as I dived headfirst into the wave of Large Language Models (LLMs)—from independently developing "AI Assistants" to designing the implementation of enterprise-level "AI Coaches"—I’ve realized the rules of the game have completely changed. We are no longer designing a "tool"; we are hiring and managing a team of "silicon-based employees."
 
-这也是吴恩达教授（Andrew Ng）最近反复强调的趋势：**Agentic Workflow（代理式工作流）**。
+This is the trend Andrew Ng has recently been emphasizing: **Agentic Workflow**.
 
-今天，我想聊聊在这个新时代，一个产品经理眼中的“新世界观”。
-
-
+Today, I want to talk about this "new worldview" from the perspective of a product manager in this new era.
 
 ![Image](https://res.cloudinary.com/dtv7s0fyt/image/upload/v1768068691/blog/1leRtortKv1NA9aqPBplUSCXQYkbh_5SWsdqHDeu9eIo/image_1.png)
 
-### 一、 别把 AI 当搜索引擎，把它当“实习生”
+### 1. Don't Treat AI as a Search Engine; Treat It as an "Intern"
 
-很多人觉得 AI 不好用，是因为他们还在用**“搜索引擎”**的逻辑去使用它——扔进去一个关键词，期待吐出一个完美答案。这在 AI 领域被称为 **Zero-shot（零样本提示）**。
+Many people find AI difficult to use because they are still using **"search engine"** logic—throwing in a keyword and expecting a perfect answer. In the AI field, this is known as **Zero-shot**.
 
-如果你直接让 AI “扮演一个挑剔的客户陪销售练手”，它通常演得像个只会念台词的机器人。但如果你换一种方式，把它当成一个刚入职的**“聪明实习生”**：
+If you directly ask an AI to "play a picky customer to help a salesperson practice," it usually performs like a robot reading a script. But if you change your approach and treat it as a **"smart intern"** who just joined:
 
-**给背景（Persona）：** “你是一个很在意性价比，但又有点虚荣心的客户。”
+**Give Context (Persona):** "You are a customer who cares deeply about value for money but is also a bit vain."
 
-**给流程（SOP）：** “先听销售讲，如果他没提到‘尊贵感’，你就故意刁难他。”
+**Give Process (SOP):** "Listen to the salesperson first. If they don't mention 'prestige,' deliberately make things difficult for them."
 
-**给反馈（Reflection）：** “演完这轮，你自己反思一下，刚才是不是太好说话了？下一轮严厉点。”
+**Give Feedback (Reflection):** "After this round, reflect on your performance. Were you too easy to talk to? Be stricter in the next round."
 
-这就是 **Agentic Workflow** 的本质。
+This is the essence of an **Agentic Workflow**.
 
-这个过程总结为 **PAR 模型（Plan-Act-Reflect）**：
+This process can be summarized as the **PAR Model (Plan-Act-Reflect)**:
 
-**Plan（规划）：** 像带团队一样，先定目标和拆解任务。
+**Plan:** Like leading a team, set goals and break down tasks first.
 
-**Act（行动）：** 让 AI 去执行，去调用工具（比如查库存、发邮件）。
+**Act:** Let the AI execute and call tools (e.g., checking inventory, sending emails).
 
-**Reflect（反思）：** 这是最关键的一步。让 AI 自己检查“作业”，或者引入另一个“AI 质检员”来挑刺。
+**Reflect:** This is the most critical step. Let the AI check its own "homework," or introduce another "AI Inspector" to find flaws.
 
-在实际业务中，通过这种“左右互搏”的机制，我们让 AI 的表现从“及格”跃升到了“惊艳”。产品经理不再是功能的定义者，而是**AI的“教导主任”**。
+In actual business scenarios, through this "self-adversarial" mechanism, we have seen AI performance jump from "mediocre" to "stunning." Product managers are no longer just definers of features; they are the **"Deans of Students"** for AI.
 
-### 二、 接受“不可靠税”，做系统的“守夜人”
+### 2. Accept the "Unreliability Tax" and Be the "Night's Watch" of the System
 
-传统软件追求极致的低延迟和高并发，但在 Agent 时代，我们必须学会与**“慢”**和**“错”**共存。
+Traditional software pursues extreme low latency and high concurrency, but in the Agent era, we must learn to coexist with **"slowness"** and **"errors."**
 
-行业里有个概念叫**“不可靠税”（Unreliability Tax）**。AI 本质上是概率模型，它一定会犯错，会一本正经地胡说八道（幻觉）。
+There is a concept in the industry called the **"Unreliability Tax."** AI is inherently a probabilistic model; it will make mistakes and "hallucinate" with total confidence.
 
-在之前负责传统项目时，我习惯了追求 99.9% 的准确率。但在 AI 产品中，我学会了另一种思维：**容错设计**。
+In previous traditional projects, I was used to chasing 99.9% accuracy. But with AI products, I’ve learned a different mindset: **Fault-tolerant design.**
 
-**思维预算（Thinking Budget）：** 如果用户问“今天天气如何”，我们不需要 AI 思考，直接调 API（快）。但如果用户问“如何制定季度销售策略”，我们需要允许 AI “发呆”几十秒，甚至几分钟。它在后台可能正在查阅资料、起草大纲、自我修正。作为产品经理，无需去追求消除等待时间，关键是要体现**设计等待的价值**——惊艳的效果。告诉用户：“别急，AI正在为你深度思考。”
+**Thinking Budget:** If a user asks "What's the weather today?", we don't need the AI to think; we just call an API (fast). But if a user asks "How do I develop a quarterly sales strategy?", we need to allow the AI to "stare blankly" for dozens of seconds or even minutes. Behind the scenes, it might be researching data, drafting outlines, and self-correcting. As a product manager, you don't need to eliminate waiting time; the key is to demonstrate the **value of the designed wait**—the stunning result. Tell the user: "Hang on, the AI is thinking deeply for you."
 
-**回路阻断（Circuit Breaking）：** 就像电路保险丝一样。当 AI 陷入死循环（比如反复尝试调用一个错误的工具）时，我们需要设计强制熔断机制，让人类介入。
+**Circuit Breaking:** Just like an electrical fuse. When an AI gets stuck in a dead loop (e.g., repeatedly trying to call a broken tool), we need to design a forced shutdown mechanism for human intervention.
 
-现在的我，看 AI 产品架构就像看一个**厨房流水线**：不能让一个大厨（LLM）从切菜到摆盘全干了，那样既慢又容易出错。我们要把任务拆开，配菜员（检索 Agent）负责找素材，主厨（推理 Agent）负责烹饪，试菜员（评估 Agent）负责把关。
+Now, I view AI product architecture like a **kitchen assembly line**: you can't have one head chef (LLM) do everything from chopping vegetables to plating, as that is slow and error-prone. We break tasks down: the prep cook (Retrieval Agent) finds materials, the head chef (Reasoning Agent) handles the cooking, and the taster (Evaluation Agent) ensures quality.
 
-### 三、 Vibe Coding：产品经理的“魔法棒”
+### 3. Vibe Coding: The Product Manager's "Magic Wand"
 
-过去，从我有想法到看到 Demo，中间隔着漫长的 PRD 评审、排期、开发、测试。这个周期是以“周”计算的。
+In the past, the gap between having an idea and seeing a demo was filled with long PRD reviews, scheduling, development, and testing. This cycle was measured in "weeks."
 
-现在，借助于 **Vibe Coding**，这个周期被压缩到了“小时”。
+Now, with the help of **Vibe Coding**, this cycle has been compressed into "hours."
 
-在做独立开发探索时，我并不是专业程序员，但我能通过自然语言“指挥” AI 写代码。这不仅是效率的提升，更是**认知边界的打破**。
+When exploring independent development, I am not a professional programmer, but I can "command" AI to write code using natural language. This is not just an efficiency boost; it is a **breaking of cognitive boundaries.**
 
-**以前：** 我在文档里写“由于…所以…”，开发说“这个逻辑实现不了”。
+**Before:** I would write "Because... therefore..." in a document, and a developer would say "This logic can't be implemented."
 
-**现在：** 我直接把业务逻辑写成伪代码，甚至直接跑通一个可用的原型扔给开发：“看，这就是我要的效果。”
+**Now:** I write the business logic directly as pseudo-code, or even run a working prototype myself to show the developer: "Look, this is the effect I want."
 
-这让我深刻体会到：未来的超级个体，核心能力不是“写代码”，而是**“定义问题”**和**“验收结果”**。产品经理正在从“画图纸的人”变成“盖房子的人”。
+This has made me realize deeply: the core capability of a "super individual" in the future is not "writing code," but **"defining the problem"** and **"verifying the results."** Product managers are evolving from "people who draw blueprints" to "people who build houses."
 
-### 四、 结语：从“连接”到“赋能”
+### 4. Conclusion: From "Connection" to "Empowerment"
 
-我始终坚信，技术不应该只是炫技的工具，而应该解决真实的痛点——Agentic AI 的时代刚刚开始，我们不再需要像以前那样去适应冰冷的机器指令。相反，机器正在以前所未有的速度，学习如何适应我们。*
-*
-
-
+I have always believed that technology should not just be a tool for showing off; it should solve real pain points. The era of Agentic AI has just begun. We no longer need to adapt to cold machine instructions as we did before. Instead, machines are learning how to adapt to us at an unprecedented speed.

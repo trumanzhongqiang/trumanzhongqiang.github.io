@@ -146,6 +146,48 @@ async function processImages(markdown, document, docId, auth) {
     return markdown;
 }
 
+// --- Metadata & Content Handling ---
+function extractMetadata(markdown) {
+    const lines = markdown.split('\n');
+    let date = null;
+    let titleZh = null;
+    let titleEn = null;
+
+    for (const line of lines) {
+        const dateMatch = line.match(/^(?:Date|日期):\s*(\d{4}[-/]\d{1,2}[-/]\d{1,2})/i);
+        if (dateMatch) {
+            date = dateMatch[1].replace(/\//g, '-');
+            // Ensure YYYY-MM-DD format
+            const parts = date.split('-');
+            if (parts[1].length === 1) parts[1] = '0' + parts[1];
+            if (parts[2].length === 1) parts[2] = '0' + parts[2];
+            date = parts.join('-');
+        }
+
+        const titleZhMatch = line.match(/^Title\s*ZH:\s*(.*)/i);
+        if (titleZhMatch) titleZh = titleZhMatch[1].trim();
+
+        const titleEnMatch = line.match(/^Title\s*EN:\s*(.*)/i);
+        if (titleEnMatch) titleEn = titleEnMatch[1].trim();
+    }
+
+    return { date, titleZh, titleEn };
+}
+
+function splitContent(markdown) {
+    const parts = markdown.split(/\n---\n/);
+    if (parts.length >= 2) {
+        return {
+            zh: parts[0].trim(),
+            en: parts[1].trim()
+        };
+    }
+    return {
+        zh: markdown.trim(),
+        en: null
+    };
+}
+
 // --- Main ---
 async function sync(docId, lang = 'zh', customDate = null) {
     const auth = await authorize();
@@ -155,42 +197,64 @@ async function sync(docId, lang = 'zh', customDate = null) {
     const res = await docs.documents.get({ documentId: docId });
     const document = res.data;
 
-    let markdown = getDocContent(document);
-    markdown = await processImages(markdown, document, docId, auth);
+    let fullMarkdown = getDocContent(document);
+    fullMarkdown = await processImages(fullMarkdown, document, docId, auth);
 
-    const date = customDate || new Date().toISOString().split('T')[0];
+    const metadata = extractMetadata(fullMarkdown);
+    const content = splitContent(fullMarkdown);
+
+    const date = customDate || metadata.date || new Date().toISOString().split('T')[0];
     const folderName = date;
-    const fileName = `${docId.substring(0, 8)}${lang === 'en' ? '.en' : ''}.md`;
     const dirPath = path.join(__dirname, 'writing', folderName);
 
     if (!fs.existsSync(dirPath)) {
         fs.mkdirSync(dirPath, { recursive: true });
     }
 
-    const filePath = path.join(dirPath, fileName);
-    fs.writeFileSync(filePath, markdown);
-    console.log(`Markdown saved to ${filePath}`);
+    // Save Chinese version
+    const zhFileName = `${docId.substring(0, 8)}.md`;
+    const zhFilePath = path.join(dirPath, zhFileName);
+    fs.writeFileSync(zhFilePath, content.zh);
+    console.log(`Chinese Markdown saved to ${zhFilePath}`);
+
+    // Save English version if exists
+    let enRelativePath = null;
+    if (content.en) {
+        const enFileName = `${docId.substring(0, 8)}.en.md`;
+        const enFilePath = path.join(dirPath, enFileName);
+        fs.writeFileSync(enFilePath, content.en);
+        console.log(`English Markdown saved to ${enFilePath}`);
+        enRelativePath = `writing/${folderName}/${enFileName}`;
+    }
 
     // Update articles.json
     const articles = JSON.parse(fs.readFileSync(ARTICLES_JSON_PATH));
-    const relativePath = `writing/${folderName}/${fileName}`;
+    const zhRelativePath = `writing/${folderName}/${zhFileName}`;
 
     let article = articles.find(a => a.id === docId);
+    const titleZh = metadata.titleZh || document.title;
+    const titleEn = metadata.titleEn || document.title;
+
     if (!article) {
         article = {
             id: docId,
             date: date,
             tags: ["New"],
-            title: { zh: document.title, en: document.title },
-            path: relativePath
+            title: { zh: titleZh, en: titleEn },
+            path: zhRelativePath
         };
-        articles.unshift(article);
+        articles.push(article); // Add to end, we will sort later
     } else {
-        article.path = relativePath; // Update path if it changed
+        article.date = date; // Update date if it changed
+        article.title = { zh: titleZh, en: titleEn };
+        article.path = zhRelativePath;
     }
 
+    // Sort articles by date descending
+    articles.sort((a, b) => new Date(b.date) - new Date(a.date));
+
     fs.writeFileSync(ARTICLES_JSON_PATH, JSON.stringify(articles, null, 4));
-    console.log('articles.json updated.');
+    console.log('articles.json updated and sorted.');
 }
 
 const docId = process.argv[2];
@@ -207,11 +271,7 @@ async function main() {
         for (const article of articles) {
             if (article.id && article.id.length > 20) { // Basic check for Google Doc ID
                 try {
-                    await sync(article.id, 'zh');
-                    // If it has an English version (indicated by .en.md in path), sync that too
-                    if (article.path && article.path.includes('.en.md')) {
-                        await sync(article.id, 'en');
-                    }
+                    await sync(article.id);
                 } catch (e) {
                     console.error(`Failed to sync ${article.id}:`, e.message);
                 }
@@ -219,7 +279,7 @@ async function main() {
         }
         console.log('All articles synced.');
     } else {
-        await sync(docId, lang);
+        await sync(docId);
     }
 }
 

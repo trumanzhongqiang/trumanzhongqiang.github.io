@@ -1,17 +1,5 @@
 [
     {
-        "id": "13o2TtEestNsy-J6zyHhA0H0ejCZP5HOCZ80vuOyXPqU",
-        "date": "2026-01-13",
-        "tags": [
-            "New"
-        ],
-        "title": {
-            "zh": "AI 交互逻辑的深刻变革",
-            "en": "AI 交互逻辑的深刻变革"
-        },
-        "path": "writing/2026-01-13/13o2TtEe.en.md"
-    },
-    {
         "id": "1Cd1-UO3Yu8wRysDuPDOwarBmU48xX9rm9JsXPv8NTF4",
         "date": "2026-12-01",
         "tags": [
@@ -24,8 +12,20 @@
         "path": "writing/2026-12-01/1Cd1-UO3.en.md"
     },
     {
+        "id": "13o2TtEestNsy-J6zyHhA0H0ejCZP5HOCZ80vuOyXPqU",
+        "date": "2026-01-13",
+        "tags": [
+            "New"
+        ],
+        "title": {
+            "zh": "AI 交互逻辑的深刻变革",
+            "en": "AI 交互逻辑的深刻变革"
+        },
+        "path": "writing/2026-01-13/13o2TtEe.en.md"
+    },
+    {
         "id": "1leRtortKv1NA9aqPBplUSCXQYkbh_5SWsdqHDeu9eIo",
-        "date": "2026-01-10",
+        "date": "2026-01-13",
         "tags": [
             "New"
         ],
@@ -33,7 +33,7 @@
             "zh": "AI 时代的产品重构：从工具思维到智能体架构",
             "en": "AI 时代的产品重构：从工具思维到智能体架构"
         },
-        "path": "writing/2026-01-12/1leRtort.en.md"
+        "path": "writing/2026-01-13/1leRtort.md"
     },
     {
         "id": "autoglm-tutorial",
