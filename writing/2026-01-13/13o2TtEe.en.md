@@ -1,57 +1,155 @@
-# When AI Disappears from the Interface: The Era of Direct Play of Human Will
+# When the Chat Box Disappears
 
-### Introduction: The Disappearing "Dialog Box"
+Recently, I noticed something.
 
-In the history of computing evolution, every leap has been accompanied by the withdrawal of the "interaction medium." From the Command Line Interface (CLI) of the 70s to the Graphical User Interface (GUI) of the 90s, and then to the touchscreens of the mobile internet era, humans have been trying to shorten the physical distance between "intent" and "result."
+I'm opening the ChatGPT app on my phone less and less.
 
-In early 2026, the frequent statements from Sam Altman and Andrej Karpathy released a clear signal: **AI is completing its "disappearing act."** AI is no longer an app where you need to click an icon and type text into a dialog box; it is sinking, becoming the blood of hardware, becoming a "native operating system (Agentic OS)."
+When it first came out, I opened it almost every day. Asking questions, writing copy, looking things up—I practically used it as a search engine. I even bought a Plus membership, feeling like someone who "knows how to use AI."
 
-When AI disappears from the interface, we are ushered into an era of direct competition of human will.
+But now?
 
-## I. Logic Reconstruction: From "Application Software" to "Living Environment"
+I'm still using AI. Just not by "opening an app."
 
-Over the past three years, we have grown accustomed to viewing AI as a "super tool." Under this logic, AI is the object, you are the subject, and the dialog box is the protocol between you.
+I use it in WeChat, in Feishu, when writing code, when making slides. Sometimes I don't even know I'm using AI—it's just there behind some feature, quietly doing the work.
 
-However, the "OS logic" completely overturns this relationship:
+I suddenly realized something:
 
-**Resource Orchestrator rather than Executor:** In the "LLM OS" model proposed by Karpathy, large models are no longer just chatbots; they have become the CPU. It is responsible for managing memory (context), calling tools (computation, search, payment), and driving peripherals (robots, smart homes).
+The chat box is disappearing.
 
-**From "Wake-up" to "Always-on":** AI no longer waits to be "woken up"; it resides at the bottom layer in the form of Agents. It perceives your physiological data, ambient lighting, schedule conflicts, and emotional fluctuations.
+Not literally—the ChatGPT chat box is still there, I still have to type into it. But it's no longer the only way, and no longer the main way.
 
-**Environmental Existence:** Just as you don't realize the nitrogen-oxygen ratio when you breathe, future AI will be as ubiquitous as electricity. You no longer "use" AI; you simply "live in" an environment driven by AI.
+What does this mean?
 
-## II. Paradigm Shift: From "Prompt Engineering" to "Intention Engineering"
+---
 
-If 2023-2024 was the dividend period for "Prompt Engineering," then 2026 marks its end.
+Thinking about it, a chat box is really a protocol.
 
-### Why will Prompts disappear?
+For you and me to communicate, we need a protocol. Language is a protocol. Writing is a protocol. A chat box is also a protocol—you put your intent in natural language, AI understands it, and spits out the result.
 
-Prompt engineering is essentially humans "accommodating" the machine's comprehension. We need to learn how to use specific "spells" (like "Step by step") to trigger AI logic. But as AI becomes "native," it possesses extremely strong contextual awareness, capable of completing complex logic through fuzzy signals.
+The premise of this protocol is: AI is an "object."
 
-### What is "Intention Engineering"?
+You have to go find it. Open the app, click the icon, type the words. You're active, it's passive. You have to "wake it up" for it to work.
 
-When the "How" is completely outsourced to AI, "What" and "Why" become the only variables.
+For the past two years, we've all gotten used to this relationship.
 
-**Prompt Engineering is process management:** Focuses on corpus, parameters, and formats.
+But this relationship is being broken.
 
-**Intention Engineering is goal definition:** Focuses on core values, ultimate judgments, and priorities.
+I've seen some changes recently. Some phones now have built-in AI assistants—you don't need to open any app, just talk to the phone directly. Some smart devices have AI at the system level—you don't need to "wake it up" at all. It's always listening, always watching, always thinking.
 
-**The shift in core logic:** Future winners will not be those who have mastered the most AI tools, but those who can define their "desires" with extreme clarity. If you don't know where you're going, it's meaningless even if you have a light-speed, fully autonomous racing car.
+The essence of a chat box is a "boundary" between you and AI.
 
-## III. Deep Competition: The "Naked Run" of Human Will
+You're on one side of the boundary, AI is on the other. You have to cross the boundary to get it to help you.
 
-When the technical threshold drops to zero, competition will return to the most primitive level: **the strength of a person's will and the height of their aesthetics.**
+Now, this boundary is becoming blurry.
 
-**The Weight of Decision:** When AI can instantly execute a thousand solutions, the only role for a human is that "confirm button." This requires decision-makers to have extremely high discernment and the ability to take responsibility.
+---
 
-**Clarity of Will:** Mediocre intentions will only yield mediocre execution. Under the OS logic, AI will amplify your will. If your intentions are vague or your logic is self-contradictory, the AI-driven system will produce massive chaos.
+I call this change "sinking."
 
-**Direct Play:** Business competition will no longer be a competition of information asymmetry, but a play of "vision clarity." Whoever can more accurately capture the unmet intentions of a group can mobilize massive Agent clusters to deliver a generational strike.
+AI is sinking from a standalone app into the system. From a tool you have to specifically use, into the cracks of your life.
 
-## IV. Conclusion: Learning How to "Be the Master"
+This isn't new.
 
-After AI disappears from the interface, the human learning curve undergoes a dramatic rupture.
+Think about electricity.
 
-We no longer need to learn how to operate machines, but we must urgently learn **how to examine our inner selves.** In the "dialog box" era, we still had a buffer for thinking; in the "OS" era, will is execution.
+When it first appeared, electricity was a "luxury." You had to buy a generator, wire it up, turn on the lights. Electricity was a separate system—you had to "use it."
 
-As Karpathy hinted, the operating system of the future is no longer a stack of 0s and 1s, but a digital mapping of human civilization's intent. In this game, the most expensive skill is no longer programming, but the **sense of certainty after deep thinking**.
+Then what happened?
+
+Electricity sank. Into the walls, into the outlets, into every appliance. You no longer "use electricity"—you just "live in an environment with electricity."
+
+AI is going down the same path.
+
+For the past two years, we've been discussing "how to use AI." Learning prompts, techniques, various incantations.
+
+But soon, this question won't matter as much.
+
+Because AI won't be something you need to "use." Like electricity, it'll be in your phone, your computer, your home speakers, your car's system.
+
+You won't need to "open AI." It'll just be there.
+
+---
+
+This raises an interesting question:
+
+When AI is everywhere, what capability becomes scarce?
+
+From 2023 to 2024, the scarcest capability was "knowing how to use AI." Specifically, knowing how to write prompts.
+
+You had to learn how to talk to AI, how to use "please think step by step" to get better results, how to use "you are an expert" to set its role.
+
+Are these techniques useful? Yes.
+
+But they will disappear.
+
+Why? Because AI increasingly doesn't need you to "speak well."
+
+If you speak vaguely, it can guess your meaning. If you're not professional enough, it can fill in the gaps. If you only give a keyword, it can expand it into complete content.
+
+In the chat box era, you had to learn to "accommodate" AI's understanding.
+
+In the post-chat box era, AI will learn to "accommodate" your expression.
+
+So what becomes scarce?
+
+Knowing what you want.
+
+Sounds simple. But think about it—do you really know what you want?
+
+When you ask AI to write a plan for you, do you have a clear goal in mind? When you ask AI to make a decision, are you clear about your priorities?
+
+AI can give you a hundred solutions in an instant. But which one to choose—that's your decision.
+
+If you don't know what you want, the more AI gives you, the more confused you become.
+
+---
+
+I've been doing product work for ten years. These past two years, I've been working on AI-related products.
+
+What's my biggest takeaway?
+
+Technology isn't the bottleneck.
+
+Large language models are already very capable. GPT-4, Claude, various domestic models—their abilities are improving rapidly. Whatever functionality you want can basically be implemented technically.
+
+The real bottleneck is: what exactly do you want it to do?
+
+I worked on an AI coach product. Technically, having AI play a customer and practice with salespeople isn't hard.
+
+What's hard is: what kind of customer? What kind of challenges? What kind of feedback? What kind of scenarios?
+
+These aren't technical questions—they're definition questions.
+
+You have to think clearly: what problem does this AI coach solve? What's its goal? Where are its boundaries?
+
+Before, I spent a lot of time on "how to implement." Discussing feasibility with engineers, interactions with designers, edge cases with testers.
+
+Now, I spend more time on "defining the problem."
+
+Because implementation isn't that hard anymore. What's hard is thinking clearly about what to implement.
+
+---
+
+Back to the beginning.
+
+The chat box disappearing isn't a bad thing.
+
+It means AI is becoming like electricity—everywhere, within reach. You don't need to specifically "use" it; it's just there, waiting to help.
+
+But it also means one thing:
+
+You have to know more clearly what you want.
+
+Before, you could say "let me try first." Trial and error in a chat box doesn't cost much.
+
+Later, when AI permeates every corner of life, every vague instruction of yours will be amplified into concrete action.
+
+You casually say "help me arrange the trip," and AI might book flights, hotels, restaurants for you.
+
+Do you really want those?
+
+After the chat box disappears, the buffer between you and the result is gone too.
+
+Intent becomes execution.
+
+This isn't a technical problem. It's a problem each of us has to face.
