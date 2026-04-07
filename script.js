@@ -389,8 +389,8 @@ document.addEventListener('DOMContentLoaded', () => {
         zh: {
             "nav.back": "返回",
             "intro.title": "你好！我是 <span class=\"sticker\">@忠强</span>",
-            "intro.role": "实战型 AI 产品专家 | 10年+ 经验 | Vibe Coding 践行者",
-            "intro.desc": "擅长将模糊需求转化为工程化落地的产品方案。从 K12 到 Sales Coach，始终致力于通过 AI 技术解决真实的业务痛点。",
+            "intro.role": "AI 产品经理 | 6年经验 | 专注 Agent 与企业级 AI 应用",
+            "intro.desc": "做过智能硬件，做过企业 SaaS。最近三年专注大模型应用层，帮助企业把 AI 用起来，而不是把 AI 加上去。",
             "section.writings": "思考",
             "projects.p1": "企业培训产品的 AI-Native 重构实践",
             "projects.p2": "AutoGLM 手机自动化初体验",
@@ -411,8 +411,8 @@ document.addEventListener('DOMContentLoaded', () => {
         en: {
             "nav.back": "Back",
             "intro.title": "Hi！I'm <span class=\"sticker\">@DaLin</span>",
-            "intro.role": "AI Product Expert | 10+ Years Exp | Vibe Coding Practitioner",
-            "intro.desc": "Specializing in transforming ambiguous requirements into engineered product solutions. From K12 to Sales Coach, dedicated to solving real business problems with AI technology.",
+            "intro.role": "AI Product Manager | 6 Years Exp | Focus on Agent & Enterprise AI Applications",
+            "intro.desc": "Built smart hardware, built enterprise SaaS. The last three years focused on LLM applications—helping enterprises actually use AI, not just add AI.",
             "section.writings": "Writings",
             "projects.p1": "AI-Native Refactoring of Corporate Training Products",
             "projects.p2": "AutoGLM Mobile Automation Beginner Tutorial",
