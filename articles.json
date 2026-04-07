@@ -39,11 +39,11 @@
         "id": "aicoach-review",
         "date": "2025-12-07",
         "tags": [
-            "Review"
+            "Practice"
         ],
         "title": {
-            "zh": "企业培训产品的 AI-Native 重构实践",
-            "en": "AI-Native Refactoring of Corporate Training Products"
+            "zh": "做一个 AI 教练产品，我学到的三件事",
+            "en": "Three Things I Learned Building an AI Coach Product"
         },
         "path": "writing/2025-12-07/aicoach-review.md"
     },

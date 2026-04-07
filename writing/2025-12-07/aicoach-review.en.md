@@ -1,205 +1,165 @@
-# AI-Native Refactoring of Corporate Training Products
+# Three Things I Learned Building an AI Coach Product
 
-## I. How Traditional Corporate Training Products Operate
+Last year, I took over an enterprise training product.
 
-![How Traditional Corporate Training Products Operate](How%20Traditional%20Corporate%20Training%20Products%20Operate.png)
+The client was a sales company with thousands of salespeople. Their pain point was straightforward: training didn't work.
 
-The core goal of traditional corporate training products is to deliver standardized content at scale. Their typical form centers around courses, question banks, and exams, organizing learning paths through preset processes.
+What do I mean by "didn't work"? Training was done, exams were passed, scores were decent. But on the front lines, salespeople still couldn't talk.
 
-**In this system:**
+I looked at their training system. Typical traditional model: video courses, question banks, exams. Watch videos, do questions, take exams, get certificates. High completion rate, high pass rate.
 
-*   **Learning Process:** Broken down into a linear flow of "class—practice—exam—assessment";
-*   **System Responsibility:** Primarily managing content and progress;
-*   **Core Role:** Coaches and instructors bear the real judgment and guidance work;
-*   **Metrics:** The focus is on completion rate, pass rate, and coverage.
+What's the problem?
 
-This model was effective in an era of "knowledge scarcity and limited teaching resources," but it inherently has several **structural limitations:**
+I asked a salesperson: What did you learn in your last training?
 
-*   There is a significant time gap between practice and feedback;
-*   Individual differences are difficult to address systematically;
-*   Real business scenarios are hard to reproduce with high quality;
-*   Training effectiveness stays at "did they learn" and "did they pass," rather than "can they do it."
+He thought for a while: Something about sales techniques... I don't remember the specifics.
 
-## II. What is an AI-Native Product
+I asked again: When a customer gives you a hard time, what do you do?
 
-![What is an AI-Native Product](What%20is%20an%20AI-Native%20Product.png)
+He said: I just wing it.
 
-An AI-Native product is not about adding AI features to an existing product, but rather assuming from the start that AI is the system's **intelligent core**.
+That's the problem with traditional training. It teaches you to "know," not to "be able." It focuses on "did they learn," not "can they do."
 
-Its core characteristics are not about "which model is used," but the following **three points:**
+Practice and feedback are disconnected. Nobody watches you while you practice. Only after you're done does someone tell you what you did wrong. By next time, you've forgotten why you said it that way.
 
-*   The system can understand user behavior in real-time;
-*   The system can make judgments and provide feedback during interactions;
-*   Product processes are not preset, but dynamically generated.
+---
 
-**In AI-Native products:**
+How to solve this?
 
-*   **AI Role:** No longer a tool or plugin, but a subject that continuously participates in interactions;
-*   **Product Positioning:** Not just carrying functions, but a system that can guide, correct, and reinforce behavior;
-*   **Value Manifestation:** Not in "what was completed," but in "what change occurred."
+At first, the team thought: let's add AI features to the existing system. AI to grade assignments, AI to generate questions.
 
-## III. How to Build AI-Native Corporate Training Products
+I stopped them. This isn't about adding features. We need to rethink: if there's AI, what should a training product look like?
 
-![Developing AI-Native Products for Corporate Training](Developing%20AI-Native%20Products%20for%20Corporate%20Training.png)
+We used a term internally: AI-Native.
 
-Transforming corporate training to AI-Native is essentially shifting from a **"course delivery system" to a "capability-building system"**.
+What does that mean? It's not about using AI. It's about assuming from the start: AI is the system's intelligent core. Not a tool, not a plugin.
 
-This means **three key transformations:**
+Traditional products have dead systems. Processes are preset, users follow steps. AI in there is at most an assistant.
 
-1.  **Training Unit Transformation:** From "course/task" as the unit, to one effective practice, one behavioral adjustment as the minimum value unit.
-2.  **Interaction Method Transformation:** From clicking and submitting, to natural language dialogue as the core interaction, making practice itself closer to real work scenarios.
-3.  **Feedback Mechanism Transformation:** From post-event evaluation, to real-time assistance and process feedback during practice, so learning is corrected and reinforced as it happens.
+AI-Native products have living systems. Processes can be dynamically generated. AI participates in judgment and feedback at every step.
 
-**Under such a system:**
+From "course delivery system" to "capability-building system."
 
-*   AI takes on the coach role, guiding the learning process in real-time;
-*   Learners are no longer just executors, but improve capabilities through trial and error;
-*   Organizational experience can be continuously accumulated and fed back into the next round of training.
+What does this transformation mean?
 
-AI-Native corporate training products ultimately aim not to "finish teaching," but for **"change to occur"**.
+Before, the training unit was "a course." You finish a course, the system records it as complete.
 
-## IV. Why Traditional Training Needs "Refactoring" Rather Than "Upgrading"
+After, the training unit is "one effective practice." You practice once, AI gives feedback, you adjust, capability changes.
 
-We believe that the core issue of traditional corporate training products is not content scarcity, but that their core learning mechanism can no longer adapt to the times.
+Before, interaction was "clicking." Watch videos, do questions, take exams.
 
-Specifically, facing ever-changing frontline business scenarios, traditional models struggle to exhaust all knowledge points and ensure content always stays close to practice. More importantly, as AI technology matures, knowledge itself is no longer scarce; what's truly valuable is **immediate, actionable, practice-close feedback**. Like a barista in a foreign café immediately offering "Latte?", this feedback is far more effective than post-learning.
+After, interaction is "dialogue." You practice with AI, AI gives real-time feedback.
 
-Therefore, simply adding AI commentary or content generation to existing training systems is still efficiency optimization under the old paradigm, unable to fundamentally solve the following **core problems:**
+Before, feedback was "post-evaluation." Only after practice do you know what was wrong.
 
-*   Insufficient learner practice, practice detached from reality.
-*   High course creation costs on the management side, poor content reusability.
-*   Learning effectiveness is hard to quantify and continuously improve.
+After, feedback is "in-process feedback." During practice, AI tells you: that sentence could be phrased better this way.
 
-Our choice is not a feature upgrade, but a complete **AI-Native product paradigm shift**.
+---
 
-## V. Core Design Principles
+Direction clear, time to build.
 
-We have established the following **core product principles:**
+We did several things.
 
-1.  **Reduce interface interactions, make chat the core**
-2.  **Focus on enhancing AI coach intelligence**
-3.  **Make AI coaches ubiquitous, smarter with use**
+**Real-time assistance.**
 
-All subsequent feature designs revolve around these three principles.
+In traditional mode, learners practice in isolation. The script book is there, but by the time you flip to it, it's too late. The AI coach is nearby, but only comments after practice is done.
 
-## VI. Key Refactoring
+We changed this. When learners practice with an AI customer, AI can give real-time hints: You're in the needs discovery phase now, try asking more open-ended questions; the customer just mentioned price, you could respond this way.
 
-### 6.1 Real-Time Assistance—Changing the "Practice Process"
+Not speaking for the learner, but giving them "handholds."
 
-#### Traditional Model's Defects
+**Conversational course creation.**
 
-*   Learner practice and learning are disconnected;
-*   Gold-standard scripts and excellent examples can only be viewed "after the fact";
-*   When practice is most needed, help is most isolated.
+In traditional LMS, creating courses is specialized work. Many fields to fill, many rules to configure. Only training department staff can operate it. Front-line business experts can't participate at all.
 
-#### AI-Native Solution: Real-Time Assistance Mechanism
+We switched approaches: Let trainers talk to AI, describe what kind of course they want, what kind of customer role, what scenarios. AI automatically generates course structure, trainers adjust.
 
-We introduce a **real-time assistance mechanism** during practice, mainly including:
+Turning "configuration behavior" into "expression behavior."
 
-*   **Stage Goal Hints:** The system can identify current dialogue progress and proactively hint to learners "what is the goal of the current stage" (e.g., during needs discovery, hinting learners to ask more open-ended questions), solving the bottleneck of "not knowing what to say."
-*   **Product Information Hints:** When dialogue involves specific product parameters, AI automatically pushes relevant product knowledge to assist learners in accurate responses.
-*   **Gold Script Recommendations:** Dynamically recommend excellent scripts based on context, combined with enterprise knowledge base, achieving a "practice while learning" closed loop.
+**Learner-created practice.**
 
-#### Design Trade-offs
+In real business, the most valuable cases often come from the front lines. A customer said something strange, a scenario not in any textbook. Traditional systems can't capture this content.
 
-We deliberately avoid making AI a "teacher who interrupts anytime," instead:
+We built a feature: Learners can create their own AI customers to practice against their specific challenges. Created cases, after review, can become organization-shared courses.
 
-*   **Only intervene at key decision points;**
-*   Provide "optional suggestions," not forced corrections;
-*   Preserve learners' trial-and-error space.
+Letting content shift from "top-down distribution" to "bottom-up emergence."
 
-> **Learning is not replaced, but amplified.**
+**Closed-loop feedback.**
 
-### 6.2 Conversational Course Creation—Making "Course Creation" Itself AI-Native
+Practice done, AI scores and comments. But that's not all.
 
-#### Problem Insight
+We automatically extract "golden scripts" from high-scoring practices and recommend them to other learners. After viewing the score report, learners can continue asking AI about specific deduction points: What did I say wrong? How should I have said it?
 
-In traditional LMS, course creation is a highly specialized, configuration-intensive task:
+Turning evaluation into fuel for system evolution.
 
-*   Trainers need to understand structure, fields, rules;
-*   Frontline business experts struggle to participate in content co-creation;
-*   High course creation costs lead to slow content updates.
+---
 
-#### Core Decision
+Enough about the good stuff, let's talk about the dilemmas.
 
-We first introduced the **「Conversing with AI is Course Creation」** model, transforming course creation from "configuration behavior" to "expression behavior."
+**First dilemma: Should AI proactively interrupt?**
 
-#### Implementation
+At first, we made AI very active. Every sentence the learner said, AI would jump in with suggestions.
 
-*   **AI-Driven Knowledge Base Creation Wizard:** Through Q&A wizard, automatically generate knowledge base based on company background information and user answers.
-*   **Conversational Course Creation and Editing:** Trainers describe goals, scenarios, and learner profiles in natural language, and AI automatically generates course structure. More importantly, supporting **conversational editing**, users can directly express "I think this customer is too gentle," and AI automatically adjusts role settings, rather than repeatedly entering configuration pages to modify parameters.
-*   **What You See Is What You Get:** Left side shows real-time preview of course structure and content, right side converses with AI assistant for adjustments, greatly reducing cognitive load.
+Learner feedback: Too annoying. Practicing and getting constantly interrupted, can't concentrate at all.
 
-#### Product Thinking
+We discussed for a long time. Some felt AI should be real-time, otherwise where's the value. Others felt learning needs trial-and-error space, AI shouldn't over-intervene.
 
-The key here is not "generating content," but **lowering the cognitive threshold:**
+Finally we set a principle: Only intervene at key decision points.
 
-> If a system can only be used by experts, it can never become the infrastructure of organizational capability.
+What's a key decision point? Like when a learner is stuck, hasn't spoken for ten seconds. Or when a learner says something clearly inappropriate.
 
-### 6.3 Learner Self-Practice (UGC)—Refactoring Content Production Mechanism
+Other times, AI stays quiet, lets learners practice on their own.
 
-#### Why UGC
+Learning isn't being replaced, it's being amplified.
 
-In real business, the most valuable cases often come from the frontline:
+**Second dilemma: How comprehensive should features be?**
 
-*   New customer objections;
-*   On-the-spot response methods;
-*   Non-standard scenarios.
+In product design, everyone has impulses: This feature has value, that feature has value. Should we do presentation training? Script memorization? Exams?
 
-In traditional systems, this content is hard to structure and accumulate.
+If we don't, will customers think the product is too simple?
 
-#### Our Approach
+My judgment: Features can be many, but the core can't be scattered.
 
-*   **C-Side Course Creation (Learner Self-Practice):** Empower learners to quickly create AI customers for targeted practice through simple dialogue based on real difficulties they encounter (e.g., "dealing with a difficult pharmacy owner").
-*   **Organization-Wide Hot Practice:** Establish a bottom-up content contribution mechanism where high-quality practical cases created by learners can be reviewed lightly and accumulated as organization-shared courses.
+We set three principles: Minimize interface interaction, make dialogue central; Make AI coach intelligence central; Make AI coach everywhere, getting smarter with use.
 
-#### Product Value
+Every new feature gets asked: Does it fit these three? If not, don't do it.
 
-*   Content shifts from "top-down distribution" to "bottom-up emergence";
-*   AI becomes the "content structuring engine";
-*   Organizational experience truly becomes accumulatable and reusable.
+---
 
-### 6.4 Closed-Loop Feedback System—Making Data Truly "Feed Back into the System"
+Looking back, I think we got a few things right.
 
-#### Design Goal
+Didn't treat AI as a feature, but as the system brain.
 
-We don't want scoring to just be "scoring," but fuel for system evolution.
+Many products add AI at the edges. AI generation here, AI analysis there. AI is just decoration.
 
-#### Core Design
+We put AI at the center. The entire product logic is designed around AI.
 
-*   **Script Extraction and Recommendation Loop:** The system not only scores, but more importantly automatically extracts "gold scripts" from high-scoring practices and recommends them to other learners, making organizational best practices flow automatically.
-*   **Ask AI Coach Based on Report:** When learners view scoring reports, they can directly ask AI about specific deduction points ("What did I say wrong? How should I change it?"), getting personalized deep coaching.
-*   **Sentence-by-Sentence Commentary:** Provide detailed feedback and improvement suggestions down to single sentences, not vague overall comments.
+Used dialogue to reconstruct the relationship between people and systems.
 
-#### Closed-Loop Mechanism
+Traditional training systems have users passively receiving. System pushes whatever course, users take whatever course.
 
-```mermaid
-graph TD
-    A[Learner Practice] --> B{AI Scoring & Commentary};
-    B --> C{Excellent Behavior Recognition};
-    C --> D[Accumulate as Organizational Knowledge];
-    D --> E[Feed Back into Real-Time Assistance & Course Creation];
-    E --> A;
-```
+Dialogue-based interaction changed this relationship. Users actively express, system responds. Users aren't "using" the system, they're "collaborating with" it.
 
-> This is the key step from **"evaluation system" to "self-learning system"**.
+Made organizational capability capable of self-evolution.
 
-## VII. Full Scenario Coverage: Training Loop Balancing Legacy and Transformation
+Traditional training has dead content. Whatever courses the training department produces, everyone learns.
 
-While promoting AI-Native transformation, we also accommodate existing corporate training needs and habits, building a **full-scenario training system:**
+UGC mechanism lets front-line experience flow back. AI automatically extracts scripts, letting best practices flow. Organizational experience can be systematically accumulated and reused for the first time.
 
-1.  **AI Customer (RolePlay):** Core transformation module, focusing on real dialogue and strategy training.
-2.  **AI Examiner:** **Intelligent upgrade of traditional assessment**. Supports AI automatically generating test questions from documents (covering essay questions, multiple choice, calculation questions), preserving the standardized assessment format enterprises are used to while greatly improving question generation and grading efficiency.
-3.  **Speech Training:** Supports PPT upload and interaction metrics monitoring, covering "one-way output" scenarios like product presentations and proposal reports.
-4.  **Script Reading / Recitation:** Basic capability reinforcement.
+---
 
-Additionally, we introduced **anti-cheating** mechanisms (face detection, etc.) to ensure the seriousness and fairness of enterprise-level applications.
+What's my biggest takeaway from building this product?
 
-These four modules together form the complete loop of **Learn → Practice → Test → Evaluate → Practice Again**.
+Technology isn't the hardest part.
 
-## VIII. Summary: Three Things We Got Right
+Large language models are powerful enough. Having them play customers, give feedback, extract scripts—none of this is hard.
 
-1.  **We didn't treat AI as a feature, but as the system brain**
-2.  **We refactored the relationship between people and systems through dialogue**
-3.  **We enabled organizational capability to have "self-evolution" potential for the first time**
+The hard part is thinking clearly: What exactly do you want it to do?
 
+What's the purpose of training? Not "teaching done," but "change happening."
+
+Can AI help change happen? Yes. But the prerequisite is defining clearly: What kind of change, in what scenarios, how to judge that change happened.
+
+AI can't answer these questions. Only people can.
+
+A product manager's value isn't in technology, it's in defining problems.
