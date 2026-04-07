@@ -1,5 +1,17 @@
 [
     {
+        "id": "aio-thinking",
+        "date": "2026-04-07",
+        "tags": [
+            "Insight"
+        ],
+        "title": {
+            "zh": "当 AI 开始自己花钱",
+            "en": "When AI Starts Spending Money"
+        },
+        "path": "writing/2026-04-07/aio-thinking.md"
+    },
+    {
         "id": "13o2TtEestNsy-J6zyHhA0H0ejCZP5HOCZ80vuOyXPqU",
         "date": "2026-01-13",
         "tags": [
