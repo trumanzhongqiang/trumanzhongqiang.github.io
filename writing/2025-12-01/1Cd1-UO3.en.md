@@ -1,86 +1,103 @@
-Here are the specific advantages of n8n compared to Dify, along with a detailed cost comparison:
+# I Killed a Bamboo Plant, Then Built an AI
 
-### I. What are the core advantages of n8n?
+I killed a bamboo plant.
 
-1. **Extremely Powerful "Integrations"**
+Bought it bright green, put it on the balcony, watered it every day. Two weeks later, leaves turned yellow. Another week, dead.
 
-This is n8n's killer feature. It comes with 1000+ built-in interfaces for mainstream software (Google Sheets, Airtable, Slack, Gmail, Shopify, WordPress, etc.).
+I still don't know why. Too much water? Too little? Too much sun? Not enough fertilizer?
 
-**Dify's Limitation:** Dify excels at "Input -> AI Reasoning -> Output." However, if you want something like: "When a plant is identified as a **Monstera**, automatically scrape its price from **Taobao**, send an **email** to the supplier, and record a row of data in an **Excel** sheet" — implementing this workflow in Dify via code is very painful.
+I thought, if something could tell me "what's wrong with this plant," "what to do," "when to water"—maybe it would've survived.
 
-**n8n's Strength:** The above workflow in n8n is just a few drag-and-drop nodes, completed in 5 minutes. It connects various software without needing to write code.
+So I built a small project: PlantCare.
 
-2. **Fine-grained Data Processing Logic**
+Simple function: snap a photo, identify the plant, tell you what it is, how to care for it, whether something's wrong.
 
-If you need to perform complex "surgery" on data, n8n is stronger.
+---
 
-**Scenario:** An image sent from an app might be Base64 encoded. You need to convert it to binary, compress it, rename the file, and finally upload it to Aliyun OSS.
+Feature clear, what to build it with?
 
-**Comparison:** Dify's file handling is relatively "black box"; n8n provides extremely detailed Code nodes and Binary nodes, allowing you to control the flow of every single byte.
+I looked at two things: Dify and n8n.
 
-3. **Complex Scheduled Tasks (Cron Jobs)**
+At first I thought they were competitors. Use Dify, no need for n8n. Use n8n, no need for Dify.
 
-**Scenario:** You want the app to push a "Flower of the Day" or a "Watering Reminder" to users exactly at 8:00 AM every morning.
+After looking around, I found that's not the case.
 
-**Comparison:** Dify itself lacks a scheduled task function (it can only respond passively to user queries); n8n has a built-in Cron trigger, which is perfect for this kind of automated push.
+They're not the same kind of thing at all.
 
-### II. Is n8n's cost lower?
+What's Dify? An AI application development platform. You connect a model, it handles conversation, memory, knowledge base, tool calls. Core is "make AI easier to use."
 
-This depends on whether you look at the **"Cloud Version"** or the **"Self-Hosted Version."**
+What's n8n? An automation platform. You set triggers, it runs workflows, connects systems, passes data. Core is "make things run automatically."
 
-1. **Cloud Version (SaaS) Comparison**
+Analogy: Dify is the brain, n8n is the limbs.
 
-If you don't want to buy a server and prefer using the official web version:
+What did I need?
 
-**Dify Cloud:**
-- **Free Version:** Very comprehensive, sufficient for development and testing (currently, as long as you use your own Aliyun API Key instead of their GPT-4 quota, it is basically **¥0**).
-- **Paid Version:** Starts at $59/month (approx. ¥420).
+Identify plants, answer questions, give care advice—that's AI territory, Dify's strength.
 
-**n8n Cloud:**
-- **Free Version:** Only a trial available; no permanent free tier.
-- **Paid Version:** Starter plan is approximately **€20/month** (approx. ¥150).
+Scheduled watering reminders, push care tips—that's automation, n8n's strength.
 
-**Conclusion:** In the cloud model, **Dify has a lower initial cost (free)**, while n8n has a higher entry barrier.
+---
 
-2. **Self-Hosted Version Comparison**
+I used Dify first.
 
-If you rent a cloud server (VPS) and set it up yourself:
+Why? Because the core function is AI conversation, and Dify works out of the box.
 
-**Software Licensing:**
-- **Dify:** Open-source Community Edition is free (Apache 2.0 license).
-- **n8n:** Community Edition is free (Fair-code license), but there may be specific restrictions for **commercial use** (e.g., charging others for projects you build). However, using it as a backend for your own app is usually fine.
+Conversation memory.
 
-**Server Costs:**
-Both consume server resources.
-- **Dify:** Quite memory-intensive; recommended at least 4GB RAM (approx. ¥100-200/month).
-- **n8n:** Very lightweight; it runs smoothly even on a 1GB RAM server (approx. ¥30-50/month).
+User asks "what flower is this," AI says "this is a pothos." User follows up "is it poisonous," AI needs to know the previous mention was pothos.
 
-**Conclusion:** If you host it yourself, **n8n's hardware cost is significantly lower than Dify's.**
+In Dify this is default. Start a conversation, context is automatically remembered.
 
-### III. Why do I still recommend you start with Dify?
+In n8n? You have to set up a database to store chat history yourself, pull history every request to feed the model. For beginners, that's a hassle.
 
-Despite n8n's lower hardware costs and stronger connectivity, it has a massive **hidden cost** for a specific scenario like a **"Plant Identification App"**: **Development Complexity.**
+Knowledge base.
 
-**"Memory" is hard to implement:**
-User: "What flower is this?" -> AI: "This is a Pothos." -> User: "Is it poisonous?"
-- **Dify:** Automatically remembers the previous context was "Pothos" and answers directly.
-- **n8n:** It is "forgetful" by default. You would need to set up a Redis database, write code to store chat history, and manually extract and feed that history to the AI in every request. This is **extremely difficult** for beginners.
+I wanted AI to know common plant care knowledge. Upload a few care guides, articles—Dify automatically chunks, vectorizes, retrieves.
 
-**RAG (Knowledge Base) is hard to implement:**
-- **Dify:** Upload a PDF, and it automatically handles chunking, vectorization, and retrieval.
-- **n8n:** You need to call a vector database (like Pinecone) yourself, write the embedding workflow yourself, and build the retrieval logic yourself.
+In n8n, you have to connect a vector database yourself, write retrieval logic. Not impossible, just too much trouble.
 
-### IV. Final Suggestion: The "Hybrid" Approach
+Image recognition.
 
-As your app grows, the best architecture is often **using Dify and n8n together**.
+Snap a photo, identify what plant. Dify supports multimodal, connect a vision model.
 
-- **Dify (The Brain):** Responsible for handling conversations, identifying images, searching the knowledge base, and managing context/memory.
-- **n8n (The Limbs):** Responsible for handling peripheral tasks.
+I spent two days with Dify, core features were running.
 
-**Real-world Scenario:**
-1. **Dify** identifies that a plant has a "Spider Mite" infestation and provides a treatment.
-2. **Dify** triggers an API tool to send this information to **n8n**.
-3. **n8n** receives the message, automatically generates a "Spider Mite Pesticide Coupon" in your store backend, and sends it to the user via SMS.
+---
 
-**The Final Roadmap for Beginners:**
-- **Now:** Use **Dify** only. It's worry-free, free of charge
+But some things Dify couldn't do.
+
+Scheduled reminders.
+
+I wanted to push a "daily care tip" every morning at 8: weather, whether to water, any pest warnings.
+
+Dify is passive. User asks, it answers. It doesn't proactively reach out.
+
+n8n has a built-in scheduler. Set a cron, runs at 8 AM daily, calls weather API, checks plant status, generates content, pushes to WeChat.
+
+Dify can't do this.
+
+External system integration.
+
+If I wanted to sync data to Notion, or connect to an e-commerce backend to send coupons—n8n has thousands of built-in integrations. Drag a few nodes, done.
+
+Dify can call external APIs too, but not as rich as n8n.
+
+---
+
+In the end, my architecture became this:
+
+Dify as the brain. Handles conversation, identifies plants, answers questions, searches knowledge base.
+
+n8n as the limbs. Scheduled reminders, push notifications, external system connections.
+
+Dify receives a request, processes it, sends results to n8n via API. n8n runs the subsequent automation.
+
+Not either-or, but a combo.
+
+If you're building similar personal projects:
+
+Core is AI conversation, need memory and knowledge base → start with Dify
+Need scheduled tasks, external system connections → add n8n
+Need both → use them together
+
+Tools serve needs, not camps.
