@@ -104,13 +104,13 @@ If you don't know what you want, the more AI gives you, the more confused you be
 
 ---
 
-I've been doing product work for ten years. These past two years, I've been working on AI-related products.
+I've been doing AI products for six years, and for the past three years, I've been working on LLM-related products.
 
 What's my biggest takeaway?
 
 Technology isn't the bottleneck.
 
-Large language models are already very capable. GPT-4, Claude, various domestic models—their abilities are improving rapidly. Whatever functionality you want can basically be implemented technically.
+Large language models are already very capable. OpenAI, Anthropic, various domestic vendors—their abilities are improving rapidly. Whatever functionality you want can basically be implemented technically.
 
 The real bottleneck is: what exactly do you want it to do?
 
