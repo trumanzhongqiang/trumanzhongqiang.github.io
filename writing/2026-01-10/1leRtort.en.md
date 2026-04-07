@@ -1,4 +1,4 @@
-**Title: Don't Treat AI Like a Search Engine**
+# Don't Treat AI Like a Search Engine
 
 A while back, I was working on an AI coach product. In a meeting, a colleague from the product team suggested: let AI play a picky customer to help salespeople practice.
 
