@@ -223,22 +223,26 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
             }
 
-            // Determine which file to load based on language
-            let targetDoc = docName;
-            if (currentLang === 'en') {
-                // Try English version: add .en before .md
-                const lastDotIndex = docName.lastIndexOf('.');
-                if (lastDotIndex !== -1) {
-                    targetDoc = docName.substring(0, lastDotIndex) + '.en' + docName.substring(lastDotIndex);
-                }
+            // Normalize the doc path to base version first
+            // e.g., "xxx.en.md" -> "xxx.md", "xxx.md" stays as "xxx.md"
+            let baseDoc = docName;
+            if (docName.endsWith('.en.md')) {
+                baseDoc = docName.slice(0, -6) + '.md'; // Remove '.en' from '.en.md'
             }
 
-            // Try to load language-specific version, fallback to original if not found
+            // Determine which file to load based on language
+            let targetDoc = baseDoc;
+            if (currentLang === 'en') {
+                // English version: change .md to .en.md
+                targetDoc = baseDoc.replace('.md', '.en.md');
+            }
+
+            // Try to load language-specific version, fallback to base if not found
             loadMarkdown(targetDoc)
                 .catch(() => {
-                    // If language-specific version not found, try original
-                    if (targetDoc !== docName) {
-                        return loadMarkdown(docName);
+                    // If language-specific version not found, try base version
+                    if (targetDoc !== baseDoc) {
+                        return loadMarkdown(baseDoc);
                     }
                     throw new Error('Failed to load document');
                 })
