@@ -1,67 +1,125 @@
-# Product Reconstruction Notes in the Era of Agentic AI
+**Title: Don't Treat AI Like a Search Engine**
 
-Over the past decade of my internet product career, I was used to drawing prototypes, writing documents, and tracking progress. Back then, software was **deterministic**: input A, and it inevitably outputs B. If it outputs C, that’s a bug that needs fixing.
+A while back, I was working on an AI coach product. In a meeting, a colleague from the product team suggested: let AI play a picky customer to help salespeople practice.
 
-But in the last two years, as I dived headfirst into the wave of Large Language Models (LLMs)—from independently developing "AI Assistants" to designing the implementation of enterprise-level "AI Coaches"—I’ve realized the rules of the game have completely changed. We are no longer designing a "tool"; we are hiring and managing a team of "silicon-based employees."
+My first thought: how hard can that be? Get a large model, write a few prompts, tell it to "play a picky customer." Done.
 
-This is the trend Andrew Ng has recently been emphasizing: **Agentic Workflow**.
+So I did exactly that. The result? That AI customer acted like a robot reciting lines. Whatever you said, it accepted, then moved on to the next line. No sense of being "picky," no rhythm of real customers who "intentionally create friction."
 
-Today, I want to talk about this "new worldview" from the perspective of a product manager in this new era.
+I sat there looking at the screen, and suddenly realized something:
 
-![Image](https://res.cloudinary.com/dtv7s0fyt/image/upload/v1768068691/blog/1leRtortKv1NA9aqPBplUSCXQYkbh_5SWsdqHDeu9eIo/image_1.png)
+I had been treating AI like a search engine.
 
-### 1. Don't Treat AI as a Search Engine; Treat It as an "Intern"
+Throw a question in, expect an answer out. In AI terms, this is called Zero-shot. Zero-sample prompting. Sounds fancy, but it basically means: you give nothing and expect AI to figure it out on its own.
 
-Many people find AI difficult to use because they are still using **"search engine"** logic—throwing in a keyword and expecting a perfect answer. In the AI field, this is known as **Zero-shot**.
+Here's the problem.
 
-If you directly ask an AI to "play a picky customer to help a salesperson practice," it usually performs like a robot reading a script. But if you change your approach and treat it as a **"smart intern"** who just joined:
+AI isn't a search engine. It's more like a fresh intern.
 
-**Give Context (Persona):** "You are a customer who cares deeply about value for money but is also a bit vain."
+---
 
-**Give Process (SOP):** "Listen to the salesperson first. If they don't mention 'prestige,' deliberately make things difficult for them."
+Think about it. If a new intern joined your company and you told them to "play a picky customer for sales practice," how would they react?
 
-**Give Feedback (Reflection):** "After this round, reflect on your performance. Were you too easy to talk to? Be stricter in the next round."
+They'd probably freeze: Boss, what does a picky customer look like? What points should I challenge? How should I respond when the salesperson says something? Should I adjust after each round?
 
-This is the essence of an **Agentic Workflow**.
+You have to tell them. Give context, give process, give feedback.
 
-This process can be summarized as the **PAR Model (Plan-Act-Reflect)**:
+Give context: You're a customer who cares about value but also has a bit of vanity.
+Give process: Listen first. If they don't mention "premium feel," deliberately push back.
+Give feedback: After this round, reflect—were you too soft? Be tougher next time.
 
-**Plan:** Like leading a team, set goals and break down tasks first.
+These three things—product managers do them every day. Leading teams, setting goals, giving feedback.
 
-**Act:** Let the AI execute and call tools (e.g., checking inventory, sending emails).
+Only now, the recipient is AI.
 
-**Reflect:** This is the most critical step. Let the AI check its own "homework," or introduce another "AI Inspector" to find flaws.
+Some call this Agentic Workflow. I find that term too academic. Simply put: don't expect AI to figure it out alone. Teach it. If one round isn't enough, teach it again.
 
-In actual business scenarios, through this "self-adversarial" mechanism, we have seen AI performance jump from "mediocre" to "stunning." Product managers are no longer just definers of features; they are the **"Deans of Students"** for AI.
+---
 
-### 2. Accept the "Unreliability Tax" and Be the "Night's Watch" of the System
+Later, I summarized this into a model called PAR.
 
-Traditional software pursues extreme low latency and high concurrency, but in the Agent era, we must learn to coexist with **"slowness"** and **"errors."**
+Plan. Think clearly about what you want AI to do. Break it into steps.
+Act. Let AI execute—search, write, use tools.
+Reflect. This is the key step. Let AI check its own "homework," or get another AI to be the quality inspector.
 
-There is a concept in the industry called the **"Unreliability Tax."** AI is inherently a probabilistic model; it will make mistakes and "hallucinate" with total confidence.
+In real work, I tried letting two AIs "spar with each other." One plays the customer, one acts as judge. The judge watches and says: You were too polite this round. Next round, be more specific with your challenges.
 
-In previous traditional projects, I was used to chasing 99.9% accuracy. But with AI products, I’ve learned a different mindset: **Fault-tolerant design.**
+After just a few rounds, that "robot reciting lines" suddenly developed some texture.
 
-**Thinking Budget:** If a user asks "What's the weather today?", we don't need the AI to think; we just call an API (fast). But if a user asks "How do I develop a quarterly sales strategy?", we need to allow the AI to "stare blankly" for dozens of seconds or even minutes. Behind the scenes, it might be researching data, drafting outlines, and self-correcting. As a product manager, you don't need to eliminate waiting time; the key is to demonstrate the **value of the designed wait**—the stunning result. Tell the user: "Hang on, the AI is thinking deeply for you."
+The product manager's role shifted too.
 
-**Circuit Breaking:** Just like an electrical fuse. When an AI gets stuck in a dead loop (e.g., repeatedly trying to call a broken tool), we need to design a forced shutdown mechanism for human intervention.
+Previously: defining features. Now: more like AI's "dean of studies."
 
-Now, I view AI product architecture like a **kitchen assembly line**: you can't have one head chef (LLM) do everything from chopping vegetables to plating, as that is slow and error-prone. We break tasks down: the prep cook (Retrieval Agent) finds materials, the head chef (Reasoning Agent) handles the cooking, and the taster (Evaluation Agent) ensures quality.
+---
 
-### 3. Vibe Coding: The Product Manager's "Magic Wand"
+But there's another thing that took me a long time to adapt to.
 
-In the past, the gap between having an idea and seeing a demo was filled with long PRD reviews, scheduling, development, and testing. This cycle was measured in "weeks."
+I spent ten years in traditional software. I was used to certainty. Input A, output definitely B. If output was C, that's a bug—fix it.
 
-Now, with the help of **Vibe Coding**, this cycle has been compressed into "hours."
+AI is different.
 
-When exploring independent development, I am not a professional programmer, but I can "command" AI to write code using natural language. This is not just an efficiency boost; it is a **breaking of cognitive boundaries.**
+AI is a probabilistic model. It will make mistakes. It will confidently say nonsense. The industry calls this "hallucination."
 
-**Before:** I would write "Because... therefore..." in a document, and a developer would say "This logic can't be implemented."
+There's a concept called "unreliability tax." Meaning: you have to accept that AI isn't reliable, and treat that as a cost.
 
-**Now:** I write the business logic directly as pseudo-code, or even run a working prototype myself to show the developer: "Look, this is the effect I want."
+When I first started doing AI products, I still chased 99.9% accuracy. Later I realized: you can't chase that.
 
-This has made me realize deeply: the core capability of a "super individual" in the future is not "writing code," but **"defining the problem"** and **"verifying the results."** Product managers are evolving from "people who draw blueprints" to "people who build houses."
+So what to do?
 
-### 4. Conclusion: From "Connection" to "Empowerment"
+I thought about it for a long time and realized: not every question needs AI to think slowly.
 
-I have always believed that technology should not just be a tool for showing off; it should solve real pain points. The era of Agentic AI has just begun. We no longer need to adapt to cold machine instructions as we did before. Instead, machines are learning how to adapt to us at an unprecedented speed.
+User asks "what's the weather today"—no need for AI to think. Just call an API. Fast.
+
+User asks "how to plan quarterly sales strategy"—this is worth letting AI "stare blankly" for a bit. In the backend, it might be researching, drafting outlines, self-correcting. Tens of seconds, even minutes.
+
+The key is: let users know. AI is thinking deeply for you. The wait is valuable.
+
+Another thing: circuit breaker.
+
+Like a fuse in electrical wiring. Sometimes AI gets stuck in a loop, repeatedly trying some wrong operation. You need to force a stop and let a human intervene.
+
+Now when I look at AI product architecture, it's like looking at a kitchen.
+
+Can't let one chef do everything from chopping to plating. Too slow, too prone to errors.
+
+Must divide the work. Prep cook finds ingredients, head chef cooks, taster checks results.
+
+Retrieval Agent finds information. Reasoning Agent makes decisions. Evaluation Agent checks outcomes.
+
+---
+
+There's one more thing that completely changed how I build products.
+
+Before: from idea to demo meant PRD review, scheduling, development, testing. Cycle measured in weeks.
+
+Now?
+
+I write business logic directly as pseudocode, throw it to AI. A few hours later, a runnable prototype appears.
+
+I throw the prototype to developers: See, this is the effect I want.
+
+Developer looks and says: Can do.
+
+This is so-called Vibe Coding. I can't write real code, but I can use natural language to direct AI to write it.
+
+The significance isn't just efficiency. It's breaking cognitive boundaries.
+
+Before, if a developer said "this logic can't be implemented," I could only revise the document.
+
+Now I can directly verify: is it truly unimplementable, or just that the developer doesn't want to do it?
+
+Product managers are shifting from "people who draw blueprints" to "people who build houses."
+
+---
+
+Speaking of this, I want to summarize a few points.
+
+For the past decade, I made "connection" products. Connecting people to information, people to services, people to people.
+
+These past two years, I've been making "empowerment" products. Letting AI understand people, help people do things, amplify human capabilities.
+
+I think this is where it gets interesting.
+
+Machines are learning to adapt to us, instead of us learning to adapt to machines.
+
+This isn't a victory of technology. It's a victory of humans.
