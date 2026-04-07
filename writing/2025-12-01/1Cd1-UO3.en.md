@@ -42,23 +42,17 @@ I used Dify first.
 
 Why? Because the core function is AI conversation, and Dify works out of the box.
 
-Conversation memory.
-
-User asks "what flower is this," AI says "this is a pothos." User follows up "is it poisonous," AI needs to know the previous mention was pothos.
+**Conversation memory**: User asks "what flower is this," AI says "this is a pothos." User follows up "is it poisonous," AI needs to know the previous mention was pothos.
 
 In Dify this is default. Start a conversation, context is automatically remembered.
 
 In n8n? You have to set up a database to store chat history yourself, pull history every request to feed the model. For beginners, that's a hassle.
 
-Knowledge base.
-
-I wanted AI to know common plant care knowledge. Upload a few care guides, articles—Dify automatically chunks, vectorizes, retrieves.
+**Knowledge base**: I wanted AI to know common plant care knowledge. Upload a few care guides, articles—Dify automatically chunks, vectorizes, retrieves.
 
 In n8n, you have to connect a vector database yourself, write retrieval logic. Not impossible, just too much trouble.
 
-Image recognition.
-
-Snap a photo, identify what plant. Dify supports multimodal, connect a vision model.
+**Image recognition**: Snap a photo, identify what plant. Dify supports multimodal, connect a vision model.
 
 I spent two days with Dify, core features were running.
 
@@ -66,9 +60,7 @@ I spent two days with Dify, core features were running.
 
 But some things Dify couldn't do.
 
-Scheduled reminders.
-
-I wanted to push a "daily care tip" every morning at 8: weather, whether to water, any pest warnings.
+**Scheduled reminders**: I wanted to push a "daily care tip" every morning at 8—weather, whether to water, any pest warnings.
 
 Dify is passive. User asks, it answers. It doesn't proactively reach out.
 
@@ -76,9 +68,7 @@ n8n has a built-in scheduler. Set a cron, runs at 8 AM daily, calls weather API,
 
 Dify can't do this.
 
-External system integration.
-
-If I wanted to sync data to Notion, or connect to an e-commerce backend to send coupons—n8n has thousands of built-in integrations. Drag a few nodes, done.
+**External system integration**: If I wanted to sync data to Notion, or connect to an e-commerce backend to send coupons—n8n has thousands of built-in integrations. Drag a few nodes, done.
 
 Dify can call external APIs too, but not as rich as n8n.
 
@@ -99,5 +89,3 @@ If you're building similar personal projects:
 Core is AI conversation, need memory and knowledge base → start with Dify
 Need scheduled tasks, external system connections → add n8n
 Need both → use them together
-
-Tools serve needs, not camps.
