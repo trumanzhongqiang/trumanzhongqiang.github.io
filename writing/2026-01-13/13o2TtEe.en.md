@@ -140,16 +140,22 @@ But it also means one thing:
 
 You have to know more clearly what you want.
 
-Before, you could say "let me try first." Trial and error in a chat box doesn't cost much.
+It's not that AI will go against your intent and execute randomly. AI won't make decisions for you—it only gives you options.
 
-Later, when AI permeates every corner of life, every vague instruction of yours will be amplified into concrete action.
+The problem is, when AI instantly gives you a hundred options, which one do you choose?
 
-You casually say "help me arrange the trip," and AI might book flights, hotels, restaurants for you.
+You ask AI to arrange a trip, it gives you ten plans: early flight or late? Chain hotel or boutique? Western or Japanese?
 
-Do you really want those?
+Every option looks fine. But what do you actually want?
 
-After the chat box disappears, the buffer between you and the result is gone too.
+If you don't know, you'll just spin among these options. AI recommends, you nod. AI gives another recommendation, you nod again.
 
-Intent becomes execution.
+You think you're using AI.
 
-This isn't a technical problem. It's a problem each of us has to face.
+Actually, you're working for AI.
+
+It's asking questions, you're answering. It's leading, you're following.
+
+After the chat box disappears, what becomes scarce isn't "knowing how to use AI"—it's knowing what you want.
+
+Not a technical problem. A problem of agency.
