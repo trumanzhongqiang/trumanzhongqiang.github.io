@@ -27,11 +27,11 @@
         "id": "autoglm-tutorial",
         "date": "2025-12-12",
         "tags": [
-            "Tutorial"
+            "Insight"
         ],
         "title": {
-            "zh": "AutoGLM 手机自动化小白教程",
-            "en": "AutoGLM Mobile Automation Beginner Tutorial"
+            "zh": "我让 AI 接管了我的手机",
+            "en": "I Let AI Take Over My Phone"
         },
         "path": "writing/2025-12-12/autoglm.md"
     },
