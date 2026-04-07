@@ -622,6 +622,7 @@ footer {
     color: var(--text-primary);
     border-bottom: 2px solid rgba(136, 146, 176, 0.2);
     padding-bottom: 0.5rem;
+    text-align: center;
 }
 
 .markdown-content h2 {
