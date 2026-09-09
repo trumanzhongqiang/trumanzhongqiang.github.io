@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <defs>
+    <linearGradient id="bgb" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a192f"/>
+      <stop offset="1" stop-color="#112240"/>
+    </linearGradient>
+    <pattern id="dotsb" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.5" fill="#1e3a5f"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bgb)"/>
+  <rect width="1200" height="675" fill="url(#dotsb)"/>
+  <!-- open book -->
+  <g transform="translate(800,180)">
+    <path d="M0 40 Q 100 -10 200 40 L 200 240 Q 100 190 0 240 Z" fill="none" stroke="#64ffda" stroke-width="3"/>
+    <path d="M200 40 Q 300 -10 400 40 L 400 240 Q 300 190 200 240" fill="none" stroke="#64ffda" stroke-width="3"/>
+    <line x1="200" y1="40" x2="200" y2="240" stroke="#64ffda" stroke-width="3"/>
+    <line x1="30" y1="80" x2="170" y2="55" stroke="#64ffda" stroke-width="2" opacity="0.5"/>
+    <line x1="30" y1="120" x2="170" y2="95" stroke="#64ffda" stroke-width="2" opacity="0.4"/>
+    <line x1="230" y1="55" x2="370" y2="80" stroke="#64ffda" stroke-width="2" opacity="0.5"/>
+    <line x1="230" y1="95" x2="370" y2="120" stroke="#64ffda" stroke-width="2" opacity="0.4"/>
+  </g>
+  <!-- title -->
+  <text x="80" y="300" font-family="Inter, Arial, sans-serif" font-size="88" font-weight="800" fill="#e6f1ff">个人传记</text>
+  <text x="84" y="362" font-family="Inter, Arial, sans-serif" font-size="36" fill="#8892b0">Biography Agent Skill</text>
+  <rect x="84" y="400" width="120" height="6" fill="#64ffda"/>
+  <text x="84" y="460" font-family="Inter, Arial, sans-serif" font-size="28" fill="#64ffda">Agent Skill · Life Story Writing</text>
+</svg>

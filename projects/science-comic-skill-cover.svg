@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <defs>
+    <linearGradient id="bgs" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a192f"/>
+      <stop offset="1" stop-color="#112240"/>
+    </linearGradient>
+    <pattern id="dotss" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.5" fill="#1e3a5f"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bgs)"/>
+  <rect width="1200" height="675" fill="url(#dotss)"/>
+  <!-- comic panels -->
+  <g transform="translate(760,120)">
+    <rect x="0" y="0" width="190" height="170" rx="8" fill="none" stroke="#64ffda" stroke-width="3"/>
+    <rect x="210" y="0" width="190" height="170" rx="8" fill="#64ffda" opacity="0.1"/>
+    <rect x="0" y="190" width="190" height="170" rx="8" fill="#64ffda" opacity="0.1"/>
+    <rect x="210" y="190" width="190" height="170" rx="8" fill="none" stroke="#64ffda" stroke-width="3" opacity="0.7"/>
+    <!-- face in panel 1 -->
+    <circle cx="95" cy="80" r="32" fill="none" stroke="#64ffda" stroke-width="3"/>
+    <circle cx="83" cy="72" r="4" fill="#64ffda"/>
+    <circle cx="107" cy="72" r="4" fill="#64ffda"/>
+    <path d="M82 92 Q 95 102 108 92" fill="none" stroke="#64ffda" stroke-width="3"/>
+    <!-- speech bubble in panel 2 -->
+    <path d="M 260 45 L 350 45 Q 365 45 365 60 L 365 95 Q 365 110 350 110 L 300 110 L 285 130 L 288 110 L 260 110 Q 245 110 245 95 L 245 60 Q 245 45 260 45 Z" fill="none" stroke="#64ffda" stroke-width="3"/>
+    <line x1="262" y1="68" x2="348" y2="68" stroke="#64ffda" stroke-width="3" opacity="0.6"/>
+    <line x1="262" y1="88" x2="322" y2="88" stroke="#64ffda" stroke-width="3" opacity="0.4"/>
+    <!-- flask in panel 3 -->
+    <path d="M 85 240 L 85 265 L 60 310 Q 55 325 70 325 L 120 325 Q 135 325 130 310 L 105 265 L 105 240" fill="none" stroke="#64ffda" stroke-width="3"/>
+    <path d="M 72 300 L 118 300" stroke="#64ffda" stroke-width="3" opacity="0.7"/>
+    <circle cx="88" cy="312" r="4" fill="#64ffda" opacity="0.8"/>
+    <circle cx="102" cy="316" r="3" fill="#64ffda" opacity="0.6"/>
+    <!-- star burst in panel 4 -->
+    <path d="M 305 275 L 315 295 L 337 297 L 321 312 L 326 334 L 305 322 L 284 334 L 289 312 L 273 297 L 295 295 Z" fill="none" stroke="#64ffda" stroke-width="3"/>
+  </g>
+  <!-- title -->
+  <text x="80" y="300" font-family="Inter, Arial, sans-serif" font-size="88" font-weight="800" fill="#e6f1ff">科普漫画</text>
+  <text x="84" y="362" font-family="Inter, Arial, sans-serif" font-size="36" fill="#8892b0">Science Comic Agent Skill</text>
+  <rect x="84" y="400" width="120" height="6" fill="#64ffda"/>
+  <text x="84" y="460" font-family="Inter, Arial, sans-serif" font-size="28" fill="#64ffda">Agent Skill · Comic Generation for Creators</text>
+</svg>

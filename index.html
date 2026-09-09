@@ -10,7 +10,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=3.0">
+    <link rel="stylesheet" href="style.css?v=3.1">
 </head>
 
 <body>
@@ -27,6 +27,7 @@
             </button>
             <nav class="main-nav" id="main-nav">
                 <a href="#" class="nav-link active">Home</a>
+                <a href="#projects" class="nav-link" data-i18n="section.projects">Projects</a>
                 <a href="#writings" class="nav-link" data-i18n="section.writings">Writings</a>
                 <a href="#about" class="nav-link" data-i18n="timeline.title">Experience</a>
             </nav>
@@ -88,9 +89,37 @@
             <img src="avatar.jpg?v=3" alt="zhongqiang" class="avatar">
         </section>
 
+        <!-- Projects -->
+        <section class="projects" id="projects">
+            <div class="section-header">
+                <h2 data-i18n="section.projects">Projects</h2>
+                <a href="list.html?type=projects" class="view-all-btn" data-i18n="section.viewAll">View All</a>
+            </div>
+            <div class="project-carousel">
+                <button class="carousel-btn prev" id="carousel-prev" aria-label="Previous projects">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+                <div class="project-grid">
+                    <!-- Projects will be loaded dynamically from projects.json -->
+                </div>
+                <button class="carousel-btn next" id="carousel-next" aria-label="Next projects">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </section>
+
         <!-- Writings / Projects -->
         <section class="writings" id="writings">
-            <h2 data-i18n="section.writings">Writings</h2>
+            <div class="section-header">
+                <h2 data-i18n="section.writings">Writings</h2>
+                <a href="list.html?type=writings" class="view-all-btn" data-i18n="section.viewAll">View All</a>
+            </div>
             <ul class="post-list">
                 <!-- Articles will be loaded dynamically from articles.json -->
             </ul>
@@ -145,7 +174,7 @@
         </footer>
     </div>
 
-    <script src="script.js?v=2.6"></script>
+    <script src="script.js?v=2.8"></script>
 </body>
 
 </html>

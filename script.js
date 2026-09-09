@@ -125,7 +125,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const fragment = document.createDocumentFragment();
         postListContainer.innerHTML = '';
 
-        articles.forEach(article => {
+        // Homepage shows only the latest 6 articles
+        articles.slice(0, 6).forEach(article => {
             const li = document.createElement('li');
             li.className = 'post-item';
 
@@ -148,6 +149,161 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initial render attempt (will wait for DOM and Promise)
     renderArticles();
+
+    // --- Project Cards Loader ---
+    let projectsCache = null; // Cache for projects.json
+
+    async function loadProjects() {
+        if (projectsCache) return projectsCache;
+        try {
+            const response = await fetch('projects.json');
+            projectsCache = await response.json();
+            // Sort by date descending (newest first)
+            // Supports both "YYYY-MM" and "YYYY.MM - ..." formats
+            const dateKey = p => {
+                const m = String(p.date).match(/(\d{4})[.\-](\d{2})/);
+                return m ? m[1] + m[2] : '000000';
+            };
+            projectsCache.sort((a, b) => dateKey(b).localeCompare(dateKey(a)));
+            return projectsCache;
+        } catch (err) {
+            console.error('Error loading projects:', err);
+            return [];
+        }
+    }
+
+    function buildProjectCard(project, currentLang) {
+        const card = document.createElement('div');
+        card.className = 'project-card';
+
+        const title = project.title[currentLang] || project.title['zh'] || project.title['en'];
+        const summary = (project.summary && (project.summary[currentLang] || project.summary['zh'] || project.summary['en'])) || '';
+        const tags = (project.tags || []).map(tag => `<span class="tag">[${tag}]</span>`).join('');
+        const articleUrl = `project.html?doc=${project.path}`;
+        const repoLink = project.repo
+            ? `<a class="project-repo" href="${project.repo}" target="_blank" aria-label="GitHub repository" title="GitHub">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+                </svg>
+            </a>`
+            : '';
+
+        card.innerHTML = `
+            <a class="project-cover" href="${articleUrl}" target="_blank">
+                <img src="${project.cover}" alt="${title}" loading="lazy">
+            </a>
+            <div class="project-info">
+                <span class="project-date">${project.date}</span>
+                <h3 class="project-title"><a href="${articleUrl}" target="_blank">${title}</a></h3>
+                <p class="project-summary">${summary}</p>
+                <div class="project-footer">
+                    <div class="project-tags">${tags}</div>
+                    ${repoLink}
+                </div>
+            </div>
+        `;
+        return card;
+    }
+
+    async function renderProjects() {
+        const projectGridContainer = document.querySelector('.project-grid');
+        if (!projectGridContainer) return;
+
+        const projects = await loadProjects();
+        const currentLang = localStorage.getItem('lang') || 'en';
+
+        const fragment = document.createDocumentFragment();
+        projectGridContainer.innerHTML = '';
+
+        // Homepage shows only the latest 6 projects
+        projects.slice(0, 6).forEach(project => {
+            fragment.appendChild(buildProjectCard(project, currentLang));
+        });
+        projectGridContainer.appendChild(fragment);
+        // Notify carousel buttons that content size may have changed
+        projectGridContainer.dispatchEvent(new Event('scroll'));
+    }
+
+    // --- Secondary List Page (list.html) ---
+    async function renderListPage() {
+        const listContainer = document.getElementById('list-container');
+        if (!listContainer) return;
+
+        const type = new URLSearchParams(window.location.search).get('type');
+        const currentLang = localStorage.getItem('lang') || 'en';
+        const titleEl = document.getElementById('list-title');
+
+        listContainer.innerHTML = '';
+
+        if (type === 'writings') {
+            const articles = await loadArticles();
+            const ul = document.createElement('ul');
+            ul.className = 'post-list';
+            articles.forEach(article => {
+                const li = document.createElement('li');
+                li.className = 'post-item';
+                const title = article.title[currentLang] || article.title['zh'] || article.title['en'];
+                const tags = article.tags.map(tag => `<span class="tag">[${tag}]</span>`).join(' ');
+                li.innerHTML = `
+                    <span class="post-date">${article.date}</span>
+                    <a href="project.html?doc=${article.path}" class="post-title" target="_blank">
+                        ${tags} <span>${title}</span>
+                    </a>
+                `;
+                ul.appendChild(li);
+            });
+            listContainer.appendChild(ul);
+            if (titleEl) titleEl.setAttribute('data-i18n', 'section.writings');
+        } else {
+            const projects = await loadProjects();
+            const grid = document.createElement('div');
+            grid.className = 'project-grid wrap';
+            projects.forEach(project => {
+                grid.appendChild(buildProjectCard(project, currentLang));
+            });
+            listContainer.appendChild(grid);
+            if (titleEl) titleEl.setAttribute('data-i18n', 'section.projects');
+        }
+
+        updateContent(); // Refresh title translation
+    }
+
+    // Start loading projects immediately
+    loadProjects();
+    renderProjects();
+
+    // --- Project Carousel Buttons ---
+    (function initProjectCarousel() {
+        const grid = document.querySelector('.project-grid');
+        const prevBtn = document.getElementById('carousel-prev');
+        const nextBtn = document.getElementById('carousel-next');
+        if (!grid || !prevBtn || !nextBtn) return;
+
+        // Scroll by exactly one card width (card + gap)
+        function cardStep() {
+            const card = grid.querySelector('.project-card');
+            if (!card) return grid.clientWidth;
+            const gap = parseFloat(getComputedStyle(grid).gap) || 24;
+            return card.offsetWidth + gap;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            grid.scrollBy({ left: -cardStep(), behavior: 'smooth' });
+        });
+        nextBtn.addEventListener('click', () => {
+            grid.scrollBy({ left: cardStep(), behavior: 'smooth' });
+        });
+
+        // Disable buttons at scroll ends
+        function updateButtons() {
+            const maxScroll = grid.scrollWidth - grid.clientWidth;
+            prevBtn.classList.toggle('disabled', grid.scrollLeft <= 1);
+            nextBtn.classList.toggle('disabled', grid.scrollLeft >= maxScroll - 1);
+        }
+        grid.addEventListener('scroll', updateButtons, { passive: true });
+        window.addEventListener('resize', updateButtons);
+        updateButtons();
+    })();
 
     // --- Markdown Loader Logic ---
     const markdownContainer = document.getElementById('markdown-content');
@@ -391,6 +547,8 @@ document.addEventListener('DOMContentLoaded', () => {
             "intro.title": "你好！我是 <span class=\"sticker\">@忠强</span>",
             "intro.role": "AI 产品经理 | 6年经验 | 专注 Agent 与企业级 AI 应用",
             "intro.desc": "AI、智能硬件与 SaaS 产品经验，云雀智能笔获 IF 设计金奖。近三年专注大模型应用落地，曾独立开发「小 AI 助理」，目前负责 AI Coach 与头部协作平台战略合作，赋能企业实现 AI 驱动的业务增长。",
+            "section.projects": "项目",
+            "section.viewAll": "全部",
             "section.writings": "思考",
             "projects.p1": "企业培训产品的 AI-Native 重构实践",
             "projects.p2": "AutoGLM 手机自动化初体验",
@@ -413,6 +571,8 @@ document.addEventListener('DOMContentLoaded', () => {
             "intro.title": "Hi！I'm <span class=\"sticker\">@DaLin</span>",
             "intro.role": "AI Product Manager | 6 Years Exp | Focus on Agent & Enterprise AI Applications",
             "intro.desc": "Experience in AI, smart hardware and SaaS products. Skylark Smart Pen won IF Design Gold Award. Focused on LLM applications for the past three years, independently developed 'Little AI Assistant', currently leading AI Coach partnership with a top collaboration platform, enabling AI-driven business growth.",
+            "section.projects": "Projects",
+            "section.viewAll": "View All",
             "section.writings": "Writings",
             "projects.p1": "AI-Native Refactoring of Corporate Training Products",
             "projects.p2": "AutoGLM Mobile Automation Beginner Tutorial",
@@ -462,6 +622,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initial update on load
     updateContent();
+    renderListPage(); // Renders full list if on list.html (no-op otherwise)
 
     if (langToggleBtn) {
         langToggleBtn.addEventListener('click', () => {
@@ -469,9 +630,10 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('lang', currentLang);
             updateContent();
             renderArticles(); // Re-render articles list with new language
+            renderProjects(); // Re-render project cards with new language
 
-            // If on project page, reload to show correct language version
-            if (window.location.pathname.includes('project.html')) {
+            // If on project/list page, reload to show correct language version
+            if (window.location.pathname.includes('project.html') || window.location.pathname.includes('list.html')) {
                 setTimeout(() => window.location.reload(), 100);
             }
         });
