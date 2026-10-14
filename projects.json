@@ -82,8 +82,8 @@
             "en": "Biography Agent Skill"
         },
         "summary": {
-            "zh": "帮助普通人写个人传记的 Agent Skill：访谈式采集回忆，自动整理时间线并章节化成稿，会聊天就能写传记。",
-            "en": "An Agent Skill that helps ordinary people write their biography: interview-style memory collection, automatic timeline organization, and chapter-based drafting — if you can chat, you can write your life story."
+            "zh": "帮助普通人写个人传记的 Agent Skill：访谈式采集回忆，自动整理时间线并章节化成稿；访谈中适时引导提供老照片，没有照片时可配明确标注的 AI 示意插图。会聊天就能写传记。",
+            "en": "An Agent Skill that helps ordinary people write their biography: interview-style memory collection, automatic timeline organization, chapter-based drafting, photo collection with clearly-labeled AI illustration fallback — if you can chat, you can write your life story."
         },
         "cover": "projects/biography-skill-cover.svg",
         "path": "projects/biography-skill.md",
@@ -118,8 +118,8 @@
             "en": "Original Music Agent Skill"
         },
         "summary": {
-            "zh": "从一句情绪描述到一首完整的歌：AI 一条龙生成歌词、曲风提示词、MV 概念、分镜脚本、首尾帧与视频提示词。",
-            "en": "From a single emotion to a complete song: an all-in-one AI pipeline generating lyrics, music style prompts, MV concept, storyboard script, and first/last-frame video prompts."
+            "zh": "从一句情绪描述到一首完整的歌：AI 一条龙生成歌词（含中文韵脚库与发音校正）、曲风提示词（16 套流派模板）、MV 概念、分镜脚本、首尾帧与视频提示词；装有 Suno CLI 时可端到端直接产出成品。",
+            "en": "From a single emotion to a complete song: an end-to-end AI pipeline generating lyrics (with a Chinese rhyme library and pronunciation guard), style prompts (16 genre templates), MV concept, storyboard, and first/last-frame video prompts — with optional local generation of actual audio and video."
         },
         "cover": "projects/music-skill-cover.svg",
         "path": "projects/music-skill.md",

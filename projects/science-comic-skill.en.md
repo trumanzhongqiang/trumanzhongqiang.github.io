@@ -1,21 +1,33 @@
-# Science Comic Agent Skill: One-Click Science Comics for Content Creators
+# Science Comic Skill: One-Click Science Comics for Content Creators
 
-The pain point of science communication content: plain text gets ignored, and comics require drawing skills. This Agent Skill lets creators produce a full set of publishable comic images from just a topic.
+The pain of science content: text gets no readers, and most creators can't draw. This Agent Skill turns a single science topic into a publishable comic strip — factually accurate, character-consistent across panels, with clean readable text.
 
-## How It Works
+**GitHub**: [trumanzhongqiang/science-comic-skill](https://github.com/trumanzhongqiang/science-comic-skill) ｜ v1.1.0 ｜ MIT
 
-- **Topic understanding**: Takes a topic or a piece of science copy, extracts core knowledge points, and plans a narrative arc of "hook → step-by-step breakdown → takeaway"
-- **Script & storyboard**: Generates a panel-by-panel comic script, with visual descriptions, narration, and speech bubbles for each panel
-- **Style & character design**: Locks down character appearance (looks, color palette, style keywords) first, so the protagonist looks consistent across panels
-- **Image generation**: Produces comic images panel by panel, handling multi-character composition, expressions, and body language
-- **Smart text strategy**: Image models render Chinese text unreliably, so the skill reserves blank bubbles and title areas, then fills text precisely in post-production
+## How it works
 
-## Design Considerations
+```
+Topic analysis → Fact-checking (knowledge cards, traceable sources)
+              → Character card anchoring (appearance/hex colors/style as an anchor prompt)
+              → Storyboard (one knowledge point per panel, approved before any image)
+              → Panel-by-panel generation (anchor prompt embedded verbatim)
+              → Text compositing in post (the model never touches text)
+```
 
-- **Scientific accuracy first**: Knowledge points are verified via retrieval before scripting, avoiding "great-looking comics with wrong facts"
-- **Character consistency is the lifeline**: Cross-panel consistency relies on the "character card" mechanism — character descriptors act as an anchor embedded in every shot's prompt
-- **Batch serialization**: The same character card can be reused across an entire series, keeping the style stable for serialized accounts
+- **Topic analysis**: core knowledge points distilled, paced as "hook → layered breakdown → takeaway"
+- **Fact-checking first**: every knowledge point gets a card — one-sentence conclusion, source, visualization idea
+- **Storyboard**: per-panel scene, narration, and dialogue; one knowledge point per panel; your approval before drawing
+- **Panel generation**: each prompt = style descriptor + character anchor + panel scene, with anti-confusion for multi-character frames
+- **Text in post**: bubbles and titles left blank, filled precisely afterward — no garbled characters, editable forever
 
-## Technical Implementation
+## Key design decisions
 
-Built on the Agent Skill architecture: topic analysis → fact-checking → storyboard scripting → character-card anchoring → panel-by-panel image generation → bubble text compositing.
+**Why fact-check before any creation?** The prettier the comic, the wider a wrong fact spreads — plain art can be fixed, wrong science can't. Knowledge points that fail verification never enter the script; unverifiable claims are flagged by name instead of hidden behind "scientists believe".
+
+**Why does consistency rely on verbatim anchor reuse?** Image models re-imagine with every generation — without a locked description, the protagonist in panel 3 is a stranger in panel 1, and a series collapses. The character card (appearance, exact hex colors, art style) is compressed into an anchor prompt embedded verbatim in every panel of every episode.
+
+**Why is all text composited in post?** Image models reliably garble Chinese text, and the damage can't be patched — only redrawn. The model draws blank bubbles; text is added later — clean, editable, restylable.
+
+## See it in action
+
+The repo's [`examples/demo-comic.md`](https://github.com/trumanzhongqiang/science-comic-skill/blob/main/examples/demo-comic.md) demos the full chain with "why is the sky blue": knowledge cards → character anchor prompt → storyboard excerpt → a single panel's image prompt, with the discipline visible at every step.

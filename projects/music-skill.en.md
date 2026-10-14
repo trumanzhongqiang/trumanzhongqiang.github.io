@@ -1,24 +1,33 @@
-# Original Music Skill: From a Single Emotion to a Complete Song
+# Original Music Skill: From One Emotion to a Complete Song
 
-Music creation shouldn't belong only to professional musicians. This Agent Skill takes a user's emotional description and produces a complete AI music creation pipeline: lyrics, music style, MV, storyboard, and video.
+Music creation shouldn't belong only to professionals. Most people can't explain "BPM and modes" — but they can say "heartbroken yet defiant". This Agent Skill takes one emotion line and walks a complete AI music pipeline: lyrics → style prompt → MV concept → storyboard → first/last-frame video prompts. With a local Suno CLI installed, it can go further and generate the actual audio and video assets.
 
-## How It Works
+**GitHub**: [trumanzhongqiang/music-skill](https://github.com/trumanzhongqiang/music-skill) ｜ v1.3.0 ｜ MIT
 
-Users only need to describe an emotion or a story — like "the relief of walking alone after a summer night rain." The skill then generates, in sequence:
+## How it works
 
-- **Lyrics**: Created from emotional imagery, with controlled rhyme and structure (verse/chorus/bridge)
-- **Music style prompts**: Style prompts for music generation models like Suno (genre, tempo, instrumentation, vocals, emotional arc)
-- **MV concept design**: Overall visual style, color palette, narrative thread
-- **Storyboard script**: Shot-by-shot visual descriptions, framing, camera movement
-- **First/last frame prompts**: Generates first-frame and last-frame image prompts for each shot (for image-to-video models)
-- **Video prompts**: First/last frames + motion description, handed to video generation models for the final clips
+```
+Emotion input
+  → Emotional core anchoring (emotion pair / key imagery / energy curve / style anchor)
+  → Lyrics (rhyming discipline + vocal arrangement + pronunciation guard)
+  → Style prompt (five elements + exclude styles, 16 genre templates)
+  → MV concept → storyboard → first/last-frame prompts → video prompts
+  → Optional: execute generation via local tools
+```
 
-## Design Considerations
+- **Emotion as input**: describe a feeling or a story — no music theory required
+- **Pipeline or single stage**: run end-to-end, or ask for lyrics only / MV only — every artifact is self-contained
+- **Chinese songwriting focus**: built-in rhyme library (open/closed vowel selection, chorus hook patterns); every chorus line must rhyme
+- **Pronunciation guard**: before delivery, lyrics are scanned for polyphonic characters, Arabic numerals, and tricky English — the "Suno sang the wrong character" class of failure is killed at the writing stage
 
-- **Emotion as the starting point**: Ordinary people can't articulate "BPM and key signatures," but they can say "heartbroken yet stubborn" — so the input is emotional language
-- **All-in-one yet stepwise**: Run the entire pipeline with one command, or generate only lyrics, only the MV design — use whatever you need
-- **Style consistency**: Lyrics imagery, music style, and MV visuals share the same "emotional core," avoiding disconnected outputs
+## Key design decisions
 
-## Technical Implementation
+**Why does every stage share one "emotional core"?** Multi-stage generation without an anchor drifts: the lyrics are in the rain, the style prompt is on fire, the MV is arthouse. Stage 0 distills the emotion into four checkable fields, and the quality gate specifically hunts cross-stage contradictions.
 
-Built on the Agent Skill architecture: emotion parsing → multi-stage generation pipeline (text → audio prompts → image prompts → video prompts), with cross-stage style anchoring and consistency constraints at its core.
+**Why may first/last frames differ only in "action development"?** Img2video models turn frame differences into warping — flickering characters, jumping scenes. So subject, setting, lighting, and tone are byte-identical between frames, audited with a verbatim diff in the quality check.
+
+**Why do style prompts include "exclude styles"?** Saying what you want isn't enough — omit `auto-tune` and the model may default to it. Every genre template ships with an exclude line, derived from "what processing would ruin this genre".
+
+## See it in action
+
+[`examples/demo-song.md`](https://github.com/trumanzhongqiang/music-skill/blob/main/examples/demo-song.md) demos the full chain from "the relief of a solo walk after summer rain" to lyrics, Suno prompt, and storyboard frame prompts. [`tests/test-cases.md`](https://github.com/trumanzhongqiang/music-skill/blob/main/tests/test-cases.md) logs a real test run — "post-holiday syndrome, no mood to work" — that passed all four quality gates; three issues found during the run were written back into the skill's rules.

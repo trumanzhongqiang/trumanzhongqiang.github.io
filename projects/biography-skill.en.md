@@ -1,19 +1,35 @@
-# Biography Skill: An Agent That Helps Ordinary People Write Their Life Stories
+# Biography Skill: Helping Ordinary People Write Their Own Life Story
 
-Everyone deserves to be recorded, but biography writing has a high barrier for ordinary people. This Agent Skill turns "writing a biography" into a natural conversation — users simply chat about their lives, and AI handles the rest.
+Everyone deserves to be remembered, but biography writing has too high a barrier for ordinary people. This Agent Skill turns "writing a biography" into a natural conversation: the AI acts as a professional biographer-interviewer, guiding you through memories, organizing scattered recollections into a timeline, and finally drafting coherent, warm chapters.
 
-## How It Works
+**GitHub**: [trumanzhongqiang/biography-skill](https://github.com/trumanzhongqiang/biography-skill) ｜ v1.2.0 ｜ MIT
 
-- **Interview-style collection**: Like a professional biographer, it guides users to recall important moments, key people, and turning points through a series of warm, thoughtful questions
-- **Structured organization**: Automatically archives scattered memories along a timeline, identifies thematic threads, and fills in dates, places, and relationships
-- **Chapter-based writing**: Organizes material into coherent chapters, preserving the user's own voice and emotional color — not a dry chronology
+## How it works
 
-## Design Considerations
+```
+Chat memories → Interview-style collection (guided questions, verbatim quotes)
+             → Structured archive (timeline + characters + conflict confirmation)
+             → Book blueprint (chapter plan, confirmed with you)
+             → Chapter drafting (each chapter reviewed, resumable forever)
+```
 
-- **Low barrier**: No writing skills required — if you can chat, you can write your biography
-- **Incremental**: Supports multiple sessions and continuation. Life is long; a biography can be written slowly
-- **Privacy**: All material stays local, and users control any sensitive content
+- **Interview, not questionnaire**: one question at a time, detail-driven follow-ups. Never "was your childhood happy" — instead "what was the first thing you did after school?"
+- **Structured archive**: memories land in local files in real time — timeline, character table, open questions. Contradictions are confirmed with you on the spot, never silently resolved
+- **Chapter drafting**: an eight-chapter structure that preserves your own catchphrases and tone; 2,000–4,000 characters per chapter, reviewed by you before finalization
+- **Photos & illustrations**: the AI asks for old photos at natural moments; if none exist, it offers clearly-labeled AI-generated illustrations after delivery — never passed off as real photos
 
-## Technical Implementation
+## Key design decisions
 
-Built on the Agent Skill architecture: interview strategy orchestration + memory management + long-form writing constraints. Key challenges solved include material consistency over long contexts (proactively confirming with users when details conflict) and maintaining a unified writing voice.
+**Why keep verbatim quotes?** The biography's first reader is the subject. Polish away their dialect and catchphrases, and they won't recognize their own voice. The skill's red line: polish grammar only, never the tone.
+
+**Why confront contradictions immediately?** Silently recording two versions buries the contradiction in the final draft — discovered only at proofreading, forcing a full chapter rewrite. So conflicts go into an open-questions list and get a gentle "which one is right?" on the spot.
+
+**Why a four-point quality check?** Biographies are written in sessions; individually fine chapters often fail as a book. Before any chapter ships: traceable facts (every hard fact points back to source material), consistent voice (any two chapters read as one pen), clean prose (AI clichés deleted on sight), balanced pacing (chapter openings alone should tell the whole life's arc).
+
+## Privacy & boundaries
+
+All materials stay in your local workspace — nothing is uploaded. Sensitive topics are never probed; if you share, the AI listens without dramatizing, and you decide what stays in the book.
+
+## See it in action
+
+The repo's [`examples/demo-interview.md`](https://github.com/trumanzhongqiang/biography-skill/blob/main/examples/demo-interview.md) walks through a full (fictional) demo: interview dialogue → material archive → chapter opening → the four-point quality check.
