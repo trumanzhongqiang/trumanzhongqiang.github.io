@@ -144,11 +144,10 @@ document.addEventListener('DOMContentLoaded', () => {
         postListContainer.appendChild(fragment);
     }
 
-    // Start loading articles immediately, don't wait for DOMContentLoaded
-    const articlesPromise = loadArticles();
-
-    // Initial render attempt (will wait for DOM and Promise)
-    renderArticles();
+    // Only the pages that show these lists should hit the network.
+    if (document.querySelector('.post-list')) {
+        renderArticles();
+    }
 
     // --- Project Cards Loader ---
     let projectsCache = null; // Cache for projects.json
@@ -268,9 +267,9 @@ document.addEventListener('DOMContentLoaded', () => {
         updateContent(); // Refresh title translation
     }
 
-    // Start loading projects immediately
-    loadProjects();
-    renderProjects();
+    if (document.querySelector('.project-grid')) {
+        renderProjects();
+    }
 
     // --- Project Carousel Buttons ---
     (function initProjectCarousel() {
@@ -319,62 +318,99 @@ document.addEventListener('DOMContentLoaded', () => {
             // If docName is "writing/ai-coach-review/aicoach-review.md"
             // Try "writing/ai-coach-review/aicoach-review.en.md" for English
             // Or keep original for Chinese
+            function readDoc(docPath) {
+                var pre = window.__mdPrefetch;
+                if (pre && pre.target === docPath && pre.text) {
+                    var pending = pre.text;
+                    pre.text = null;
+                    return pending;
+                }
+                return fetch(docPath).then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.text();
+                });
+            }
+
+            function loadScriptOnce(src) {
+                window.__scriptLoads = window.__scriptLoads || {};
+                if (window.__scriptLoads[src]) return window.__scriptLoads[src];
+                window.__scriptLoads[src] = new Promise((resolve, reject) => {
+                    const el = document.createElement('script');
+                    el.src = src;
+                    el.onload = () => resolve();
+                    el.onerror = () => reject(new Error('Failed to load ' + src));
+                    document.head.appendChild(el);
+                });
+                return window.__scriptLoads[src];
+            }
+
             function loadMarkdown(docPath) {
-                return fetch(docPath)
-                    .then(response => {
-                        if (!response.ok) throw new Error('Network response was not ok');
-                        return response.text();
-                    })
+                return readDoc(docPath)
                     .then(text => {
-                        // Fix relative image paths
                         const lastSlashIndex = docPath.lastIndexOf('/');
                         if (lastSlashIndex !== -1) {
                             const basePath = docPath.substring(0, lastSlashIndex + 1);
-                            // Regex to find markdown images: ![alt](url) and replace relative urls
                             text = text.replace(/!\[(.*?)\]\((?!http|https|\/)(.*?)\)/g, `![$1](${basePath}$2)`);
-                            // Also handle HTML img tags with relative src
                             text = text.replace(/<img\s+([^>]*?)src=["'](?!http|https|\/)([^"']+)["']([^>]*?)>/gi, (match, before, src, after) => {
                                 return `<img ${before}src="${basePath}${src}"${after}>`;
                             });
                         }
 
-                        if (window.marked) {
-                            // Configure marked if not already configured
-                            if (!marked.getDefaults().highlight && window.hljs) {
-                                marked.setOptions({
-                                    highlight: function (code, lang) {
-                                        if (lang && hljs.getLanguage(lang)) {
-                                            try {
-                                                return hljs.highlight(code, { language: lang }).value;
-                                            } catch (err) {
-                                                console.error('Highlight error:', err);
-                                            }
-                                        }
-                                        return hljs.highlightAuto(code).value;
-                                    },
-                                    breaks: true,
-                                    gfm: true
-                                });
-                            }
-                            markdownContainer.innerHTML = marked.parse(text);
+                        if (!window.marked) {
+                            markdownContainer.innerHTML = '<p>Error: Markdown parser not loaded.</p><pre>' + text + '</pre>';
+                            return;
+                        }
+                        marked.setOptions({ breaks: true, gfm: true });
+                        markdownContainer.innerHTML = marked.parse(text);
 
-                            // Process mermaid diagrams
-                            setTimeout(() => {
-                                const mermaidBlocks = markdownContainer.querySelectorAll('pre code.language-mermaid');
-                                if (mermaidBlocks.length > 0 && window.mermaid) {
-                                    mermaidBlocks.forEach((block, index) => {
+                        const codeBlocks = markdownContainer.querySelectorAll('pre code');
+                        let needsHighlight = false;
+                        let needsMermaid = false;
+                        codeBlocks.forEach(block => {
+                            const lang = ((block.className || '').match(/language-([\w-]+)/) || [])[1];
+                            if (lang === 'mermaid') needsMermaid = true;
+                            else if (lang) needsHighlight = true;
+                        });
+
+                        if (needsHighlight) {
+                            if (!document.querySelector('link[data-hljs]')) {
+                                const link = document.createElement('link');
+                                link.rel = 'stylesheet';
+                                link.href = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css';
+                                link.setAttribute('data-hljs', '1');
+                                document.head.appendChild(link);
+                            }
+                            loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js')
+                                .then(() => {
+                                    markdownContainer.querySelectorAll('pre code').forEach(block => {
+                                        const lang = ((block.className || '').match(/language-([\w-]+)/) || [])[1];
+                                        if (lang && lang !== 'mermaid' && window.hljs && hljs.getLanguage(lang)) {
+                                            hljs.highlightElement(block);
+                                        }
+                                    });
+                                })
+                                .catch(err => console.error(err));
+                        }
+
+                        if (needsMermaid) {
+                            loadScriptOnce('https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js')
+                                .then(() => {
+                                    mermaid.initialize({
+                                        startOnLoad: false,
+                                        theme: document.documentElement.getAttribute('data-theme') === 'light' ? 'default' : 'dark',
+                                        securityLevel: 'loose'
+                                    });
+                                    markdownContainer.querySelectorAll('pre code.language-mermaid').forEach((block, index) => {
                                         const pre = block.parentElement;
                                         const mermaidDiv = document.createElement('div');
                                         mermaidDiv.className = 'mermaid';
-                                        mermaidDiv.id = `mermaid-${index}`;
+                                        mermaidDiv.id = 'mermaid-' + index;
                                         mermaidDiv.textContent = block.textContent;
                                         pre.replaceWith(mermaidDiv);
                                     });
-                                    mermaid.run();
-                                }
-                            }, 100);
-                        } else {
-                            markdownContainer.innerHTML = '<p>Error: Markdown parser not loaded.</p><pre>' + text + '</pre>';
+                                    return mermaid.run();
+                                })
+                                .catch(err => console.error(err));
                         }
                     });
             }
@@ -619,6 +655,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
+
+    document.querySelectorAll('.qr-popup img[data-src]').forEach(img => {
+        const box = img.closest('.wechat-icon-container');
+        if (!box) return;
+        const loadQr = () => { if (!img.getAttribute('src')) img.src = img.dataset.src; };
+        box.addEventListener('mouseenter', loadQr, { once: true });
+        box.addEventListener('focusin', loadQr, { once: true });
+        box.addEventListener('touchstart', loadQr, { once: true, passive: true });
+    });
 
     // Initial update on load
     updateContent();
