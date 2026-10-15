@@ -25,3 +25,13 @@ Beyond the product itself, I also closed a complete "AI tool + paid community" l
 3. Community feedback feeding back into product iteration
 
 This experience took me through the entire chain — product, technology, operations, and monetization — and accumulated a wealth of hands-on Prompt/RAG expertise, laying the foundation for my return to enterprise AI products.
+
+## No public product URL
+
+No app-store page, site, or live demo turned up in search. This is not a screenshot. It is the information architecture the existing description can support. There are no user counts, and the paid community is not stated as verified revenue.
+
+A new user should see three steps, not the words Prompt or RAG:
+
+1. **Continue.** The home screen is the unfinished task, not a model catalog.
+2. **Ask with your own notes.** An answer that uses uploaded notes shows the passage it used. If it does not, it says the sentence is the model's, not the user's.
+3. **The task picks the model.** Translation can use a cheaper model. Long-document questions use one that can read the file. The user does not pick a model name. The answer says why that model was used.

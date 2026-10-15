@@ -163,7 +163,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const m = String(p.date).match(/(\d{4})[.\-](\d{2})/);
                 return m ? m[1] + m[2] : '000000';
             };
-            projectsCache.sort((a, b) => dateKey(b).localeCompare(dateKey(a)));
+            const pinKey = p => (typeof p.pin === "number" ? p.pin : 100);
+            projectsCache.sort((a, b) => pinKey(a) - pinKey(b) || dateKey(b).localeCompare(dateKey(a)));
             return projectsCache;
         } catch (err) {
             console.error('Error loading projects:', err);

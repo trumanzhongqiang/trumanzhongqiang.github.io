@@ -10,12 +10,13 @@
             "en": "Science Comic Agent Skill"
         },
         "summary": {
-            "zh": "给自媒体一键生成科普漫画：选题理解、事实核查、分镜脚本、角色卡锚定跨格一致性，逐格产出可发布的漫画图片。",
-            "en": "One-click science comics for content creators: topic analysis, fact-checking, storyboard scripting, character-card anchoring for cross-panel consistency, and panel-by-panel publishable comic images."
+            "zh": "实测过一套 6 格戒烟条漫：先核查事实，再逐格出图、后期填中文。11 次生成才留下 6 张；锚定词不能消除角色漂移。",
+            "en": "A real 6-panel quit-smoking strip: facts first, then serial image generation and composited Chinese. 11 generations yielded 6 usable panels. Anchor prompts reduce character drift; they do not remove it."
         },
         "cover": "projects/science-comic-skill-cover.svg",
         "path": "projects/science-comic-skill.md",
-        "repo": "https://github.com/trumanzhongqiang/science-comic-skill"
+        "repo": "https://github.com/trumanzhongqiang/science-comic-skill",
+        "pin": 1
     },
     {
         "id": "ai-coach",
@@ -29,11 +30,12 @@
             "en": "AI Coach: An AI-Native Practice for Corporate Training"
         },
         "summary": {
-            "zh": "与头部协作平台战略合作，将传统培训产品重构为 AI-Native 形态，交付 AI 教练标杆产品，赋能企业销售赋能场景。",
-            "en": "Strategic partnership with a top collaboration platform, refactoring a traditional training product into AI-Native form, delivering a benchmark AI Coach product for enterprise sales enablement."
+            "zh": "把销售培训从看完课、考过试改成对练和过程反馈。没有公开的客户名和数据；页面里的对练是按这个原则编的示意。",
+            "en": "Sales training rebuilt around practice and feedback during the conversation, not course completion. No client name or metric is public. The sample dialogue is illustrative."
         },
         "cover": "writing/2025-12-07/Developing AI-Native Products for Corporate Training.png",
-        "path": "writing/2025-12-07/aicoach-review.md"
+        "path": "writing/2025-12-07/aicoach-review.md",
+        "pin": 3
     },
     {
         "id": "little-ai-assistant",
@@ -47,8 +49,8 @@
             "en": "Little AI Assistant: An Independently Developed LLM App"
         },
         "summary": {
-            "zh": "全职独立开发的全能 AI 助理，集成 Prompt 工程与 RAG 知识库，跑通「AI 工具 + 知识付费」商业闭环。",
-            "en": "A full-time independently developed all-in-one AI assistant, integrating Prompt engineering and RAG knowledge bases, closing the loop on an 'AI tool + paid community' business model."
+            "zh": "2023–2024 年独立做的个人 AI 助理。没有公开的应用入口或用户数据，页面只保留产品结构和三步信息架构示意。",
+            "en": "An independent personal AI assistant from 2023–2024. No public app URL or user numbers. The page keeps the product structure and a three-step layout sketch."
         },
         "cover": "projects/little-ai-assistant-cover.svg",
         "path": "projects/little-ai-assistant.md"
@@ -58,18 +60,19 @@
         "date": "2019.04 - 2023.12",
         "tags": [
             "Smart Hardware",
-            "IF Award"
+            "Red Dot"
         ],
         "title": {
             "zh": "云雀智能笔：IF 设计金奖产品",
             "en": "Skylark Smart Pen: IF Design Gold Award Winner"
         },
         "summary": {
-            "zh": "主导从 0 到 1 的 K12 智能手写笔产品，斩获 IF 设计金奖，配套 AI 运营中台，让课堂数据形成教学闭环。",
-            "en": "Led the 0-to-1 K12 smart handwriting pen product, winning the IF Design Gold Award, with an accompanying AI operation platform closing the loop on classroom data."
+            "zh": "就是红点 2022 的 YQ·SKYLARK（一起作业）。北师大附中课堂上有点阵笔同步作答的报道；闵行智慧纸笔项目覆盖全区公办中小学。",
+            "en": "This is YQ·SKYLARK, Red Dot 2022. A People's Daily report shows the 17Zuoye pen in a BNU high-school class. Minhang's smart paper-pen project covered the district's public schools."
         },
         "cover": "projects/skylark-pen-cover.svg",
-        "path": "projects/skylark-pen.md"
+        "path": "projects/skylark-pen.md",
+        "pin": 2
     },
     {
         "id": "biography-skill",
@@ -82,12 +85,13 @@
             "en": "Biography Agent Skill"
         },
         "summary": {
-            "zh": "帮助普通人写个人传记的 Agent Skill：访谈式采集回忆，自动整理时间线并章节化成稿；访谈中适时引导提供老照片，没有照片时可配明确标注的 AI 示意插图。会聊天就能写传记。",
-            "en": "An Agent Skill that helps ordinary people write their biography: interview-style memory collection, automatic timeline organization, chapter-based drafting, photo collection with clearly-labeled AI illustration fallback — if you can chat, you can write your life story."
+            "zh": "用访谈把回忆收成传记，原话不改成书面语，没说过的细节不编。首页示例是虚构的，没有获授权的真实成稿。",
+            "en": "An interview that becomes a biography without sanding off the speaker’s wording or inventing missing facts. The sample is fiction, not a commissioned life story."
         },
         "cover": "projects/biography-skill-cover.svg",
         "path": "projects/biography-skill.md",
-        "repo": "https://github.com/trumanzhongqiang/biography-skill"
+        "repo": "https://github.com/trumanzhongqiang/biography-skill",
+        "pin": 5
     },
     {
         "id": "home-menu-skill",
@@ -100,12 +104,13 @@
             "en": "Home Menu Agent Skill"
         },
         "summary": {
-            "zh": "帮每个家庭设计专属菜单：记录口味忌口与厨艺水平，按周生成营养均衡的家常菜单，自动产出采购清单并越用越懂你家的胃。",
-            "en": "Design a family menu that's truly your own: records tastes, restrictions, and cooking skill; generates weekly balanced home-cooking menus with shopping lists that evolve with your feedback."
+            "zh": "按忌口和过敏排家常菜，采购清单要能指回每一道菜。页面上的周二菜单是虚构示例，不是某一户的真实一周。",
+            "en": "Plans home cooking around allergies and refusals, and every shopping line points back to a dish. The Tuesday menu is a fictional example."
         },
         "cover": "projects/home-menu-skill-cover.svg",
         "path": "projects/home-menu-skill.md",
-        "repo": "https://github.com/trumanzhongqiang/home-menu-skill"
+        "repo": "https://github.com/trumanzhongqiang/home-menu-skill",
+        "pin": 6
     },
     {
         "id": "music-skill",
@@ -118,11 +123,12 @@
             "en": "Original Music Agent Skill"
         },
         "summary": {
-            "zh": "从一句情绪描述到一首完整的歌：AI 一条龙生成歌词（含中文韵脚库与发音校正）、曲风提示词（16 套流派模板）、MV 概念、分镜脚本、首尾帧与视频提示词；装有 Suno CLI 时可端到端直接产出成品。",
-            "en": "From a single emotion to a complete song: an end-to-end AI pipeline generating lyrics (with a Chinese rhyme library and pronunciation guard), style prompts (16 genre templates), MV concept, storyboard, and first/last-frame video prompts — with optional local generation of actual audio and video."
+            "zh": "从一句情绪写出歌词、曲风提示词和分镜。已有「假期综合征」的完整词和 Suno 提示词；这次没有生成音频，不能当成一首已发行的歌。",
+            "en": "Turns one emotion into lyrics, a Suno style prompt, and a storyboard. One finished text package exists ('back-to-work blues'). That run did not generate audio."
         },
         "cover": "projects/music-skill-cover.svg",
         "path": "projects/music-skill.md",
-        "repo": "https://github.com/trumanzhongqiang/music-skill"
+        "repo": "https://github.com/trumanzhongqiang/music-skill",
+        "pin": 4
     }
 ]

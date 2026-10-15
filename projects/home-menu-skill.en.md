@@ -30,6 +30,17 @@ Chat out a family profile (tastes / restrictions / equipment / cooking skill)
 
 All data stays in your local workspace — nothing is uploaded. The skill avoids ingredients at the taste level (less sugar, less oil) but makes no nutritional or medical claims; consult a doctor or dietitian for special health needs.
 
-## See it in action
+## A fictional walkthrough
 
-The repo's [`examples/demo-week.md`](https://github.com/trumanzhongqiang/home-menu-skill/blob/main/examples/demo-week.md) walks a full (fictional) loop: family profile → weekly menu → shopping list → how one "too salty" changes next week.
+This is not a real household's menu. The repo's [`examples/demo-week.md`](https://github.com/trumanzhongqiang/home-menu-skill/blob/main/examples/demo-week.md) walks a full (fictional) loop: family profile → weekly menu → shopping list → how one "too salty" changes next week.
+
+## One day of a week (fiction)
+
+No household has published a real menu here. The constraints are the ones in the demo: a child with a shellfish allergy who refuses green pepper, an adult who refuses cilantro, and 30 minutes on a weeknight.
+
+| Slot | Dish | Why |
+|---|---|---|
+| Tuesday dinner | tomato and egg, stir-fried choy sum, rice | finishes in 30 minutes; no shellfish, pepper, or cilantro |
+| Not scheduled | shrimp and egg, pork with green pepper, cilantro beef | each hits an allergy or a refusal. "Just a little" is not allowed |
+
+Every shopping line points at a dish: 3 tomatoes, 4 eggs, and 250 g of choy sum all point at Tuesday. If the menu listed steamed perch and the list had no fish, Tuesday would be replanned. A bottled sauce that might contain dried shrimp is marked uncertain, not assumed safe.

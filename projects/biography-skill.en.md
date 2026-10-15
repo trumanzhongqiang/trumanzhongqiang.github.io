@@ -30,6 +30,18 @@ Chat memories → Interview-style collection (guided questions, verbatim quotes)
 
 All materials stay in your local workspace — nothing is uploaded. Sensitive topics are never probed; if you share, the AI listens without dramatizing, and you decide what stays in the book.
 
-## See it in action
+## A fictional walkthrough
 
-The repo's [`examples/demo-interview.md`](https://github.com/trumanzhongqiang/biography-skill/blob/main/examples/demo-interview.md) walks through a full (fictional) demo: interview dialogue → material archive → chapter opening → the four-point quality check.
+This is not a real person's biography. The repo's [`examples/demo-interview.md`](https://github.com/trumanzhongqiang/biography-skill/blob/main/examples/demo-interview.md) walks through a full (fictional) demo: interview dialogue → material archive → chapter opening → the four-point quality check.
+
+## A sample chapter (fiction, written to the skill rules)
+
+There is no published biography by this author with a subject's permission in public sources. This is not a user case. It only shows the prose rule: facts point back to words already said, and the speaker's phrasing stays.
+
+> I went into the brickworks at sixteen. Not because I wanted to. The wheat had failed, and my dad said if we waited any longer we would run out of food.
+> 
+> The first day, the master did not teach me the work. He took me to the accounts room. My name on the tag was misspelled. My ma later kept saying, "They cannot even write the name straight." I did not fix it. Fixing it meant finding the team leader, and he was not there. No leader, no job.
+> 
+> My dad did not talk much. After the sweet-potato business he said four words I still remember. He did not give me any other speeches.
+
+The paragraph uses only three things already in the demo interview. It does not invent a wage, a year, or the master's name.

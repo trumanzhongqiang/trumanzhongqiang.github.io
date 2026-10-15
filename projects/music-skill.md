@@ -1,6 +1,6 @@
-# 原创音乐 Skill：从一句情绪到一首完整的歌
+# 原创音乐 Skill：从一句情绪到歌词、曲风和分镜
 
-音乐创作不该只属于专业音乐人。普通人说不清「BPM 和调式」，但说得出「心碎但倔强」。这个 Agent Skill 接收一句情绪描述，走完一条完整的 AI 音乐创作链路：歌词 → 曲风提示词 → MV 概念 → 分镜 → 首尾帧与视频提示词——本地装有 Suno CLI 等工具时，还能直接生成出音频与视频素材。
+音乐创作不该只属于专业音乐人。普通人说不清「BPM 和调式」，但说得出「心碎但倔强」。这个 Agent Skill 接收一句情绪描述，走完一条完整的 AI 音乐创作链路：歌词 → 曲风提示词 → MV 概念 → 分镜 → 首尾帧与视频提示词——本地装有 Suno CLI 等工具时，才能出音频和视频。目前公开的实测只有文字产物，没有成曲。
 
 **GitHub 仓库**：[trumanzhongqiang/music-skill](https://github.com/trumanzhongqiang/music-skill) ｜ 当前版本 v1.3.0 ｜ MIT 开源
 
@@ -28,6 +28,24 @@
 
 **为什么曲风提示词要写「排除风格」？** 只写「想要什么」不够——不写 `auto-tune`，模型可能默认给你电音处理。每套流派模板都带 exclude 行，从「这类歌最忌讳的处理」倒推。
 
-## 实际产物示例
+## 实测：假期综合征
 
-仓库的 [`examples/demo-song.md`](https://github.com/trumanzhongqiang/music-skill/blob/main/examples/demo-song.md) 演示了从「夏夜雨后一个人散步的释然」到歌词、Suno 提示词、分镜首尾帧的全过程。[`tests/test-cases.md`](https://github.com/trumanzhongqiang/music-skill/blob/main/tests/test-cases.md) 记录了真实测试案例——「国庆节后假期综合征无心上班」一句话跑完全链路，四查全过，实测发现的三个问题已写回规则。
+2026-10-13，输入只有一句「国庆节后假期综合征无心上班」。跑完了情绪内核、歌词、Suno 曲风提示词、MV 概念和分镜。**没有生成音频**，所以这还不是一首能听的歌。
+
+副歌：
+
+> 我不想上班 不想上班
+> 灵魂还在泸沽湖的船
+> 身体在格子间假装在线
+> 等下一个假期 再活一遍
+
+曲风提示词把「不要电音」写进了排除项之前的正向描述：chinese indie folk pop，88–94 bpm，男声半说半唱。完整六份文件在音乐仓库的 [`examples/song-假期综合征/`](https://github.com/trumanzhongqiang/music-skill/tree/main/examples/song-%E5%81%87%E6%9C%9F%E7%BB%BC%E5%90%88%E5%BE%81)。仓库里的 [`tests/test-cases.md`](https://github.com/trumanzhongqiang/music-skill/blob/main/tests/test-cases.md) 还列着 9 个没跑的场景。
+
+这次写回规则的三件事：基调有多种走法时先让人拍板；镜头超过 10 个就分批交首尾帧；用户给了真实故事时，地名和细节不能换成创作发挥。
+
+回补了两件初版没做的事，仍然没有音频：
+
+- 曲风提示词后补了排除项：不要 auto-tune、EDM drop、trap 808。
+- 发音只钉三处：「还」读 hái 不读 huán，「泸沽湖」按专名连读，「续」读 xù。
+
+本机没有 Suno CLI，所以没有生成 mp3。词和提示词在 [`examples/song-假期综合征/`](https://github.com/trumanzhongqiang/music-skill/tree/main/examples/song-%E5%81%87%E6%9C%9F%E7%BB%BC%E5%90%88%E5%BE%81)。
