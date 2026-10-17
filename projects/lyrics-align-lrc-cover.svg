@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a192f"/>
+      <stop offset="1" stop-color="#112240"/>
+    </linearGradient>
+    <pattern id="dots" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.5" fill="#1e3a5f"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <rect width="1200" height="675" fill="url(#dots)"/>
+  <g fill="none" stroke="#64ffda" stroke-width="3" opacity="0.85" transform="translate(760,150)">
+    <rect x="0" y="40" width="280" height="64" rx="8"/>
+    <rect x="0" y="124" width="320" height="64" rx="8"/>
+    <rect x="0" y="208" width="240" height="64" rx="8"/>
+    <text x="18" y="80" fill="#64ffda" stroke="none" font-family="Consolas, monospace" font-size="28">[00:14.90]</text>
+    <text x="18" y="164" fill="#64ffda" stroke="none" font-family="Consolas, monospace" font-size="28">[00:29.80]</text>
+    <text x="18" y="248" fill="#64ffda" stroke="none" font-family="Consolas, monospace" font-size="28">[00:55.28]</text>
+  </g>
+  <text x="80" y="300" font-family="Inter, Arial, sans-serif" font-size="72" font-weight="800" fill="#e6f1ff">歌词对齐 LRC</text>
+  <text x="84" y="362" font-family="Inter, Arial, sans-serif" font-size="32" fill="#8892b0">Line-level lyrics alignment</text>
+  <rect x="84" y="400" width="120" height="6" fill="#64ffda"/>
+  <text x="84" y="460" font-family="Inter, Arial, sans-serif" font-size="28" fill="#64ffda">Audio · Original lyrics · whisper.cpp</text>
+</svg>

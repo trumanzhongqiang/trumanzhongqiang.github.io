@@ -1,5 +1,24 @@
 [
     {
+        "id": "lyrics-align-lrc",
+        "date": "2026-10",
+        "tags": [
+            "Agent Skill"
+        ],
+        "title": {
+            "zh": "歌词对齐 LRC",
+            "en": "Line-level LRC"
+        },
+        "summary": {
+            "zh": "音频加原词，用本机 whisper.cpp 只取时间。63 秒那首 16/16，中位差 0.12 秒。把歌词当 prompt 会让重复段消失。",
+            "en": "Audio plus the original lyrics. Local whisper.cpp supplies timestamps only. The 63-second song matched 16/16, median error 0.12s. Feeding the lyrics as a prompt dropped the repeated section."
+        },
+        "cover": "projects/lyrics-align-lrc-cover.svg",
+        "path": "projects/lyrics-align-lrc.md",
+        "repo": "https://github.com/trumanzhongqiang/lyrics-align-lrc",
+        "pin": 1
+    },
+    {
         "id": "science-comic-skill",
         "date": "2026-09",
         "tags": [
