@@ -49,8 +49,8 @@
             "en": "AI Coach: An AI-Native Practice for Corporate Training"
         },
         "summary": {
-            "zh": "把销售培训从看完课、考过试改成对练和过程反馈。没有公开的客户名和数据；页面里的对练是按这个原则编的示意。",
-            "en": "Sales training rebuilt around practice and feedback during the conversation, not course completion. No client name or metric is public. The sample dialogue is illustrative."
+            "zh": "把销售培训从看完课、考过试改成对练和过程反馈。没有公开的客户名、合同或练习录音。",
+            "en": "Sales training rebuilt around practice and feedback during the conversation, not course completion. No client name, contract, or practice recording is public."
         },
         "cover": "writing/2025-12-07/Developing AI-Native Products for Corporate Training.png",
         "path": "writing/2025-12-07/aicoach-review.md",
@@ -104,8 +104,8 @@
             "en": "Biography Agent Skill"
         },
         "summary": {
-            "zh": "用访谈把回忆收成传记，原话不改成书面语，没说过的细节不编。首页示例是虚构的，没有获授权的真实成稿。",
-            "en": "An interview that becomes a biography without sanding off the speaker’s wording or inventing missing facts. The sample is fiction, not a commissioned life story."
+            "zh": "用访谈把回忆收成传记，原话不改成书面语，没说过的细节不编。页面不放虚构人物的原话。",
+            "en": "An interview that becomes a biography without sanding off the speaker’s wording or inventing missing facts. The page does not include a fictional life story."
         },
         "cover": "projects/biography-skill-cover.svg",
         "path": "projects/biography-skill.md",
