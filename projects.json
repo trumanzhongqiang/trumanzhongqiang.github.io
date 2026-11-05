@@ -1,5 +1,24 @@
 [
     {
+        "id": "medical-comic",
+        "date": "2026-11",
+        "tags": [
+            "Video",
+            "Agent Skill"
+        ],
+        "title": {
+            "zh": "医学科普漫画",
+            "en": "Medical Comic Video"
+        },
+        "summary": {
+            "zh": "把化验单上的一个疑问拍成一百秒竖版微缩片，画面全由代码绘制。第 2 期从 3 分 57 秒砍到 1 分 40 秒，靠删知识点，不靠加速。",
+            "en": "One lab-sheet question becomes a 100-second paper-cut film, every frame drawn in code. Episode 2 went from 3:57 to 1:40 by dropping points, not speeding up."
+        },
+        "cover": "projects/medical-comic-cover.svg",
+        "path": "projects/medical-comic.md",
+        "pin": 1
+    },
+    {
         "id": "lyrics-align-lrc",
         "date": "2026-10",
         "tags": [

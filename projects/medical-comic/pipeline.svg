@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="760" viewBox="0 0 900 760">
+  <rect width="900" height="760" fill="#F6F0E5"/>
+  <text x="36" y="56" font-family="PingFang SC, Inter, sans-serif" font-size="28" font-weight="700" fill="#17324D">一句旁白，变成一帧画面的五步</text>
+
+  <line x1="60" y1="112" x2="60" y2="612" stroke="#E7DCCB" stroke-width="3" stroke-dasharray="6 8"/>
+
+  <g font-family="PingFang SC, Inter, sans-serif">
+    <circle cx="60" cy="112" r="20" fill="#F6F0E5" stroke="#B4573F" stroke-width="2.5"/>
+    <text x="60" y="119" font-size="17" font-weight="700" fill="#B4573F" text-anchor="middle">1</text>
+    <text x="100" y="106" font-size="25" font-weight="700" fill="#17324D">选题与知识点</text>
+    <text x="100" y="140" font-size="19" fill="#526477">一期只留三件事，每件事四到五句</text>
+
+    <circle cx="60" cy="237" r="20" fill="#F6F0E5" stroke="#B4573F" stroke-width="2.5"/>
+    <text x="60" y="244" font-size="17" font-weight="700" fill="#B4573F" text-anchor="middle">2</text>
+    <text x="100" y="231" font-size="25" font-weight="700" fill="#17324D">逐句配音排轴</text>
+    <text x="100" y="265" font-size="19" fill="#526477">一句一个音频文件，按真实长度算拍</text>
+
+    <circle cx="60" cy="362" r="20" fill="#F6F0E5" stroke="#B4573F" stroke-width="2.5"/>
+    <text x="60" y="369" font-size="17" font-weight="700" fill="#B4573F" text-anchor="middle">3</text>
+    <text x="100" y="356" font-size="25" font-weight="700" fill="#17324D">逐帧渲染</text>
+    <text x="100" y="390" font-size="19" fill="#526477">Remotion 60 fps，画面元素按拍入场</text>
+
+    <circle cx="60" cy="487" r="20" fill="#F6F0E5" stroke="#B4573F" stroke-width="2.5"/>
+    <text x="60" y="494" font-size="17" font-weight="700" fill="#B4573F" text-anchor="middle">4</text>
+    <text x="100" y="481" font-size="25" font-weight="700" fill="#17324D">音效与合成</text>
+    <text x="100" y="515" font-size="19" fill="#526477">动作级音效计划，按拍重钉再量偏差</text>
+
+    <circle cx="60" cy="612" r="20" fill="#F6F0E5" stroke="#B4573F" stroke-width="2.5"/>
+    <text x="60" y="619" font-size="17" font-weight="700" fill="#B4573F" text-anchor="middle">5</text>
+    <text x="100" y="606" font-size="25" font-weight="700" fill="#17324D">自动质检</text>
+    <text x="100" y="640" font-size="19" fill="#526477">黑场、冻帧、响度，字幕与配音逐句核对</text>
+  </g>
+
+  <line x1="36" y1="676" x2="864" y2="676" stroke="#E7DCCB" stroke-width="2"/>
+  <text x="36" y="708" font-family="PingFang SC, Inter, sans-serif" font-size="18" fill="#526477">对象、动作、色彩全部由代码绘制，不用素材库，也不用 AI 生图。</text>
+  <text x="36" y="738" font-family="PingFang SC, Inter, sans-serif" font-size="18" fill="#526477">代价是改一句旁白要重配、重排轴、重渲那几拍，一期约十分钟。</text>
+</svg>
