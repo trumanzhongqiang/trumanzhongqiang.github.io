@@ -3,7 +3,7 @@
 Two numbers on a lab sheet, one normal and one flagged, and most people cannot tell which to trust. This project turns each topic into a 3:4 vertical paper-cut short of about a hundred seconds: three ideas per episode, the mechanism performed by the objects on screen instead of a caption card, and no AI-generated art.
 
 **WeChat account**: 医学科普漫画 · 7 films, from 1:40 to 3:56
-**Code**: private repository `medical-comic`; ask if you want a look
+**GitHub**: [trumanzhongqiang/medical-comic](https://github.com/trumanzhongqiang/medical-comic) · scripts, cue sheets, per-line narration tracks and the render components
 
 ## The films
 
