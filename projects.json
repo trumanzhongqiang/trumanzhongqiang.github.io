@@ -20,44 +20,6 @@
         "pin": 1
     },
     {
-        "id": "lyrics-align-lrc",
-        "date": "2026-10",
-        "tags": [
-            "Agent Skill"
-        ],
-        "title": {
-            "zh": "歌词对齐 LRC",
-            "en": "Line-level LRC"
-        },
-        "summary": {
-            "zh": "音频加原词，用本机 whisper.cpp 只取时间。63 秒那首 16/16，中位差 0.12 秒。把歌词当 prompt 会让重复段消失。",
-            "en": "Audio plus the original lyrics. Local whisper.cpp supplies timestamps only. The 63-second song matched 16/16, median error 0.12s. Feeding the lyrics as a prompt dropped the repeated section."
-        },
-        "cover": "projects/lyrics-align-lrc-cover.svg",
-        "path": "projects/lyrics-align-lrc.md",
-        "repo": "https://github.com/trumanzhongqiang/lyrics-align-lrc",
-        "pin": 1
-    },
-    {
-        "id": "science-comic-skill",
-        "date": "2026-09",
-        "tags": [
-            "Agent Skill"
-        ],
-        "title": {
-            "zh": "科普漫画 Agent Skill",
-            "en": "Science Comic Agent Skill"
-        },
-        "summary": {
-            "zh": "实测过一套 6 格戒烟条漫：先核查事实，再逐格出图、后期填中文。11 次生成才留下 6 张；锚定词不能消除角色漂移。",
-            "en": "A real 6-panel quit-smoking strip: facts first, then serial image generation and composited Chinese. 11 generations yielded 6 usable panels. Anchor prompts reduce character drift; they do not remove it."
-        },
-        "cover": "projects/science-comic-skill-cover.svg",
-        "path": "projects/science-comic-skill.md",
-        "repo": "https://github.com/trumanzhongqiang/science-comic-skill",
-        "pin": 1
-    },
-    {
         "id": "ai-coach",
         "date": "2024.11 - Present",
         "tags": [
@@ -150,24 +112,5 @@
         "path": "projects/home-menu-skill.md",
         "repo": "https://github.com/trumanzhongqiang/home-menu-skill",
         "pin": 6
-    },
-    {
-        "id": "music-skill",
-        "date": "2026-09",
-        "tags": [
-            "Agent Skill"
-        ],
-        "title": {
-            "zh": "原创音乐 Agent Skill",
-            "en": "Original Music Agent Skill"
-        },
-        "summary": {
-            "zh": "从一句情绪写出歌词、曲风提示词和分镜。已有「假期综合征」的完整词和 Suno 提示词；这次没有生成音频，不能当成一首已发行的歌。",
-            "en": "Turns one emotion into lyrics, a Suno style prompt, and a storyboard. One finished text package exists ('back-to-work blues'). That run did not generate audio."
-        },
-        "cover": "projects/music-skill-cover.svg",
-        "path": "projects/music-skill.md",
-        "repo": "https://github.com/trumanzhongqiang/music-skill",
-        "pin": 4
     }
 ]
