@@ -215,11 +215,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const fragment = document.createDocumentFragment();
         projectGridContainer.innerHTML = '';
 
-        // Homepage shows only the latest 6 projects
-        projects.slice(0, 6).forEach(project => {
+        // Homepage shows only the latest N projects
+        const HOME_LIMIT = 6;
+        projects.slice(0, HOME_LIMIT).forEach(project => {
             fragment.appendChild(buildProjectCard(project, currentLang));
         });
         projectGridContainer.appendChild(fragment);
+
+        // Hide "View All" when the homepage already lists every project
+        const projectsSection = projectGridContainer.closest('.projects');
+        const viewAllBtn = projectsSection && projectsSection.querySelector('.view-all-btn');
+        if (viewAllBtn) {
+            viewAllBtn.style.display = projects.length > HOME_LIMIT ? '' : 'none';
+        }
+
         // Notify carousel buttons that content size may have changed
         projectGridContainer.dispatchEvent(new Event('scroll'));
     }
