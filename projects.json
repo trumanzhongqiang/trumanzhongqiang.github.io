@@ -39,24 +39,6 @@
         "pin": 3
     },
     {
-        "id": "little-ai-assistant",
-        "date": "2023.12 - 2024.11",
-        "tags": [
-            "Independent Dev",
-            "LLM"
-        ],
-        "title": {
-            "zh": "小 AI 助理：独立开发的 LLM 应用",
-            "en": "Little AI Assistant: An Independently Developed LLM App"
-        },
-        "summary": {
-            "zh": "2023–2024 年独立做的个人 AI 助理。没有公开的应用入口或用户数据，页面只保留产品结构和三步信息架构示意。",
-            "en": "An independent personal AI assistant from 2023–2024. No public app URL or user numbers. The page keeps the product structure and a three-step layout sketch."
-        },
-        "cover": "projects/little-ai-assistant-cover.svg",
-        "path": "projects/little-ai-assistant.md"
-    },
-    {
         "id": "skylark-pen",
         "date": "2019.04 - 2023.12",
         "tags": [
@@ -74,43 +56,5 @@
         "cover": "projects/skylark-pen-cover.svg",
         "path": "projects/skylark-pen.md",
         "pin": 2
-    },
-    {
-        "id": "biography-skill",
-        "date": "2026-07",
-        "tags": [
-            "Agent Skill"
-        ],
-        "title": {
-            "zh": "个人传记 Agent Skill",
-            "en": "Biography Agent Skill"
-        },
-        "summary": {
-            "zh": "用访谈把回忆收成传记，原话不改成书面语，没说过的细节不编。页面不放虚构人物的原话。",
-            "en": "An interview that becomes a biography without sanding off the speaker’s wording or inventing missing facts. The page does not include a fictional life story."
-        },
-        "cover": "projects/biography-skill-cover.svg",
-        "path": "projects/biography-skill.md",
-        "repo": "https://github.com/trumanzhongqiang/biography-skill",
-        "pin": 5
-    },
-    {
-        "id": "home-menu-skill",
-        "date": "2026-08",
-        "tags": [
-            "Agent Skill"
-        ],
-        "title": {
-            "zh": "我的私房菜 Agent Skill",
-            "en": "Home Menu Agent Skill"
-        },
-        "summary": {
-            "zh": "按忌口和过敏排家常菜，采购清单要能指回每一道菜。页面上的周二菜单是虚构示例，不是某一户的真实一周。",
-            "en": "Plans home cooking around allergies and refusals, and every shopping line points back to a dish. The Tuesday menu is a fictional example."
-        },
-        "cover": "projects/home-menu-skill-cover.svg",
-        "path": "projects/home-menu-skill.md",
-        "repo": "https://github.com/trumanzhongqiang/home-menu-skill",
-        "pin": 6
     }
 ]
