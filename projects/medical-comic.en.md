@@ -2,7 +2,20 @@
 
 Two numbers on a lab sheet, one normal and one flagged, and most people cannot tell which to trust. This project turns each topic into a 3:4 vertical paper-cut short of about a hundred seconds: three ideas per episode, the mechanism performed by the objects on screen instead of a caption card, and no AI-generated art.
 
-**GitHub**: [trumanzhongqiang/medical-comic](https://github.com/trumanzhongqiang/medical-comic) · scripts, cue sheets, per-line narration tracks and the render components. `README.md` is enough to run one episode.
+**GitHub**: [trumanzhongqiang/medical-comic-pipeline](https://github.com/trumanzhongqiang/medical-comic-pipeline) · The method is open, the assets are not: the writing manual, the checkers, the render components and seven real scripts are in the repo; the per-line narration, the music and the avatar are not. `README.md` is enough to run one episode.
+
+## What is open, what is not
+
+The valuable part is how to write and how to check: six writing techniques, a cue-timing algorithm, twenty-three checkers, and a retrospective that records why six rounds of rework happened. The picture is code, too — `remotion/src/art/` holds one file per condition, with the vector shapes, easing curves and palette inside — so it counts as method and is published.
+
+Three kinds of asset stay out: the per-line narration (my voice), the music (third-party licence), the avatar photo. None of them enter git, and the repo licence does not cover them.
+
+Splitting container from content means **you can use your own assets, or none at all**:
+
+- To try the method: clone and render. A missing narration line becomes silence, a missing track becomes a silent bed of the same length — picture, pacing and sound-effect placement stay correct, only the voice is gone.
+- To actually make an episode: drop your own recording in as `voice/v000.wav`, your music as `bgm.mp3`, your portrait in place of the mark — **no code changes**. Paths and filenames are the interface; the rules are in `pipeline/ASSETS.md`.
+
+This is not tidiness for its own sake. Once a voice lands in a public repo it cannot be taken back. And a repo that needs a full asset set before it will run gives nobody a reason to trust it first.
 
 ## The films
 
@@ -28,17 +41,17 @@ There is one place to edit copy: `episodes/<slug>/voice/text.txt`, one sentence 
 python3 pipeline/new_episode.py ep008-xxx "标题"
 python3 pipeline/lint_narration.py ep008-xxx
 # Narration is not in this repo: write voice/NNN.wav per line, then time the cues
-python3 pipeline/build_cues.py episodes/ep008-xxx --lead 1.2 --gap 0.60
+python3 pipeline/build_cues.py episodes/ep008-xxx --lead 1.2 --gap 0.70
 python3 pipeline/import_cues.py episodes/ep008-xxx
 node remotion/scripts/check_wrap.mjs episodes/ep008-xxx
 python3 pipeline/render_remotion.py episodes/ep008-xxx --concurrency 6
 python3 pipeline/compose.py episodes/ep008-xxx
-/usr/bin/python3 pipeline/qacheck.py episodes/ep008-xxx
+python3 pipeline/qacheck.py episodes/ep008-xxx
 ```
 
 A one-beat fix does not need a full render: `render_remotion.py <ep> --from 12 --to 20` rerenders that range, then run compose again.
 
-Rendering uses Playwright (Chromium); compositing uses ffmpeg. Picture components live in `remotion/`, one file per condition. A medical claim goes through `pipeline/factcheck.md` before it is written into the script.
+Rendering goes through Remotion (brings its own Chromium, or point `CHROME_PATH` at a local one); compositing uses ffmpeg. Picture components live in `remotion/`, one file per condition. A medical claim goes through `pipeline/factcheck.md` before it is written into the script.
 
 ## How one line of narration becomes a frame
 
@@ -64,12 +77,12 @@ Every script goes through a checker for clause density, sentence-length rhythm, 
 
 | | Episode 2 | Episode 3 |
 |---|---|---|
-| Sentences / beats | 16 / 9 | 19 / 12 |
-| Mean sentence | 21.9 chars | 17.3 chars |
-| Std. deviation | 4.1 | 5.6 |
+| Sentences / beats | 16 / 9 | 20 / 13 |
+| Mean sentence | 21.9 chars | 16.9 chars |
+| Std. deviation | 4.1 | 4.9 |
 | Hard findings | 1 | 0 |
 
-A standard deviation under 5 means a flat line: every sentence the same length, and attention drops about ten sentences in. Episode 3 deliberately places an eight-character sentence to land on. The one hard finding in episode 2 is a 31-character sentence that still holds four clauses. Zero hard findings is the bar for calling a script done.
+A standard deviation under 5 means a flat line: every sentence the same length, and attention drops about ten sentences in. Episode 3 places an eight-character sentence to land on and reaches 4.9 — still just under the line, so that episode remains flat. The one hard finding in episode 2 is a 31-character sentence that still holds four clauses. Zero hard findings is the bar for calling a script done.
 
 ## What broke along the way
 

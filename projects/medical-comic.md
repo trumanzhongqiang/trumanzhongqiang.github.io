@@ -2,7 +2,20 @@
 
 化验单上两个数，一个正常、一个画着箭头，多数人不知道该信哪个。这个项目把每个选题做成 3:4 竖版、一百秒左右的剪纸微缩片：一期只讲三件事，画面里的对象自己把机制演出来，不用说明卡，也不用 AI 生图。
 
-**GitHub**：[trumanzhongqiang/medical-comic](https://github.com/trumanzhongqiang/medical-comic) ｜ 文案、拍点、逐句配音轨和渲染组件都在仓库里，照着 `README.md` 就能跑一期。
+**GitHub**：[trumanzhongqiang/medical-comic-pipeline](https://github.com/trumanzhongqiang/medical-comic-pipeline) ｜ 开源的是方法，不是素材：写作手册、校验脚本、渲染组件、七期真实稿件都在仓库里；配音、配乐、形象照片不进仓库。`README.md` 够跑一期。
+
+## 开源的是方法，不是素材
+
+这套东西真正值钱的部分是「怎么写」和「怎么验」——六个写作手法、一个排轴算法、二十三个校验脚本、一份记着六轮返工原因的复盘。画面全部是代码画的：`remotion/src/art/` 里一个病种一个文件，矢量图形、动效曲线、配色都在里面，所以它本身就是方法的一部分，可以公开。
+
+不公开的是三类素材：逐句配音（我的声音）、配乐（第三方授权）、形象照片。它们不进 git，也不受仓库许可覆盖。
+
+容器和内容分开，好处是**用户可以用自己的，也可以不用**：
+
+- 想验证这套方法：clone 下来直接出片。缺配音时合成器把那句补成静音，缺配乐时顶一条等长静音——画面、节奏、音效位置全部正确，只是没有人声。
+- 想真做一期：把自己的配音放成 `voice/v000.wav`、配乐放成 `bgm.mp3`、形象换成自己的图，**一行代码都不用改**。文件名和目录就是接口，规则写在 `pipeline/ASSETS.md`。
+
+这样安排不是为了洁癖。声音一旦进了公开仓库，删掉也收不回来；而一个要先备齐素材才能跑的仓库，也没人愿意先信它。
 
 ## 成片
 
@@ -27,18 +40,18 @@
 ```bash
 python3 pipeline/new_episode.py ep008-xxx "标题"
 python3 pipeline/lint_narration.py ep008-xxx
-# 配音不在这个仓库里：逐句生成 voice/NNN.wav 之后再排轴
-python3 pipeline/build_cues.py episodes/ep008-xxx --lead 1.2 --gap 0.60
+# 配音不在仓库里：逐句生成 voice/NNN.wav 之后再排轴（见 pipeline/VOICE.md）
+python3 pipeline/build_cues.py episodes/ep008-xxx --lead 1.2 --gap 0.70
 python3 pipeline/import_cues.py episodes/ep008-xxx
 node remotion/scripts/check_wrap.mjs episodes/ep008-xxx
 python3 pipeline/render_remotion.py episodes/ep008-xxx --concurrency 6
 python3 pipeline/compose.py episodes/ep008-xxx
-/usr/bin/python3 pipeline/qacheck.py episodes/ep008-xxx
+python3 pipeline/qacheck.py episodes/ep008-xxx
 ```
 
 改一两拍不必整期重渲：`render_remotion.py <ep> --from 12 --to 20` 只补这一段，再跑 compose。
 
-渲染用 Playwright（Chromium），合成用 ffmpeg。画面在 `remotion/`，一个病种一个组件。医学论断先过 `pipeline/factcheck.md`，再写进文案。
+渲染走 Remotion（自带 Chromium，也可用 `CHROME_PATH` 指定本机浏览器），合成用 ffmpeg。画面在 `remotion/`，一个病种一个组件。医学论断先过 `pipeline/factcheck.md`，再写进文案。
 
 ## 一句旁白怎么变成一帧画面
 
@@ -64,15 +77,15 @@ python3 pipeline/compose.py episodes/ep008-xxx
 
 | | 第 2 期 | 第 3 期 |
 |---|---|---|
-| 句数 / 拍数 | 16 / 9 | 19 / 12 |
-| 体长均值 | 21.9 字 | 17.3 字 |
-| 句长标准差 | 4.1 | 5.6 |
+| 句数 / 拍数 | 16 / 9 | 20 / 13 |
+| 体长均值 | 21.9 字 | 16.9 字 |
+| 句长标准差 | 4.1 | 4.9 |
 | 硬伤 | 1 条 | 0 条 |
 
-标准差低于 5 就是「一条平线」：句句差不多长，十来句之后注意力自然掉。第 3 期有意插了八个字的短句落点。第 2 期那 1 条硬伤是一句 31 个字、四个分句还叠在一起。硬伤清零才算这期文案写完。
+标准差低于 5 就是「一条平线」：句句差不多长，十来句之后注意力自然掉。第 3 期插了八个字的短句落点，把标准差顶到 4.9——离 5 那条线还差一点，这一期仍然偏平。第 2 期那 1 条硬伤是一句 31 个字、四个分句还叠在一起。硬伤清零才算这期文案写完。
 
 ## 踩过的坑
 
 **配音缓存。** 配音脚本遇到同名 wav 会跳过，改了 `voice/text.txt` 之后声音还在念旧稿，字幕对不上。改一句之前先把那句的旧文件挪走，合成前把整条旁白轨转写一遍、逐句对文案。
 
-**动画起止。** `remotion/src/art/` 里的 `on(a, b)` 把第二个参数当时长，按 `b - a` 算窗口。写成 `on(0.72, 0.14)` 得到负的时长，那个元素整段都不出现。要它在 0.72 出现、0.86 消失，写成 `on(0.72, 0.14)` 是错的，应该是 `on(0.72, 0.86)`。
+**动画起止。** `remotion/src/art/` 里的 `on(a, b)` 中，`b` 是**结束点**，不是时长：内部按 `seg(u, a, b - a)` 算窗口。要它在 0.72 出现、0.86 消失，就写 `on(0.72, 0.86)`。若误以为 `b` 是时长而写成 `on(0.72, 0.14)`，窗口变成负数，那个元素整段都不出现——画面上就是「少了一样东西」，静默失败，没有任何报错。
