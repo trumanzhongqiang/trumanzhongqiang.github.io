@@ -73,10 +73,6 @@ A standard deviation under 5 means a flat line: every sentence the same length, 
 
 ## What broke along the way
 
-**Voice cache.** The TTS tool skips files that already exist, so after an edit the subtitles changed while the audio still read the old draft. Move the old file out before a rewrite, and transcribe the whole narration track line by line before delivery.
+**Voice cache.** The narration script skips a wav that already exists, so after `voice/text.txt` changes the audio still reads the old line and the subtitle no longer matches. Move that line's old file out before re-recording it, and transcribe the whole narration track against the script before composing.
 
-**Frame naming.** The renderer emits `element-00001.jpeg` while the compositor only reads `frame_000001.jpg`. A mismatch silently drops half the frames and the film comes out short. Rename on the way out.
-
-**Animation timing.** The second argument of the timing helper is an end point, not a duration. `(0.72, 0.14)` yields a negative length and the element never appears.
-
-**Loudness.** When linear normalisation is blocked by true peaks, a nominal −14 LUFS lands at −15.2. Measure the render and trim by the difference.
+**Animation timing.** `on(a, b)` in `remotion/src/art/` treats the second argument as the end, and the window is `b - a`. `on(0.72, 0.14)` gives a negative length and the element never appears. To show it from 0.72 to 0.86, write `on(0.72, 0.86)`, not `on(0.72, 0.14)`.
