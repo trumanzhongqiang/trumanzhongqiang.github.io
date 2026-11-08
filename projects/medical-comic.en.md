@@ -2,8 +2,7 @@
 
 Two numbers on a lab sheet, one normal and one flagged, and most people cannot tell which to trust. This project turns each topic into a 3:4 vertical paper-cut short of about a hundred seconds: three ideas per episode, the mechanism performed by the objects on screen instead of a caption card, and no AI-generated art.
 
-**WeChat account**: 医学科普漫画 · 7 films, from 1:40 to 3:56
-**GitHub**: [trumanzhongqiang/medical-comic](https://github.com/trumanzhongqiang/medical-comic) · scripts, cue sheets, per-line narration tracks and the render components
+**GitHub**: [trumanzhongqiang/medical-comic](https://github.com/trumanzhongqiang/medical-comic) · scripts, cue sheets, per-line narration tracks and the render components. `README.md` is enough to run one episode.
 
 ## The films
 
@@ -11,30 +10,35 @@ Two numbers on a lab sheet, one normal and one flagged, and most people cannot t
 
 | Episode | Topic | Length |
 |---|---|---|
-| 2 | Two numbers on a lab sheet | 1:40 |
-| 3 | Why blood pressure has two numbers | 1:43 |
 | 1 | Diabetes: is it just eating sugar | 1:56 |
-| 6 | How uric acid becomes a needle | 2:11 |
-| 4 | Why cholesterol has a good and a bad side | 2:36 |
+| 2 | Two numbers on a lab sheet | 1:40 |
+| 3 | Why blood pressure has two numbers | 1:47 |
+| 4 | How to read a lipid panel | 2:19 |
 | 5 | Where the fat in the liver comes from | 2:47 |
+| 6 | How uric acid becomes a needle | 2:11 |
 | 7 | Hyperthyroidism and hypothyroidism | 3:56 |
 
-Only episodes 2 and 3 follow the method described below. The other five are earlier versions and are queued for a rewrite. Episode 2 was 3:57 and episode 3 was 2:52 before — not sped up, cut down. Fewer points, each one explained properly.
+Copy the writing from episodes 2, 3 and 4. Those three were redone against `pipeline/WRITING.md`. Episodes 1, 5, 6 and 7 are earlier cuts with a different structure; do not use them as the template. Episode 2 was 3:57 and episode 3 was 2:52 before — not sped up, cut down. Fewer points, each one explained properly.
 
-## Where a finished film goes, and what it is called
+## Running one episode
 
-The mp4 that comes out of the compositor stays in `episodes/<slug>/out/`. That copy is a working file: the name is the English slug, previews and comparison cuts sit in the same folder, and it gets overwritten while the episode is still being made. Once it passes QA, one copy goes into `成片/`. That folder holds only the version that can be published, one file per episode, and it is not in git.
+There is one place to edit copy: `episodes/<slug>/voice/text.txt`, one sentence per line. Subtitles, cue timings and narration are all derived from it. Do not revise the script anywhere else.
 
-The filename is `NN标题_3x4.mp4`: a two-digit episode number, the Chinese title with question marks and colons turned into underscores, and `_3x4` for the 1080×1440 frame. The seven files are:
+```bash
+python3 pipeline/new_episode.py ep008-xxx "标题"
+python3 pipeline/lint_narration.py ep008-xxx
+# Narration is not in this repo: write voice/NNN.wav per line, then time the cues
+python3 pipeline/build_cues.py episodes/ep008-xxx --lead 1.2 --gap 0.60
+python3 pipeline/import_cues.py episodes/ep008-xxx
+node remotion/scripts/check_wrap.mjs episodes/ep008-xxx
+python3 pipeline/render_remotion.py episodes/ep008-xxx --concurrency 6
+python3 pipeline/compose.py episodes/ep008-xxx
+/usr/bin/python3 pipeline/qacheck.py episodes/ep008-xxx
+```
 
-- `01糖尿病_只是糖吃多了吗_3x4.mp4`
-- `02血糖报告怎么看_三个指标各管什么_3x4.mp4`
-- `03高血压_水压为什么会升高_3x4.mp4`
-- `04血脂报告怎么看_3x4.mp4`
-- `05脂肪肝_肝里的油从哪来_3x4.mp4`
-- `06痛风_尿酸为什么会变成扎人的针_3x4.mp4`
-- `07甲亢和甲减_一个油门卡住一个动力不足_3x4.mp4`
+A one-beat fix does not need a full render: `render_remotion.py <ep> --from 12 --to 20` rerenders that range, then run compose again.
 
+Rendering uses Playwright (Chromium); compositing uses ffmpeg. Picture components live in `remotion/`, one file per condition. A medical claim goes through `pipeline/factcheck.md` before it is written into the script.
 
 ## How one line of narration becomes a frame
 
@@ -46,7 +50,7 @@ Every object, gesture and colour is drawn in code: paper layers come from same-h
 
 ## The writing was harder than the rendering
 
-Six rounds of rework went into the script, not the pipeline. Four rules now apply before anything gets written:
+Six rounds of rework went into the script, not the pipeline. Settle these before writing a line:
 
 - **List the points first, then write.** Three per episode, four or five sentences each, about five seconds a sentence. Three minutes of material does not fit into ninety seconds; forcing it is what makes a film incomprehensible.
 - **Explain the term where it appears.** Half a clause of plain language in the same sentence that names it, not a separate beat later.
@@ -61,23 +65,18 @@ Every script goes through a checker for clause density, sentence-length rhythm, 
 | | Episode 2 | Episode 3 |
 |---|---|---|
 | Sentences / beats | 16 / 9 | 19 / 12 |
-| Length | 1:40 | 1:43 |
 | Mean sentence | 21.9 chars | 17.3 chars |
 | Std. deviation | 4.1 | 5.6 |
 | Hard findings | 1 | 0 |
 
-A standard deviation under 5 means a flat line: every sentence the same length, and attention drops about ten sentences in. Episode 3 deliberately places an eight-character sentence to land on.
+A standard deviation under 5 means a flat line: every sentence the same length, and attention drops about ten sentences in. Episode 3 deliberately places an eight-character sentence to land on. The one hard finding in episode 2 is a 31-character sentence that still holds four clauses. Zero hard findings is the bar for calling a script done.
 
 ## What broke along the way
 
-**Voice cache.** The TTS tool skips files that already exist, so after an edit the subtitles changed while the audio still read the old draft. Now the old file is moved out before a rewrite, and the whole narration track is transcribed and checked line by line before delivery.
+**Voice cache.** The TTS tool skips files that already exist, so after an edit the subtitles changed while the audio still read the old draft. Move the old file out before a rewrite, and transcribe the whole narration track line by line before delivery.
 
-**Frame naming.** The renderer emits `element-00001.jpeg` while the compositor only reads `frame_000001.jpg`. A mismatch silently drops half the frames and the film comes out short. The pipeline now renames on the way out.
+**Frame naming.** The renderer emits `element-00001.jpeg` while the compositor only reads `frame_000001.jpg`. A mismatch silently drops half the frames and the film comes out short. Rename on the way out.
 
 **Animation timing.** The second argument of the timing helper is an end point, not a duration. `(0.72, 0.14)` yields a negative length and the element never appears.
 
-**Loudness.** When linear normalisation is blocked by true peaks, a nominal −14 LUFS lands at −15.2. The pipeline now measures the render and trims by the difference.
-
-## Still open
-
-One 31-character sentence with four clauses in episode 2 has not been split yet, and episodes 1, 4, 5, 6 and 7 have not been rewritten to this standard.
+**Loudness.** When linear normalisation is blocked by true peaks, a nominal −14 LUFS lands at −15.2. Measure the render and trim by the difference.
