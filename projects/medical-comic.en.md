@@ -21,6 +21,21 @@ Two numbers on a lab sheet, one normal and one flagged, and most people cannot t
 
 Only episodes 2 and 3 follow the method described below. The other five are earlier versions and are queued for a rewrite. Episode 2 was 3:57 and episode 3 was 2:52 before — not sped up, cut down. Fewer points, each one explained properly.
 
+## Where a finished film goes, and what it is called
+
+The mp4 that comes out of the compositor stays in `episodes/<slug>/out/`. That copy is a working file: the name is the English slug, previews and comparison cuts sit in the same folder, and it gets overwritten while the episode is still being made. Once it passes QA, one copy goes into `成片/`. That folder holds only the version that can be published, one file per episode, and it is not in git.
+
+The filename is `NN标题_3x4.mp4`: a two-digit episode number, the Chinese title with question marks and colons turned into underscores, and `_3x4` for the 1080×1440 frame. The seven files are:
+
+- `01糖尿病_只是糖吃多了吗_3x4.mp4`
+- `02血糖报告怎么看_三个指标各管什么_3x4.mp4`
+- `03高血压_水压为什么会升高_3x4.mp4`
+- `04血脂报告怎么看_3x4.mp4`
+- `05脂肪肝_肝里的油从哪来_3x4.mp4`
+- `06痛风_尿酸为什么会变成扎人的针_3x4.mp4`
+- `07甲亢和甲减_一个油门卡住一个动力不足_3x4.mp4`
+
+
 ## How one line of narration becomes a frame
 
 ![Five steps](medical-comic/pipeline.svg)
